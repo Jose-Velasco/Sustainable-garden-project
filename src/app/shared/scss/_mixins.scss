@@ -1,0 +1,6 @@
+@mixin tickMarks($height, $width) {
+    background-color: lightgray;
+    height: $height;
+    width: $width;
+    border-radius: 55%;
+}

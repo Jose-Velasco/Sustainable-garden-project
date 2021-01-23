@@ -1,0 +1,57 @@
+@import "../../scss/variables";
+
+@mixin thermoRoundSquare($height, $width, $backGColor) {
+    background-color: $backGColor;
+    height: $height;
+    width: $width;
+    border-top-left-radius: 75%;
+    border-top-right-radius: 75%;
+    transform: translateY(16);
+}
+@mixin thermoCircle($height, $width, $borderRadius, $backGColor) {
+    background-color: $backGColor;
+    height: $height;
+    width: $width;
+    border-radius: $borderRadius;
+}
+@mixin thermoGradient {
+    background: linear-gradient(90deg, #be1d2d 50%, #d21e29 50%);
+}
+.thermometer-container {
+    padding: 22%;
+    background-color: $primaryCanvas;
+}
+.thermo-abs {
+    background-color: aqua;
+}
+.thermo-outer-wrapper {
+    height: 100%;
+    flex-direction: column;
+    .outer-round-square {
+        @include thermoRoundSquare(280, 75, lightgray);
+        align-self: center;
+    }
+    .outer-circle {
+        @include thermoCircle(150, 150, 75%, lightgray);
+        align-self: center;
+    }
+}
+.thermo-inner-wrapper {
+    padding-top: 8%;
+    padding-left: 11%;
+    padding-right: 11%;
+    margin-top: 7%;
+    .inner-round-square {
+        @include thermoRoundSquare(240, 50, red);
+        @include thermoGradient();
+    }
+    .inner-circle {
+        @include thermoCircle(135, 135, 65%, red);
+        @include thermoGradient();
+        text-align: center;
+        font-weight: bold;
+        color: black;
+        font-size: 40;
+        transform: translateY(-5);
+    }
+}
