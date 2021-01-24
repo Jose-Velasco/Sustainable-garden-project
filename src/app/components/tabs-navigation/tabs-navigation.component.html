@@ -1,0 +1,32 @@
+<GridLayout>
+    <Tabs tabsPosition="bottom">
+        <TabStrip>
+            <TabStripItem>
+                <Label class="fa">
+                    <FormattedString>
+                        <Span text="&#xf009;&#xa;"></Span>
+                        <Span text="Overview"></Span>
+                    </FormattedString>
+                </Label>
+            </TabStripItem>
+            <TabStripItem>
+                <Label class="fa">
+                    <FormattedString>
+                        <Span text="&#xf080;&#xa;"></Span>
+                        <Span text="Charts"></Span>
+                    </FormattedString>
+                </Label>
+            </TabStripItem>
+        </TabStrip>
+        <TabContentItem>
+            <GridLayout>
+                <page-router-outlet name="dashboardOverview"></page-router-outlet>
+            </GridLayout>
+        </TabContentItem>
+        <TabContentItem backgroundColor="orange">
+            <GridLayout>
+                <Label text="Tabs nav 2"></Label>
+            </GridLayout>
+        </TabContentItem>
+    </Tabs>
+</GridLayout>

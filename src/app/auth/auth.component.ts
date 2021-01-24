@@ -17,7 +17,7 @@ export class AuthComponent implements OnInit {
     }
 
     Login() {
-        this.router.navigate(["dashboard-overview"], { clearHistory: true});
+        this.router.navigate(["tabs"], { clearHistory: true});
         console.log("loggedIn");
     }
 }

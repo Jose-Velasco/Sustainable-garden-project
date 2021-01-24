@@ -9,6 +9,7 @@ import { AuthComponent } from "./auth/auth.component";
 import { DashboardOverviewComponent } from "./components/dashboard-overview/dashboard-overview.component";
 import { NativeScriptUISideDrawerModule } from "nativescript-ui-sidedrawer/angular";
 import { ThermometerComponent } from "./shared/ui/thermometer/thermometer.component";
+import { TabsNavigationComponent } from "./components/tabs-navigation/tabs-navigation.component";
 
 @NgModule({
     bootstrap: [
@@ -26,6 +27,7 @@ import { ThermometerComponent } from "./shared/ui/thermometer/thermometer.compon
         AuthComponent,
         DashboardOverviewComponent,
         ThermometerComponent,
+        TabsNavigationComponent,
     ],
     providers: [],
     schemas: [

@@ -1,5 +1,5 @@
-import { AfterContentInit, AfterViewInit, Component, ElementRef, OnInit, ViewChild } from "@angular/core";
-import { AbsoluteLayout, Enums, EventData, isAndroid, Label, Length } from "@nativescript/core";
+import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
+import { AbsoluteLayout, Enums, EventData, isAndroid, Label } from "@nativescript/core";
 
 @Component({
     selector: "ns-thermometer",
@@ -9,7 +9,7 @@ import { AbsoluteLayout, Enums, EventData, isAndroid, Label, Length } from "@nat
 export class ThermometerComponent implements OnInit {
     @ViewChild("absLayout", { read: ElementRef, static: true}) private _absLayout: ElementRef;
     @ViewChild("mainTopThermoLargeTickMarkLabel", { read: ElementRef, static: true}) private _mainTopThermoLargeTickMarkLabel: ElementRef;
-    private temperature: number;
+    private _temperature: number;
     constructor() {}
 
     ngOnInit() {
@@ -18,7 +18,23 @@ export class ThermometerComponent implements OnInit {
          * the backend is sett up
          */
         this.temperature = 790;
-        this.renderThermoTickMarks();
+        this.renderThermoTickMarks(5, 4, 8.8);
+    }
+
+    get absLayout(): ElementRef {
+        return this._absLayout;
+    }
+
+    get mainTopThermoLargeTickMarkLabel(): ElementRef {
+        return this._mainTopThermoLargeTickMarkLabel;
+    }
+
+    get temperature(): number {
+        return this._temperature;
+    }
+
+    set temperature(temp: number) {
+        this._temperature = temp;
     }
 
     getTemperatureText(): string {
@@ -45,13 +61,10 @@ export class ThermometerComponent implements OnInit {
      * to to line up the rest of the tick marks being generated programmatically. generates tick marks
      * from top to bottom.
      */
-    private renderThermoTickMarks(): void {
-        let container = <AbsoluteLayout> this._absLayout.nativeElement;
+    private renderThermoTickMarks(numOfLargeTickMarks: number, numOfSmallTickMarks: number, tickMarkSpacing): void {
+        let container = <AbsoluteLayout> this.absLayout.nativeElement;
         let startingTopLabelProperty: number;
-        const numOfLargeTickMarks = 5;
-        const numOfSmallTickMarks = 4;
-        const tickMarkSpacing = 8.5;
-        let largeTickMarkLabel = <Label> this._mainTopThermoLargeTickMarkLabel.nativeElement;
+        let largeTickMarkLabel = <Label> this.mainTopThermoLargeTickMarkLabel.nativeElement;
         startingTopLabelProperty = +largeTickMarkLabel.top;
         const defaultLabelProperty = +largeTickMarkLabel.left;
         for (let i = 0; i < numOfLargeTickMarks; i++) {

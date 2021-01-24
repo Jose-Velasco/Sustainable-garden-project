@@ -21,11 +21,7 @@
     padding: 22%;
     background-color: $primaryCanvas;
 }
-.thermo-abs {
-    background-color: aqua;
-}
 .thermo-outer-wrapper {
-    height: 100%;
     flex-direction: column;
     .outer-round-square {
         @include thermoRoundSquare(280, 75, lightgray);
@@ -40,7 +36,7 @@
     padding-top: 8%;
     padding-left: 11%;
     padding-right: 11%;
-    margin-top: 7%;
+    margin-top: 9%;
     .inner-round-square {
         @include thermoRoundSquare(240, 50, red);
         @include thermoGradient();
