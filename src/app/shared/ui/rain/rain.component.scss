@@ -1,0 +1,18 @@
+@import "../../scss/variables";
+
+.icon-cloud {
+    text-align: center;
+    vertical-align: middle;
+    font-size: 75%;
+    color: $lightgray;
+}
+.rain-drops-wrapper {
+    justify-content: center;
+    padding: 5;
+}
+.icon-rain {
+    margin-left: 6;
+    font-size: 26%;
+    color: $lightgray;
+    text-align: center;
+}

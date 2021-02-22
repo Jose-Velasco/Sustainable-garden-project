@@ -1,6 +1,7 @@
-<GridLayout columns="*, *" rows="3*, *">
+<ActionBar title="Sustainable Garden Project"></ActionBar>
+<GridLayout class="dashboard-overview-container" columns="*, *" rows="3*, *">
     <ns-thermometer col="0" row="0"></ns-thermometer>
-    <Label col="1" row="0" text="humidity component"backgroundColor="green"></Label>
-    <Label col="0" row="1" text="lightStatus component"backgroundColor="yellow"></Label>
-    <Label col="1" row="1" text="motion component"backgroundColor="black"></Label>
+    <ns-humidity  col="1" row="0"></ns-humidity>
+    <ns-rain col="0" row="1"></ns-rain>
+    <Label col="1" row="1" class="fa icon-bug" text="&#xf188;"></Label>
 </GridLayout>

@@ -10,6 +10,8 @@ import { DashboardOverviewComponent } from "./components/dashboard-overview/dash
 import { NativeScriptUISideDrawerModule } from "nativescript-ui-sidedrawer/angular";
 import { ThermometerComponent } from "./shared/ui/thermometer/thermometer.component";
 import { TabsNavigationComponent } from "./components/tabs-navigation/tabs-navigation.component";
+import { HumidityComponent } from "./shared/ui/humidity/humidity.component";
+import { RainComponent } from "./shared/ui/rain/rain.component";
 
 @NgModule({
     bootstrap: [
@@ -28,6 +30,8 @@ import { TabsNavigationComponent } from "./components/tabs-navigation/tabs-navig
         DashboardOverviewComponent,
         ThermometerComponent,
         TabsNavigationComponent,
+        HumidityComponent,
+        RainComponent,
     ],
     providers: [],
     schemas: [

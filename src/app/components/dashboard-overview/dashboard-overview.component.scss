@@ -1,0 +1,12 @@
+@import "../../shared/scss/variables";
+
+.dashboard-overview-container {
+    background-color: $primaryCanvas;
+}
+.icon-bug {
+    margin-bottom: 30;
+    font-size: 75%;
+    text-align: center;
+    vertical-align: middle;
+    color: $lightgray;
+}

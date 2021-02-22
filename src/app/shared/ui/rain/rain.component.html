@@ -1,0 +1,25 @@
+<StackLayout>
+    <Label
+        class="fa icon-cloud"
+        text="&#xf0c2;"
+        [ngStyle]="{color: this.isRaining ? this.iconColors.rainCloud : this.iconColors.notRain }"
+        (tap)="this.testRainColor()">
+    </Label>
+    <FlexBoxLayout class="rain-drops-wrapper">
+        <Label
+            class="fa icon-rain"
+            [ngStyle]="{color: this.isRaining ? this.iconColors.rainDrops : this.iconColors.notRain }"
+            text="&#xf043;">
+        </Label>
+        <Label
+            class="fa icon-rain"
+            text="&#xf043;"
+            [ngStyle]="{color: this.isRaining ? this.iconColors.rainDrops : this.iconColors.notRain}">
+        </Label>
+        <Label
+            class="fa icon-rain"
+            text="&#xf043;"
+            [ngStyle]="{color: this.isRaining ? this.iconColors.rainDrops : this.iconColors.notRain}">
+        </Label>
+    </FlexBoxLayout>
+</StackLayout>
