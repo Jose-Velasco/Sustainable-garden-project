@@ -2,22 +2,15 @@
     <Tabs tabsPosition="bottom">
         <TabStrip>
             <TabStripItem>
-                <Label class="fa">
-                    <FormattedString>
-                        <Span text="&#xf009;&#xa;"></Span>
-                        <Span text="Overview"></Span>
-                    </FormattedString>
-                </Label>
+                <Image src="font://&#xf009;" class="fa img-icon"></Image>
+                <Label text="Overview"></Label>
             </TabStripItem>
             <TabStripItem>
-                <Label class="fa">
-                    <FormattedString>
-                        <Span text="&#xf080;&#xa;"></Span>
-                        <Span text="Charts"></Span>
-                    </FormattedString>
-                </Label>
+                <Image src="font://&#xf080;" class="fa img-icon" stretch="aspectFill"></Image>
+                <Label text="Charts"></Label>
             </TabStripItem>
         </TabStrip>
+        <!-- The number of TabContentItem components should correspond to the number of TabStripItem components -->
         <TabContentItem>
             <GridLayout>
                 <page-router-outlet name="dashboardOverview"></page-router-outlet>

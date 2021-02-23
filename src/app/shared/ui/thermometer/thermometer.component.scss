@@ -18,8 +18,10 @@
     background: linear-gradient(90deg, #be1d2d 50%, #d21e29 50%);
 }
 .thermometer-container {
-    padding: 22%;
     background-color: $primaryCanvas;
+}
+.thermo-outer-container {
+    padding-left: 23%;
 }
 .thermo-outer-wrapper {
     flex-direction: column;
