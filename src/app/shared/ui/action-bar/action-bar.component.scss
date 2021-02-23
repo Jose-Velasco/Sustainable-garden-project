@@ -1,0 +1,9 @@
+@import "../../scss/variables";
+
+ActionBar {
+    background: $secondaryBaseColor;
+    color: black;
+}
+.icon-hamburger {
+    color: $primaryHighlightColor;
+}

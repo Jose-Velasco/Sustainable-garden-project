@@ -12,6 +12,7 @@ import { ThermometerComponent } from "./shared/ui/thermometer/thermometer.compon
 import { TabsNavigationComponent } from "./components/tabs-navigation/tabs-navigation.component";
 import { HumidityComponent } from "./shared/ui/humidity/humidity.component";
 import { RainComponent } from "./shared/ui/rain/rain.component";
+import { ActionBarComponent } from "./shared/ui/action-bar/action-bar.component";
 
 @NgModule({
     bootstrap: [
@@ -32,6 +33,7 @@ import { RainComponent } from "./shared/ui/rain/rain.component";
         TabsNavigationComponent,
         HumidityComponent,
         RainComponent,
+        ActionBarComponent,
     ],
     providers: [],
     schemas: [
