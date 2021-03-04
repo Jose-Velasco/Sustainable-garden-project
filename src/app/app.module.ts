@@ -13,6 +13,8 @@ import { TabsNavigationComponent } from "./components/tabs-navigation/tabs-navig
 import { HumidityComponent } from "./shared/ui/humidity/humidity.component";
 import { RainComponent } from "./shared/ui/rain/rain.component";
 import { ActionBarComponent } from "./shared/ui/action-bar/action-bar.component";
+import { DashboardChartsComponent } from "./components/dashboard-charts/dashboard-charts.component";
+import { ThermometerChartComponent } from "./shared/ui/thermometer-chart/thermometer-chart.component";
 
 @NgModule({
     bootstrap: [
@@ -34,6 +36,8 @@ import { ActionBarComponent } from "./shared/ui/action-bar/action-bar.component"
         HumidityComponent,
         RainComponent,
         ActionBarComponent,
+        DashboardChartsComponent,
+        ThermometerChartComponent
     ],
     providers: [],
     schemas: [

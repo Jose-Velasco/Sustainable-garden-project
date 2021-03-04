@@ -7,6 +7,7 @@ import { ItemDetailComponent } from "./item/item-detail.component";
 import { AuthComponent } from "./auth/auth.component";
 import { DashboardOverviewComponent } from "./components/dashboard-overview/dashboard-overview.component";
 import { TabsNavigationComponent } from "./components/tabs-navigation/tabs-navigation.component";
+import { DashboardChartsComponent } from "./components/dashboard-charts/dashboard-charts.component";
 
 const routes: Routes = [
     { path: "", redirectTo: "auth", pathMatch: "full" },
@@ -19,10 +20,14 @@ const routes: Routes = [
                 path: "dashboard-overview",
                 component: DashboardOverviewComponent,
                 outlet: "dashboardOverview"
-            }
+            },
+            {
+                path: "dashboard-charts",
+                component: DashboardChartsComponent,
+                outlet: "dashboardCharts"
+            },
         ]
     },
-    // { path: "dashboard-overview", component: DashboardOverviewComponent },
     { path: "items", component: ItemsComponent },
     { path: "item/:id", component: ItemDetailComponent },
 ];

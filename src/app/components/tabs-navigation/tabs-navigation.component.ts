@@ -28,7 +28,8 @@ export class TabsNavigationComponent implements OnInit {
                 {
                     outlets:
                     {
-                        dashboardOverview: ["dashboard-overview"]
+                        dashboardOverview: ["dashboard-overview"],
+                        dashboardCharts: ["dashboard-charts"]
                     }
                 }
             ],
