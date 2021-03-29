@@ -20,32 +20,32 @@
 .thermometer-container {
     background-color: $primaryCanvas;
 }
-.thermo-outer-container {
-    padding-left: 23%;
+.flex-center-nested-layouts {
+    justify-content: center;
+    align-items: center;
 }
 .thermo-outer-wrapper {
     flex-direction: column;
     .outer-round-square {
-        @include thermoRoundSquare(280, 75, lightgray);
+        // @include thermoRoundSquare(280, 75, lightgray);
+        @include thermoRoundSquare(257, 65, lightgray);
         align-self: center;
     }
     .outer-circle {
-        @include thermoCircle(150, 150, 75%, lightgray);
+        // @include thermoCircle(150, 150, 75%, lightgray);
+        @include thermoCircle(145, 155, 75%, lightgray);
         align-self: center;
     }
 }
 .thermo-inner-wrapper {
-    padding-top: 8%;
-    padding-left: 11%;
-    padding-right: 11%;
-    margin-top: 9%;
+    margin-top: 11;
     .inner-round-square {
         @include thermoRoundSquare(240, 50, red);
         @include thermoGradient();
     }
     .inner-circle {
-        @include thermoCircle(135, 135, 65%, red);
         @include thermoGradient();
+        @include thermoCircle(135, 135, 65%, red);
         text-align: center;
         font-weight: bold;
         color: black;

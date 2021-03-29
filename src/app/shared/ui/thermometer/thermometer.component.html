@@ -1,15 +1,19 @@
 <GridLayout class="thermometer-container">
-    <AbsoluteLayout class="thermo-outer-container" #absLayout>
-        <Label #mainTopThermoLargeTickMarkLabel top="55" left="115" class="thermo-large-tick-marks"></Label>
-        <FlexboxLayout class="thermo-outer-wrapper">
-            <Label class="outer-round-square"></Label>
-            <Label class="outer-circle"></Label>
-        </FlexboxLayout>
-    </AbsoluteLayout>
-    <StackLayout class="thermo-inner-wrapper">
-        <StackLayout>
-            <Label class="inner-round-square" (tap)="testThermometerAnimation($event)"></Label>
+    <FlexboxLayout class="flex-center-nested-layouts">
+        <AbsoluteLayout class="thermo-outer-container" #absLayout>
+            <Label #mainTopThermoLargeTickMarkLabel top="35" left="114" class="thermo-large-tick-marks"></Label>
+            <FlexboxLayout class="thermo-outer-wrapper">
+                <Label class="outer-round-square"></Label>
+                <Label class="outer-circle"></Label>
+            </FlexboxLayout>
+        </AbsoluteLayout>
+    </FlexboxLayout>
+    <FlexboxLayout class="flex-center-nested-layouts">
+        <StackLayout class="thermo-inner-wrapper">
+            <StackLayout>
+                <Label class="inner-round-square" (tap)="testThermometerAnimation($event)"></Label>
+            </StackLayout>
+            <Label class="inner-circle" [text]="this.getTemperatureText()" (loaded)="onCircleLabelLoaded($event)"></Label>
         </StackLayout>
-        <Label class="inner-circle" [text]="this.getTemperatureText()" (loaded)="onCircleLabelLoaded($event)"></Label>
-    </StackLayout>
+    </FlexboxLayout>
 </GridLayout>
