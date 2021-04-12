@@ -1,8 +1,16 @@
 <ns-action-bar title="Charts" ></ns-action-bar>
 <ScrollView orientation="vertical">
-    <GridLayout rows="auto, auto, auto">
-        <ns-thermometer-chart></ns-thermometer-chart>
-        <Label row="1" text="Humidity chart"></Label>
-        <Label row="2" text="Rain chart"></Label>
+    <!-- TODO: need to dynamically adjust the height of the charts constrainer
+            so it can be responsive and display two charts at a time -->
+    <GridLayout rows="500, 500, 500">
+        <GridLayout row="0" class="chart-wrapper">
+            <ns-thermometer-chart></ns-thermometer-chart>
+        </GridLayout>
+        <GridLayout row="1" class="chart-wrapper">
+            <ns-thermometer-chart></ns-thermometer-chart>
+        </GridLayout>
+        <GridLayout row="2" class="chart-wrapper">
+            <ns-thermometer-chart></ns-thermometer-chart>
+        </GridLayout>
     </GridLayout>
 </ScrollView>

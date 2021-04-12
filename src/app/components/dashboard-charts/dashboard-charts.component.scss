@@ -1,1 +1,14 @@
 @import "../../shared/scss/variables";
+
+.chart-wrapper {
+    android-elevation: 15;
+    background-color: $primaryCanvas;
+    border-top-color: $primaryBorderColor;
+    border-bottom-color: $primaryBorderColor;
+    border-right-color: transparent;
+    border-left-color: transparent;
+    margin-top: 5;
+    margin-bottom: 15;
+    border-width: 2;
+    box-shadow: 10;
+}

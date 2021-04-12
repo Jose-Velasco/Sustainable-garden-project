@@ -1,1 +1,34 @@
-<Label text="Thermometer chart component works!"></Label>
+<RadCartesianChart
+    seriesSelectionMode="Single"
+    (seriesSelected)="onClickChart($event)"
+    (seriesDeselected)="onDeselectedChart($event)">
+    <RadCartesianChartGrid
+        tkCartesianGrid
+        horizontalLinesVisible="true"
+        verticalLinesVisible="true">
+    </RadCartesianChartGrid>
+    <DateTimeContinuousAxis
+        tkCartesianHorizontalAxis
+        [minimum]="getMinDate()" [maximum]="getMaxDate()"
+        majorStep="1" majorStepUnit="Day" dateFormat="MMM-d"
+        labelFitMode="Rotate" labelRotationAngle="1.2"
+        allowPan="true">
+    </DateTimeContinuousAxis>
+    <LinearAxis
+        tkCartesianVerticalAxis
+        [labelFormat]="linearAxisLabelFormatForTemperature">
+    </LinearAxis>
+    <RadLegendView
+        tkCartesianLegend
+        position="Top"
+        enableSelection="true">
+    </RadLegendView>
+    <SplineAreaSeries
+        seriesName="splineArea"
+        legendTitle="Temperature"
+        tkCartesianSeries
+        [items]="temperatureData"
+        categoryProperty="timeStamp"
+        valueProperty="temperature">
+    </SplineAreaSeries>
+</RadCartesianChart>

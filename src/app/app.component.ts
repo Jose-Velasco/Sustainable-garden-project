@@ -2,7 +2,7 @@ import { AfterViewInit, ChangeDetectorRef, Component, OnDestroy, OnInit, ViewChi
 import { RadSideDrawerComponent } from "nativescript-ui-sidedrawer/angular";
 import { RadSideDrawer } from "nativescript-ui-sidedrawer";
 import { Subscription } from "rxjs";
-import { UIService } from "./shared/ui/services/ui.service";
+import { UIService } from "./shared/services/ui.service";
 
 @Component({
     selector: "ns-app",

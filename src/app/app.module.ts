@@ -3,8 +3,6 @@ import { NativeScriptModule } from "@nativescript/angular";
 
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
-import { ItemsComponent } from "./item/items.component";
-import { ItemDetailComponent } from "./item/item-detail.component";
 import { AuthComponent } from "./auth/auth.component";
 import { DashboardOverviewComponent } from "./components/dashboard-overview/dashboard-overview.component";
 import { NativeScriptUISideDrawerModule } from "nativescript-ui-sidedrawer/angular";
@@ -15,6 +13,7 @@ import { RainComponent } from "./shared/ui/rain/rain.component";
 import { ActionBarComponent } from "./shared/ui/action-bar/action-bar.component";
 import { DashboardChartsComponent } from "./components/dashboard-charts/dashboard-charts.component";
 import { ThermometerChartComponent } from "./shared/ui/thermometer-chart/thermometer-chart.component";
+import { NativeScriptUIChartModule } from "nativescript-ui-chart/angular";
 
 @NgModule({
     bootstrap: [
@@ -24,11 +23,10 @@ import { ThermometerChartComponent } from "./shared/ui/thermometer-chart/thermom
         NativeScriptModule,
         AppRoutingModule,
         NativeScriptUISideDrawerModule,
+        NativeScriptUIChartModule,
     ],
     declarations: [
         AppComponent,
-        ItemsComponent,
-        ItemDetailComponent,
         AuthComponent,
         DashboardOverviewComponent,
         ThermometerComponent,

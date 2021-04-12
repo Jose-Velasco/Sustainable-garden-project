@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from "@angular/core";
 import { RouterExtensions } from "@nativescript/angular";
-import { UIService } from "../services/ui.service";
+import { UIService } from "../../services/ui.service";
 
 @Component({
     selector: "ns-action-bar",
