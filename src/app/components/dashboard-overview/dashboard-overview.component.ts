@@ -6,5 +6,10 @@ import { Component } from "@angular/core";
     styleUrls: ["./dashboard-overview.component.scss"]
 })
 export class DashboardOverviewComponent {
+    hasSunLight = false;
     constructor() {}
+
+    onSunlightTest(): void {
+        this.hasSunLight = !this.hasSunLight;
+    }
 }

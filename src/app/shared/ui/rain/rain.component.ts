@@ -6,10 +6,11 @@ import { Component, OnInit } from "@angular/core";
     styleUrls: ["./rain.component.scss"]
 })
 export class RainComponent implements OnInit {
+    // set this property to true when it is raining
     private _isRaining: boolean;
     readonly iconColors = {
         notRain: "#DEDEDE",
-        rainCloud: "#D1D1D1",
+        rainCloud: "#C7C7C7",
         rainDrops: "#91E7EB"
     };
 

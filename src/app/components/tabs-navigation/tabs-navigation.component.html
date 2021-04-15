@@ -1,21 +1,19 @@
-<GridLayout>
-    <Tabs tabsPosition="bottom">
-        <TabStrip>
-            <TabStripItem>
-                <Image src="font://&#xf009;" class="fa img-icon"></Image>
-                <Label text="Overview"></Label>
-            </TabStripItem>
-            <TabStripItem>
-                <Image src="font://&#xf080;" class="fa img-icon" stretch="aspectFill"></Image>
-                <Label text="Charts"></Label>
-            </TabStripItem>
-        </TabStrip>
-        <!-- The number of TabContentItem components should correspond to the number of TabStripItem components -->
-        <TabContentItem>
-                <page-router-outlet name="dashboardOverview"></page-router-outlet>
-        </TabContentItem>
-        <TabContentItem backgroundColor="orange">
-            <page-router-outlet name="dashboardCharts"></page-router-outlet>
-        </TabContentItem>
-    </Tabs>
-</GridLayout>
+<Tabs tabsPosition="bottom" swipeEnabled="false">
+    <TabStrip>
+        <TabStripItem>
+            <Image src="font://&#xf009;" class="fa img-icon"></Image>
+            <Label text="Overview"></Label>
+        </TabStripItem>
+        <TabStripItem>
+            <Image src="font://&#xf080;" class="fa img-icon" stretch="aspectFill"></Image>
+            <Label text="Charts"></Label>
+        </TabStripItem>
+    </TabStrip>
+    <!-- The number of TabContentItem components should correspond to the number of TabStripItem components -->
+    <TabContentItem>
+            <page-router-outlet name="dashboardOverview"></page-router-outlet>
+    </TabContentItem>
+    <TabContentItem>
+        <page-router-outlet name="dashboardCharts"></page-router-outlet>
+    </TabContentItem>
+</Tabs>

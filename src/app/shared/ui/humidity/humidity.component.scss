@@ -1,15 +1,23 @@
-// .humidity-container {
-//     background: purple;
+@import "../../scss/variables";
+
+.icon-drop {
+    color: $primaryBaseColor;
+    font-size: 200;
+}
+.humidity-label-text {
+    font-size: 40;
+    font-weight: bold;
+    color: black;
+}
+// .drop-wrapper {
+//     background: white;
 // }
-.drop-wrapper {
-    background: white;
-}
-.test-tear {
-    clip-path: circle(80% at 50% 50%);
-    background: linear-gradient(0deg, rgba(42,173,212,1) 70%, rgba(30,207,221,0.2) 74%);
-    height: 200;
-    width: 350;
-}
+// .test-tear {
+//     clip-path: circle(80% at 50% 50%);
+//     background: linear-gradient(0deg, rgba(42,173,212,1) 70%, rgba(30,207,221,0.2) 74%);
+//     height: 200;
+//     width: 350;
+// }
 // .test-tear-top {
 //     clip-path: ellipse(9% 40% at 50% 50%);
 //     background: blue;

@@ -3,6 +3,8 @@
 ActionBar {
     background: $secondaryBaseColor;
     color: $primaryTextColor;
+    border-bottom-left-radius: 17;
+    border-bottom-right-radius: 17;
 }
 .icon-hamburger {
     color: $primaryHighlightColor;

@@ -17,13 +17,6 @@
 @mixin thermoGradient {
     background: linear-gradient(90deg, #be1d2d 50%, #d21e29 50%);
 }
-.thermometer-container {
-    background-color: $primaryCanvas;
-}
-.flex-center-nested-layouts {
-    justify-content: center;
-    align-items: center;
-}
 .thermo-outer-wrapper {
     flex-direction: column;
     .outer-round-square {

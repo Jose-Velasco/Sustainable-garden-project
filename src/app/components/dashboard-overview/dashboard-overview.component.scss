@@ -3,10 +3,17 @@
 .dashboard-overview-container {
     background-color: $primaryCanvas;
 }
-.icon-bug {
+.dashboard-components-wrapper {
+    // This might cause the app to crash on IOS
+    // If it doe cause issues then add property only on android devices
+    android-elevation: 16;
+    margin: 5;
+    border-radius: 20;
+    background: $primaryCanvas;
+}
+.icon-sun {
     margin-bottom: 30;
     font-size: 75%;
     text-align: center;
     vertical-align: middle;
-    color: $lightgray;
 }

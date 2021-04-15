@@ -1,7 +1,24 @@
 <ns-action-bar></ns-action-bar>
 <GridLayout class="dashboard-overview-container" columns="*, *" rows="3*, *">
-    <ns-thermometer col="0" row="0"></ns-thermometer>
+    <!-- <ns-thermometer col="0" row="0"></ns-thermometer>
     <ns-humidity  col="1" row="0"></ns-humidity>
     <ns-rain col="0" row="1"></ns-rain>
-    <Label col="1" row="1" class="fa icon-bug" text="&#xf188;"></Label>
+    <Label col="1" row="1" class="fa icon-sun" text="&#xf185;"></Label> -->
+    <GridLayout col="0" row="0" class="dashboard-components-wrapper">
+        <ns-thermometer></ns-thermometer>
+    </GridLayout>
+    <GridLayout col="1" row="0" class="dashboard-components-wrapper">
+        <ns-humidity></ns-humidity>
+    </GridLayout>
+    <GridLayout class="dashboard-components-wrapper" col="0" row="1">
+        <ns-rain></ns-rain>
+    </GridLayout>
+    <GridLayout class="dashboard-components-wrapper" col="1" row="1">
+        <Label
+            (tap)="onSunlightTest()"
+            class="fa icon-sun"
+            text="&#xf185;"
+            [ngStyle]="{color: hasSunLight ? 'yellow' : 'lightgray'}">
+        </Label>
+    </GridLayout>
 </GridLayout>

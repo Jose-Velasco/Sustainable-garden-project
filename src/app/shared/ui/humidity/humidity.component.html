@@ -1,6 +1,15 @@
 <GridLayout class="humidity-container">
-    <StackLayout class="drop-wrapper" verticalAlignment="center">
+    <FlexboxLayout class="flex-center-nested-layouts">
+        <AbsoluteLayout>
+            <Label class="fa icon-drop" text="&#xf043;"></Label>
+        </AbsoluteLayout>
+    </FlexboxLayout>
+    <FlexboxLayout class="flex-center-nested-layouts">
+        <Label class="humidity-label-text" text="100%"></Label>
+    </FlexboxLayout>
+    <!-- custom tear ui component test -->
+    <!-- <StackLayout class="drop-wrapper" verticalAlignment="center">
         <Label class="test-tear-top"></Label>
         <Label class="test-tear"></Label>
-    </StackLayout>
+    </StackLayout> -->
 </GridLayout>

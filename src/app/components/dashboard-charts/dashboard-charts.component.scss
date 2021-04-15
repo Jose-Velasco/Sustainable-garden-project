@@ -1,14 +1,11 @@
 @import "../../shared/scss/variables";
 
 .chart-wrapper {
-    android-elevation: 15;
+    // This might cause the app to crash on IOS
+    // If it doe cause issues then add property only on android devices
+    android-elevation: 16;
     background-color: $primaryCanvas;
-    border-top-color: $primaryBorderColor;
-    border-bottom-color: $primaryBorderColor;
-    border-right-color: transparent;
-    border-left-color: transparent;
-    margin-top: 5;
-    margin-bottom: 15;
-    border-width: 2;
-    box-shadow: 10;
+    border-radius: 20;
+    margin-top: 12;
+    margin-bottom: 12;
 }

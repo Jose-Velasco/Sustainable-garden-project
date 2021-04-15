@@ -34,3 +34,8 @@ Button.-primary {
 .thermo-small-tick-marks {
     @include tickMarks(5, 19);
 }
+// mainly used for centering AbsoluteLayouts that are children of FlexboxLayouts
+.flex-center-nested-layouts {
+    justify-content: center;
+    align-items: center;
+}
