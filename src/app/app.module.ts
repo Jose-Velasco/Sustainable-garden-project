@@ -14,6 +14,7 @@ import { ActionBarComponent } from "./shared/ui/action-bar/action-bar.component"
 import { DashboardChartsComponent } from "./components/dashboard-charts/dashboard-charts.component";
 import { ThermometerChartComponent } from "./shared/ui/thermometer-chart/thermometer-chart.component";
 import { NativeScriptUIChartModule } from "nativescript-ui-chart/angular";
+import { SplineAreaSeriesChart } from "./shared/ui/spline-area-series-chart/spline-area-series-chart.component";
 
 @NgModule({
     bootstrap: [
@@ -35,7 +36,8 @@ import { NativeScriptUIChartModule } from "nativescript-ui-chart/angular";
         RainComponent,
         ActionBarComponent,
         DashboardChartsComponent,
-        ThermometerChartComponent
+        ThermometerChartComponent,
+        SplineAreaSeriesChart,
     ],
     providers: [],
     schemas: [

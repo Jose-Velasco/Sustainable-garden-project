@@ -20,7 +20,7 @@ export class ThermometerChartComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this._temperatureDataSub = this.chartsDataService.temperatureData.subscribe((temperatureData) => {
-            this.temperatureData = temperatureData;
+            // this.temperatureData = temperatureData;
         });
         this.setLinearAxisLabelTemperatureFormat(TemperatureDegreeAbbreviation.Fahrenheit);
     }
