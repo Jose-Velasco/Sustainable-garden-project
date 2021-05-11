@@ -2,15 +2,26 @@
 <ScrollView orientation="vertical">
     <!-- TODO: need to dynamically adjust the height of the charts constrainer
             so it can be responsive and display two charts at a time -->
-    <GridLayout rows="500, 500, 500">
+    <GridLayout rows="500, 500, 500, 500">
         <GridLayout row="0" class="chart-wrapper">
-            <ns-thermometer-chart></ns-thermometer-chart>
+            <ns-spline-area-series-chart
+                [splineAreaProperties]="temperatureChartData">
+            </ns-spline-area-series-chart>
         </GridLayout>
         <GridLayout row="1" class="chart-wrapper">
-            <ns-thermometer-chart></ns-thermometer-chart>
+            <ns-spline-area-series-chart
+                [splineAreaProperties]="humidityChartData">
+            </ns-spline-area-series-chart>
         </GridLayout>
         <GridLayout row="2" class="chart-wrapper">
-            <ns-thermometer-chart></ns-thermometer-chart>
+            <ns-spline-area-series-chart
+                [splineAreaProperties]="temperatureChartData">
+            </ns-spline-area-series-chart>
+        </GridLayout>
+        <GridLayout row="3" class="chart-wrapper">
+            <ns-spline-area-series-chart
+                [splineAreaProperties]="luminosityChartData">
+            </ns-spline-area-series-chart>
         </GridLayout>
     </GridLayout>
 </ScrollView>
