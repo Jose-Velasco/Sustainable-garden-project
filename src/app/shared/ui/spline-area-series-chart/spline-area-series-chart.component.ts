@@ -9,11 +9,13 @@ import { SplineAreaSeriesRequiredValues, SplineAreaSeriesChartDataItem } from ".
     styleUrls: ["./spline-area-series-chart.component.scss"]
 })
 export class SplineAreaSeriesChart implements OnInit {
+    // pass the required data for the chart component to work from the parent component
     @Input() splineAreaProperties: SplineAreaSeriesRequiredValues;
     // The dataItems array needs to be sorted by dates in ascending order
     // to avoid overlapping lines
     private _dataItems: SplineAreaSeriesChartDataItem[];
     private _linearAxisLabelFormatForDataItem: string;
+    // _curveColor acts as the base color for the chart in the curve and the shaded area under the curve
     private _curveColor: Color;
     private _areaColor: Color;
 
@@ -31,7 +33,12 @@ export class SplineAreaSeriesChart implements OnInit {
 
     get linearAxisLabelFormatForDataItem(): string { return this._linearAxisLabelFormatForDataItem; }
 
-     setLinearAxisLabelDataItemFormat() {
+    /**
+     * Formats the text of the vertical axis. Concatenates the data on the vertical axis with the unit/symbol of the data to be displayed
+     * Uses % operator as a placeholder to put where and how the float values should be placed. This looks
+     * similar to how one formats string with % in python.
+     */
+    setLinearAxisLabelDataItemFormat(): void {
         this._linearAxisLabelFormatForDataItem = `%.0f${this.splineAreaProperties.unitsSymbol}`;
     }
 
@@ -83,6 +90,11 @@ export class SplineAreaSeriesChart implements OnInit {
         event.series.showLabels = false;
     }
 
+    /**
+     * Programmatically creates and sets the color of the area under the curve, so
+     * it has a transparent look... Uses color in _curveColor rgba values but cuts the alpha
+     * value by half.
+     */
     private createCurveAreaColor(): void {
         let adjustedColor: Color = new Color(
             // decrease alpha of the color so the area color somewhat transparent
@@ -94,6 +106,12 @@ export class SplineAreaSeriesChart implements OnInit {
         this.areaColor = adjustedColor;
     }
 
+    /**
+     * initializes the curve and area color of the chart. If no curveBaseColor is provided
+     * the base color of the app is used.
+     * TODO: Make component responsive to changes in base color of the app by not hard codding
+     *       a color.
+     */
     private initializeAreaAndCurveColors(): void {
         if (this.splineAreaProperties.splineAreaProperties.CurveBaseColor == null) {
             // default base color for the chart's area and cure color if one is not given
