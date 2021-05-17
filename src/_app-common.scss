@@ -13,6 +13,7 @@ The imported CSS rules must precede all other types of rules.
 @import "~@nativescript/theme/core";
 @import "~@nativescript/theme/blue";
 @import "./app/shared/scss/mixins";
+@import "./app/shared/scss/variables";
 
 /* Place any CSS rules you want to apply on both iOS and Android here.
 This is where the vast majority of your CSS code goes. */
@@ -38,4 +39,38 @@ Button.-primary {
 .flex-center-nested-layouts {
     justify-content: center;
     align-items: center;
+}
+// The following code section is the styling for the navigation menu
+.navigation-menu-container {
+    background-color: $primaryCanvas;
+    .profile-image-section-wrapper {
+        Label {
+            text-align: center;
+            height: 55%;
+            width: 50%;
+            border-radius: 70%;
+            font-size: 50;
+            color: $primaryCanvas;
+            background-color: #fc775f;
+        }
+    }
+    .nav-buttons-wrapper {
+        background-color: #fbe55a;
+        Button {
+            text-align: center;
+            color: $primaryTextColor;
+            font-weight: bold;
+            font-size: 14;
+            // background-color: #fbe55a;
+            // border-color: #c7b54b;
+            // border-left: 0;
+            // border-right: 0;
+            // border-style: solid;
+            // border-width: 2;
+            android-elevation: 0;
+            .button-icon-font {
+                font-size: 20;
+            }
+        }
+    }
 }
