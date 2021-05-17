@@ -32,5 +32,10 @@
         [items]="dataItems"
         categoryProperty="timeStamp"
         valueProperty="dataValue">
+        <PointLabelStyle
+            tkSplineAreaLabelStyle
+            [strokeColor]="curveColor"
+            [fillColor]="curveColor">
+        </PointLabelStyle>
     </SplineAreaSeries>
 </RadCartesianChart>

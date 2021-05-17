@@ -8,7 +8,10 @@
 //     // stroke-color: $primaryUnselectedColor;
 // }
 ChartSeriesLabel {
-    format: "%.0f°";
+    font-weight: bold;
+    font-size: 12;
+    // handles how the text in the labels showed look like
+    format: "%.0f";
 }
 DateTimeContinuousAxis {
     ticks-color: $primaryTextColor;
@@ -26,7 +29,7 @@ LinearAxis {
     line-thickness: 2;
     line-color: $primaryTextColor;
     label-text-color: $primaryTextColor;
-    label-size: 4;
+    label-size: 5;
 }
 ChartAxisLabel {
     font-weight: bold;
