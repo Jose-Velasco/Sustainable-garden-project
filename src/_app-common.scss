@@ -40,10 +40,12 @@ Button.-primary {
     justify-content: center;
     align-items: center;
 }
+
 // The following code section is the styling for the navigation menu
 .navigation-menu-container {
-    background-color: $primaryCanvas;
+    background-color: $primaryNavigationColor;
     .profile-image-section-wrapper {
+        background-color: $primaryCanvas;
         Label {
             text-align: center;
             height: 55%;
@@ -55,21 +57,30 @@ Button.-primary {
         }
     }
     .nav-buttons-wrapper {
-        background-color: #fbe55a;
-        Button {
-            text-align: center;
+        // background-color: purple;
+        // targets only the direct children Buttons
+        & > Button {
+            width: 100%;
+            margin-bottom: 15;
+            padding-left: 25;
+            font-size: 16;
+            background-color: $primaryNavigationColor;
             color: $primaryTextColor;
+            text-align: left;
             font-weight: bold;
-            font-size: 14;
-            // background-color: #fbe55a;
-            // border-color: #c7b54b;
-            // border-left: 0;
-            // border-right: 0;
-            // border-style: solid;
-            // border-width: 2;
             android-elevation: 0;
             .button-icon-font {
-                font-size: 20;
+                font-size: 21;
+            }
+        }
+        .nav-footer-wrapper {
+            // background-color: green;
+            .logout-btn {
+                background-color: $primaryNavigationColor;
+                border-radius: 30;
+                color: $primaryTextColor;
+                border-color: $primaryTextColor;
+                border-width: 2;
             }
         }
     }
