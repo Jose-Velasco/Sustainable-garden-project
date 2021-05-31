@@ -18,6 +18,7 @@ export class UIService {
      * fixes text-align css bug that causes android devices not to center
      * text vertically and horizontally when setting text-align value to center.
      * @param args label event object, the label that is to be centered
+     * @deprecated Use the LblCenterDirective instead.
      */
     centerAndroidTextVerticallyAndHorizontally(args: EventData): void {
         const lbl = args.object as Label;

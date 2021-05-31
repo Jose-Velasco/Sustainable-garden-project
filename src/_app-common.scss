@@ -26,6 +26,10 @@ The following CSS rule changes the font size of all Buttons that have the
     // font-family: "FontAwesome", "Font-Awesome";
     font-family: "fasolid900", "fa-solid-900";
 }
+// contains font icons for brands EX. instagram, twitter etc.
+.fab {
+    font-family: "faBrandsRegular400" ,"fa-Brands-Regular-400";
+}
 Button.-primary {
     font-size: 18;
 }
@@ -74,13 +78,24 @@ Button.-primary {
             }
         }
         .nav-footer-wrapper {
-            // background-color: green;
             .logout-btn {
                 background-color: $primaryNavigationColor;
                 border-radius: 30;
                 color: $primaryTextColor;
                 border-color: $primaryTextColor;
                 border-width: 2;
+            }
+            .brand-icons-wrapper {
+                padding-top: 9;
+                justify-content: space-around;
+                text-align: center;
+                .btn-brand-icon {
+                    text-align: center;
+                    background-color: $primaryNavigationColor;
+                    color: $primaryTextColor;
+                    font-size: 30;
+                    font-weight: bold;
+                }
             }
         }
     }

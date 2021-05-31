@@ -15,6 +15,7 @@ import { DashboardChartsComponent } from "./components/dashboard-charts/dashboar
 import { ThermometerChartComponent } from "./shared/ui/thermometer-chart/thermometer-chart.component";
 import { NativeScriptUIChartModule } from "nativescript-ui-chart/angular";
 import { SplineAreaSeriesChart } from "./shared/ui/spline-area-series-chart/spline-area-series-chart.component";
+import { LblCenterDirective } from "./shared/directives/lbl-center.directive";
 
 @NgModule({
     bootstrap: [
@@ -38,6 +39,7 @@ import { SplineAreaSeriesChart } from "./shared/ui/spline-area-series-chart/spli
         DashboardChartsComponent,
         ThermometerChartComponent,
         SplineAreaSeriesChart,
+        LblCenterDirective
     ],
     providers: [],
     schemas: [

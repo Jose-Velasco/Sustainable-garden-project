@@ -1,7 +1,7 @@
 <RadSideDrawer drawerTransition="RevealTransition">
   <GridLayout class="navigation-menu-container" columns="*" rows="*, 2*" tkDrawerContent>
     <FlexboxLayout row="0" class="profile-image-section-wrapper flex-center-nested-layouts">
-      <Label #profileIconLabel (loaded)="onProfileIconLabelLoaded($event)" text="&#xf06c;" class="fa"></Label>
+      <Label #profileIconLabel lblCenter text="&#xf06c;" class="fa"></Label>
     </FlexboxLayout>
     <GridLayout row="1" rows="auto, auto, auto, *" class="nav-buttons-wrapper">
       <Button verticalAlignment="center" row="0" class="fa">
@@ -23,9 +23,12 @@
         </FormattedString>
       </Button>
       <GridLayout verticalAlignment="bottom" row="3" columns=" *, *" class="nav-footer-wrapper">
-        <Button class="fa logout-btn" column="0" text="Logout">
-        </Button>
-        <Label column="1" class="fa" text="&#xf013;"></Label>
+        <Button column="0" class="fa logout-btn" text="Logout"></Button>
+        <FlexboxLayout column="1" class="brand-icons-wrapper">
+          <Label lblCenter class="fab btn-brand-icon" text="&#xf16d;"></Label>
+          <Label lblCenter class="fab btn-brand-icon" text="&#xf392;"></Label>
+          <Label lblCenter class="fab btn-brand-icon" text="&#xf099;"></Label>
+        </FlexboxLayout>
       </GridLayout>
     </GridLayout>
   </GridLayout>
