@@ -4,6 +4,7 @@ import { RadSideDrawerComponent } from "nativescript-ui-sidedrawer/angular";
 import { RadSideDrawer } from "nativescript-ui-sidedrawer";
 import { Subscription } from "rxjs";
 import { UIService } from "./shared/services/ui.service";
+import { RouterExtensions } from "@nativescript/angular";
 
 @Component({
     selector: "ns-app",
@@ -17,14 +18,19 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy  {
 
     constructor(
         private changeDetectionRef: ChangeDetectorRef,
-        private UIService: UIService) {}
+        private uiService: UIService,
+        private router: RouterExtensions) {}
 
     ngOnInit() {
-        this.drawerSub = this.UIService.drawerState.subscribe(() => {
+        this.drawerSub = this.uiService.drawerState.subscribe(() => {
             if (this.drawer) {
                 this.drawer.toggleDrawerState();
             }
         });
+    }
+
+    ngOnDestroy() {
+        this.drawerSub.unsubscribe();
     }
 
     get profileIconLabel(): ElementRef { return this._profileIconLabel; }
@@ -34,11 +40,19 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy  {
         this.changeDetectionRef.detectChanges();
     }
 
-    ngOnDestroy() {
-        this.drawerSub.unsubscribe();
+    onProfileIconLabelLoaded(args: EventData): void {
+        this.uiService.centerAndroidTextVerticallyAndHorizontally(args);
     }
 
-    onProfileIconLabelLoaded(args: EventData): void {
-        this.UIService.centerAndroidTextVerticallyAndHorizontally(args);
+    /**
+     * Opens a social media website based on what the user clicked on.
+     * The socialMedia argument passed must be one of that in the web-viewer.models.ts.
+     *
+     * @param socialMedia name of social media to view must be on in enum SocialMedia already
+     */
+    onClickSocialMediaIcon(socialMedia: string): void {
+        // Closes the nav bar
+        this.uiService.toggleSidedrawer();
+        this.router.navigate(["/web-viewer", socialMedia], { transition: {name: "slideLeft"}, });
     }
  }

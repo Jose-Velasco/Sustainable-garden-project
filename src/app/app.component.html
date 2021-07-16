@@ -25,9 +25,8 @@
       <GridLayout verticalAlignment="bottom" row="3" columns=" *, *" class="nav-footer-wrapper">
         <Button column="0" class="fa logout-btn" text="Logout"></Button>
         <FlexboxLayout column="1" class="brand-icons-wrapper">
-          <Label lblCenter class="fab btn-brand-icon" text="&#xf16d;"></Label>
-          <Label lblCenter class="fab btn-brand-icon" text="&#xf392;"></Label>
-          <Label lblCenter class="fab btn-brand-icon" text="&#xf099;"></Label>
+          <Label lblCenter (tap)="onClickSocialMediaIcon('Instagram')" class="fab btn-brand-icon" text="&#xf16d;"></Label>
+          <Label lblCenter (tap)="onClickSocialMediaIcon('Discord')" class="fab btn-brand-icon" text="&#xf392;"></Label>
         </FlexboxLayout>
       </GridLayout>
     </GridLayout>

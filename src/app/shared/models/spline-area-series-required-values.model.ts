@@ -21,6 +21,7 @@ export interface SplineAreaSeriesRequiredValues {
     // example ％, °F, °C
     unitsSymbol: string,
     splineAreaProperties: {
+        chartTitle: string,
         legendTitle: string,
         // if no color is provided then a default color is set when used
         // for a splineAreaSeries. This logic is handled in the splineAreaSeriesChartComponent.ts file

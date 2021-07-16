@@ -9,8 +9,7 @@ import { RouterExtensions } from "@nativescript/angular";
 export class AuthComponent implements OnInit {
     testNum: number;
     constructor(
-        private router: RouterExtensions
-    ) {}
+        private router: RouterExtensions) {}
 
     ngOnInit() {
         this.testNum = 15;

@@ -1,5 +1,5 @@
 import { NgModule, NO_ERRORS_SCHEMA } from "@angular/core";
-import { NativeScriptModule } from "@nativescript/angular";
+import { NativeScriptHttpClientModule, NativeScriptModule } from "@nativescript/angular";
 
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
@@ -16,6 +16,7 @@ import { ThermometerChartComponent } from "./shared/ui/thermometer-chart/thermom
 import { NativeScriptUIChartModule } from "nativescript-ui-chart/angular";
 import { SplineAreaSeriesChart } from "./shared/ui/spline-area-series-chart/spline-area-series-chart.component";
 import { LblCenterDirective } from "./shared/directives/lbl-center.directive";
+import { WebViewerComponent } from "./components/web-viewer/web-viewer.component";
 
 @NgModule({
     bootstrap: [
@@ -26,6 +27,7 @@ import { LblCenterDirective } from "./shared/directives/lbl-center.directive";
         AppRoutingModule,
         NativeScriptUISideDrawerModule,
         NativeScriptUIChartModule,
+        NativeScriptHttpClientModule,
     ],
     declarations: [
         AppComponent,
@@ -39,7 +41,8 @@ import { LblCenterDirective } from "./shared/directives/lbl-center.directive";
         DashboardChartsComponent,
         ThermometerChartComponent,
         SplineAreaSeriesChart,
-        LblCenterDirective
+        LblCenterDirective,
+        WebViewerComponent,
     ],
     providers: [],
     schemas: [

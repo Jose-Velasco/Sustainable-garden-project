@@ -2,13 +2,18 @@ import { Injectable } from "@angular/core";
 import { Color } from "@nativescript/core/color";
 import { Temperature } from "../models/temperature.model";
 import { SplineAreaSeriesRequiredValues, SplineAreaSeriesChartDataItem } from "../models/spline-area-series-required-values.model";
-import { BehaviorSubject, Observable } from "rxjs";
+import { BehaviorSubject, Observable, Subject, Subscription } from "rxjs";
+import { SensorsReadingsDataService } from "./sensors-readings-data.service";
+import { SensorReading } from "../models/sensors-readings.model";
 
 @Injectable({ providedIn: 'root' })
 export class ChartsDataService {
     private _humidityData = new BehaviorSubject<SplineAreaSeriesRequiredValues>(null);
     private _temperatureData = new BehaviorSubject<SplineAreaSeriesRequiredValues>(null);
     private _luminosityData = new BehaviorSubject<SplineAreaSeriesRequiredValues>(null);
+    private _sensorsReadingsDataChangedSub: Subscription;
+    private _chartsDataChanged = new Subject<SplineAreaSeriesRequiredValues[]>();
+    private _chartsData: SplineAreaSeriesRequiredValues[];
 
     testHumidityData: SplineAreaSeriesChartDataItem[] = [
         {
@@ -58,8 +63,7 @@ export class ChartsDataService {
         },
     ];
 
-
-    constructor() {
+    constructor(private sensorsReadingsService: SensorsReadingsDataService) {
         this.fetchTemperatureData();
         this.fetchHumidityData();
         this.fetchLuminosityData();
@@ -75,6 +79,65 @@ export class ChartsDataService {
 
     get luminosityData(): Observable<SplineAreaSeriesRequiredValues> {
         return this._luminosityData.asObservable();
+    }
+
+    get chartData(): SplineAreaSeriesRequiredValues[] {
+        return this._chartsData.slice();
+    }
+
+    get chartsDataChanged(): Observable<SplineAreaSeriesRequiredValues[]> {
+        return this._chartsDataChanged.asObservable();
+    }
+
+    setChartData(newChartsData: SplineAreaSeriesRequiredValues[]): void {
+        this._chartsData = newChartsData;
+        this._chartsDataChanged.next(this._chartsData.slice());
+    }
+
+    initializeChartServiceData(): void {
+        this.setChartData(this.parseIncomingSensorData(this.sensorsReadingsService.getSensorsReadingsData()));
+        this._sensorsReadingsDataChangedSub = this.sensorsReadingsService.sensorsReadingsDataChanged
+        .subscribe((sensorsReadingsData) => {
+            this.setChartData(this.parseIncomingSensorData(sensorsReadingsData));
+        });
+    }
+
+    private parseIncomingSensorData(newSensorsReadingsData: Map<number, Array<SensorReading>>): SplineAreaSeriesRequiredValues[] {
+        let charts: SplineAreaSeriesRequiredValues[] = [];
+        newSensorsReadingsData.forEach((sensorsReadings) => {
+            const individualSensorReadingData = new Map<string, Array<SplineAreaSeriesChartDataItem>>();
+            sensorsReadings.forEach(sensorReading => {
+                const numberOfReadings = Object.keys(sensorReading.reading).length;
+                for (let i = 0; i < numberOfReadings; i++) {
+                    const readingKey: string = Object.keys(sensorReading.reading)[i];
+                    let date = new Date(sensorReading.time_of_reading);
+                    let timestamp = date.getTime();
+                    const chartDataItem: SplineAreaSeriesChartDataItem = {
+                        dataValue: sensorReading.reading[readingKey],
+                        date: date,
+                        timeStamp: timestamp
+                    };
+                    if (individualSensorReadingData.has(readingKey)) {
+                        individualSensorReadingData.get(readingKey).push(chartDataItem);
+                    } else {
+                        individualSensorReadingData.set(readingKey, [chartDataItem]);
+                    }
+                }
+            });
+            individualSensorReadingData.forEach((value, key) => {
+                const newChart: SplineAreaSeriesRequiredValues = {
+                    dataItems: value,
+                    unitsSymbol: "",
+                    splineAreaProperties: {
+                        chartTitle: sensorsReadings[0].sensor.sensor_name,
+                        legendTitle: key,
+                        CurveBaseColor: new Color("#22b551")
+                    }
+                };
+                charts.push(newChart);
+            });
+        });
+        return charts;
     }
 
     fetchTemperatureData(): void {
@@ -115,6 +178,7 @@ export class ChartsDataService {
             dataItems: this.testHumidityData,
             unitsSymbol: "％",
             splineAreaProperties: {
+                chartTitle: "sensorsONE",
                 legendTitle: "Humidity",
                 CurveBaseColor: new Color("#1D4985")
             }
@@ -126,6 +190,7 @@ export class ChartsDataService {
             dataItems: this.testHumidityData,
             unitsSymbol: "°F",
             splineAreaProperties: {
+                chartTitle: "sensorsTwo",
                 legendTitle: "Temperature"
             }
         };
@@ -136,6 +201,7 @@ export class ChartsDataService {
             dataItems: this.testHumidityData,
             unitsSymbol: "watts",
             splineAreaProperties: {
+                chartTitle: "fake_test_humidity123",
                 legendTitle: "luminosity",
                 CurveBaseColor: new Color("#EBDB7A")
             }

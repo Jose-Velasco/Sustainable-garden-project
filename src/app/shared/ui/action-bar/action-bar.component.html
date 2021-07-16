@@ -1,9 +1,16 @@
 <ActionBar [title]="this.title">
     <NavigationButton
+        *ngIf="hasMenu"
         position="left"
         icon="font://&#xf0c9;"
         class="fa icon-hamburger"
         (tap)="onToggleMenu()">
+    </NavigationButton>
+    <NavigationButton
+        *ngIf="canGoBack"
+        class="fa"
+        icon="font://&#xf060;"
+        (tap)="onGoBack()">
     </NavigationButton>
     <ng-content></ng-content>
 </ActionBar>
