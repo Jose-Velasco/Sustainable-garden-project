@@ -17,6 +17,7 @@ import { NativeScriptUIChartModule } from "nativescript-ui-chart/angular";
 import { SplineAreaSeriesChart } from "./shared/ui/spline-area-series-chart/spline-area-series-chart.component";
 import { LblCenterDirective } from "./shared/directives/lbl-center.directive";
 import { WebViewerComponent } from "./components/web-viewer/web-viewer.component";
+import { AreaSeriesChart } from "./shared/ui/area-series-chart/area-series-chart.component";
 
 @NgModule({
     bootstrap: [
@@ -43,6 +44,7 @@ import { WebViewerComponent } from "./components/web-viewer/web-viewer.component
         SplineAreaSeriesChart,
         LblCenterDirective,
         WebViewerComponent,
+        AreaSeriesChart
     ],
     providers: [],
     schemas: [

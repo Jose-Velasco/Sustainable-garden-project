@@ -2,25 +2,10 @@
 <ScrollView orientation="vertical">
     <!-- TODO: need to dynamically adjust the height of the charts constrainer
             so it can be responsive and display two charts at a time -->
-    <GridLayout rows="500, 500, 500, 500">
-        <GridLayout row="0" class="chart-wrapper">
+    <GridLayout [rows]="gridLayoutRows">
+        <GridLayout row="{{i}}" class="chart-wrapper" *ngFor="let chart of charts; index as i">
             <ns-spline-area-series-chart
-                [splineAreaProperties]="charts[0]">
-            </ns-spline-area-series-chart>
-        </GridLayout>
-        <GridLayout row="1" class="chart-wrapper">
-            <ns-spline-area-series-chart
-                [splineAreaProperties]="charts[1]">
-            </ns-spline-area-series-chart>
-        </GridLayout>
-        <GridLayout row="2" class="chart-wrapper">
-            <ns-spline-area-series-chart
-                [splineAreaProperties]="charts[2]">
-            </ns-spline-area-series-chart>
-        </GridLayout>
-        <GridLayout row="3" class="chart-wrapper">
-            <ns-spline-area-series-chart
-                [splineAreaProperties]="luminosityChartData">
+                [splineAreaProperties]="chart">
             </ns-spline-area-series-chart>
         </GridLayout>
     </GridLayout>

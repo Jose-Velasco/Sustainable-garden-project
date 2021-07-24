@@ -19,15 +19,18 @@ export class DashboardChartsComponent implements OnInit, OnDestroy {
     private _luminosityChartData: SplineAreaSeriesRequiredValues;
     private _charts: SplineAreaSeriesRequiredValues[];
     private _chartsChangedSub: Subscription;
+    private _gridLayoutRows: string;
 
     constructor(
         private chartsDataService: ChartsDataService,
         private backendService: BackendService) {
+            // this.backendService.fetchSensorsReadings();
+            // this.chartsDataService.initializeChartServiceData();
         }
 
     ngOnInit() {
-        this.backendService.fetchSensorsReadings();
-        this.chartsDataService.initializeChartServiceData();
+        this.charts = this.chartsDataService.chartData;
+        this.gridLayoutRows = this.createGrindLayoutRowsString(this.charts.length, 500);
         this._chartsChangedSub = this.chartsDataService.chartsDataChanged
             .subscribe((newChartsData: SplineAreaSeriesRequiredValues[]) => {
                 this.charts = newChartsData;
@@ -70,9 +73,25 @@ export class DashboardChartsComponent implements OnInit, OnDestroy {
         this._charts = newCharts;
     }
 
+    get gridLayoutRows(): string { return this._gridLayoutRows; }
+    set gridLayoutRows(newGrindLayoutRows: string) { this._gridLayoutRows = newGrindLayoutRows; }
+
+    private createGrindLayoutRowsString(numberOfRows: number, rowSize: number): string {
+        let rowsString = "";
+        for (let row = 0; row < numberOfRows; row++) {
+            rowsString = `${rowsString}${rowSize}`;
+            if (row != numberOfRows - 1) {
+                rowsString += ","
+            }
+        }
+        console.log(rowsString);
+        return rowsString;
+    }
+
     ngOnDestroy() {
         this._humidityDataSub.unsubscribe();
         this._temperatureDataSub.unsubscribe();
         this._luminosityDataSub.unsubscribe();
+        this._chartsChangedSub.unsubscribe();
     }
 }

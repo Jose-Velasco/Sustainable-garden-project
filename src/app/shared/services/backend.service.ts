@@ -18,9 +18,7 @@ export class BackendService {
             "Content-Type": "application/json"
         }}).subscribe(
             (sensorsReadingsData: []) => {
-                this.sensorsReadingsDataService.setSensorsReadingsData(
-                    this.sensorsReadingsDataService.organizeNewSensorReadingsData(sensorsReadingsData)
-                    );
+                this.sensorsReadingsDataService.setSensorsReadingsData(sensorsReadingsData);
             }
         );
     }

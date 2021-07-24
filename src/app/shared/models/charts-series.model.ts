@@ -1,6 +1,6 @@
 import { Color } from "@nativescript/core/color";
 
-export interface SplineAreaSeriesChartDataItem {
+export interface ContinuousGraphDataItem {
     // the data value to be plotted on the graph
     // This basically is the Y-coordinate.
     dataValue: number,
@@ -12,19 +12,22 @@ export interface SplineAreaSeriesChartDataItem {
 }
 
 /**
- * Use this interface when reusing splineAreaSeriesChartComponent in other parts of the app
- * in order to reuse the component with different data
+ * Use this interface when reusing continuous graph components in other parts of the app
+ * in order to reuse the component with different data.
+ *
+ * Possibly extend for adding more
+ * custom properties per continuous chart series.
  */
-export interface SplineAreaSeriesRequiredValues {
-    dataItems: SplineAreaSeriesChartDataItem[],
+export interface BaseContinuousGraphRequiredProperties {
+    dataItems: ContinuousGraphDataItem[],
     // The unit symbol of the data to be presented in the chart ui
     // example ％, °F, °C
     unitsSymbol: string,
     splineAreaProperties: {
         chartTitle: string,
         legendTitle: string,
-        // if no color is provided then a default color is set when used
-        // for a splineAreaSeries. This logic is handled in the splineAreaSeriesChartComponent.ts file
+        // if no color is provided then a random color is set when chart component created
+        // This logic is handled in the respective ts files if one is created
         CurveBaseColor?: Color
     }
 }

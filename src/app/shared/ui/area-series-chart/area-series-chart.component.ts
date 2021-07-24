@@ -1,19 +1,19 @@
 import { Component, Input, OnInit } from "@angular/core";
 import { Color } from "@nativescript/core/color";
 import { ChartEventData } from "nativescript-ui-chart/index";
-import { SplineAreaSeriesRequiredValues, SplineAreaSeriesChartDataItem } from "../../models/spline-area-series-required-values.model";
+import { BaseContinuousGraphRequiredProperties, ContinuousGraphDataItem } from "../../models/charts-series.model";
 
 @Component({
-    selector: "ns-spline-area-series-chart",
-    templateUrl: "./spline-area-series-chart.component.html",
-    styleUrls: ["./spline-area-series-chart.component.scss"]
+    selector: "ns-area-series-chart",
+    templateUrl: "./area-series-chart.component.html",
+    styleUrls: ["./area-series-chart.component.scss"]
 })
-export class SplineAreaSeriesChart implements OnInit {
+export class AreaSeriesChart implements OnInit {
     // pass the required data for the chart component to work from the parent component
-    @Input() splineAreaProperties: SplineAreaSeriesRequiredValues;
+    @Input() splineAreaProperties: BaseContinuousGraphRequiredProperties;
     // The dataItems array needs to be sorted by dates in ascending order
     // to avoid overlapping lines
-    private _dataItems: SplineAreaSeriesChartDataItem[];
+    private _dataItems: ContinuousGraphDataItem[];
     private _linearAxisLabelFormatForDataItem: string;
     // _curveColor acts as the base color for the chart in the curve and the shaded area under the curve
     private _curveColor: Color;
@@ -29,7 +29,7 @@ export class SplineAreaSeriesChart implements OnInit {
 
     get dataItems() { return this._dataItems; }
 
-    set dataItems(newDataItems: SplineAreaSeriesChartDataItem[]) { this._dataItems = newDataItems; }
+    set dataItems(newDataItems: ContinuousGraphDataItem[]) { this._dataItems = newDataItems; }
 
     get linearAxisLabelFormatForDataItem(): string { return this._linearAxisLabelFormatForDataItem; }
 
@@ -44,46 +44,11 @@ export class SplineAreaSeriesChart implements OnInit {
 
     get curveColor(): Color { return this._curveColor; }
 
-    set curveColor(newColor: Color) {
-        this._curveColor = newColor;
-    }
+    set curveColor(newColor: Color) { this._curveColor = newColor; }
 
     get areaColor(): Color { return this._areaColor; }
 
-    set areaColor(newColor: Color) {
-        this._areaColor = newColor;
-    }
-
-    /**
-     * formats the Date string into a string that can be parsed by the minimum/maximum property
-     * of the DateTimeContinuousAxis tag in the html of this component
-     * @param dateToFormat Date object that will be used to extract the year, month, day
-     * @param isMinDate is the Date passed the min date else its the max date
-     * @returns the formatted date string
-     */
-     private formatDateToPropertyRequirementsHelper(dateToFormat: Date, isMinDate: boolean): string {
-        let year = dateToFormat.getFullYear();
-        // since the Date object numbers month from 0-11 increment the month
-        // by one. This numbers months from 1-12, the property uses this formatting.
-        let month = dateToFormat.getMonth() + 1;
-        let day = dateToFormat.getDate();
-        if (isMinDate) {
-            day--;
-        } else {
-            day++;
-        }
-        // day++
-        return `${day}/${month}/${year}`;
-    }
-
-    getMinDate(): string {
-        return this.formatDateToPropertyRequirementsHelper(this.dataItems[0].date, true);
-    }
-
-    getMaxDate(): string {
-        let lastElemIndex = this.dataItems.length - 1;
-        return this.formatDateToPropertyRequirementsHelper(this.dataItems[lastElemIndex].date, false);
-    }
+    set areaColor(newColor: Color) { this._areaColor = newColor; }
 
     onClickChart(event: ChartEventData) {
         event.series.showLabels = true;

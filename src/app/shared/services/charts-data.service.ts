@@ -42,6 +42,36 @@ export class ChartsDataService {
             timeStamp: new Date(2021, 10, 1, 17).getTime()
         },
         {
+            dataValue: null,
+            date: new Date(2021, 10, 1, 17),
+            timeStamp: new Date(2021, 10, 1, 18).getTime()
+        },
+        {
+            dataValue: null,
+            date: new Date(2021, 10, 1, 17),
+            timeStamp: new Date(2021, 10, 1, 19).getTime()
+        },
+        {
+            dataValue: null,
+            date: new Date(2021, 10, 1, 17),
+            timeStamp: new Date(2021, 10, 1, 19).getTime()
+        },
+        {
+            dataValue: null,
+            date: new Date(2021, 10, 1, 17),
+            timeStamp: new Date(2021, 10, 1, 20).getTime()
+        },
+        {
+            dataValue: null,
+            date: new Date(2021, 10, 1, 17),
+            timeStamp: new Date(2021, 10, 1, 21).getTime()
+        },
+        {
+            dataValue: null,
+            date: new Date(2021, 10, 1, 17),
+            timeStamp: new Date(2021, 10, 1, 22).getTime()
+        },
+        {
             dataValue: 55,
             date: new Date(2021, 10, 1, 23),
             timeStamp: new Date(2021, 10, 1, 23).getTime()
@@ -94,6 +124,12 @@ export class ChartsDataService {
         this._chartsDataChanged.next(this._chartsData.slice());
     }
 
+    // initializeChartServiceData(): void {
+    //     this.setChartData(this.parseIncomingSensorData(this.sensorsReadingsService.getSensorsReadingsData()));
+    //     this._sensorsReadingsDataChangedSub = this.sensorsReadingsService.sensorsReadingsDataChanged
+    //     .subscribe((sensorsReadingsData) => {
+    //         this.setChartData(this.parseIncomingSensorData(sensorsReadingsData));
+    //     });
     initializeChartServiceData(): void {
         this.setChartData(this.parseIncomingSensorData(this.sensorsReadingsService.getSensorsReadingsData()));
         this._sensorsReadingsDataChangedSub = this.sensorsReadingsService.sensorsReadingsDataChanged
@@ -102,42 +138,116 @@ export class ChartsDataService {
         });
     }
 
-    private parseIncomingSensorData(newSensorsReadingsData: Map<number, Array<SensorReading>>): SplineAreaSeriesRequiredValues[] {
+    // private parseIncomingSensorData(newSensorsReadingsData: Map<number, Array<SensorReading>>): SplineAreaSeriesRequiredValues[] {
+    //     let charts: SplineAreaSeriesRequiredValues[] = [];
+    //     newSensorsReadingsData.forEach((sensorsReadings) => {
+    //         const individualSensorReadingData = new Map<string, Array<SplineAreaSeriesChartDataItem>>();
+    //         sensorsReadings.forEach(sensorReading => {
+    //             const numberOfReadings = Object.keys(sensorReading.reading).length;
+    //             for (let i = 0; i < numberOfReadings; i++) {
+    //                 const readingKey: string = Object.keys(sensorReading.reading)[i];
+    //                 let date = new Date(sensorReading.time_of_reading);
+    //                 let timestamp = date.getTime();
+    //                 const chartDataItem: SplineAreaSeriesChartDataItem = {
+    //                     dataValue: sensorReading.reading[readingKey],
+    //                     date: date,
+    //                     timeStamp: timestamp
+    //                 };
+    //                 if (individualSensorReadingData.has(readingKey)) {
+    //                     individualSensorReadingData.get(readingKey).push(chartDataItem);
+    //                 } else {
+    //                     individualSensorReadingData.set(readingKey, [chartDataItem]);
+    //                 }
+    //             }
+    //         });
+    //         individualSensorReadingData.forEach((value, key) => {
+    //             const newChart: SplineAreaSeriesRequiredValues = {
+    //                 dataItems: value,
+    //                 unitsSymbol: "",
+    //                 splineAreaProperties: {
+    //                     chartTitle: sensorsReadings[0].sensor.sensor_name,
+    //                     legendTitle: key,
+    //                     CurveBaseColor: new Color("#22b551")
+    //                 }
+    //             };
+    //             charts.push(newChart);
+    //         });
+    //     });
+    //     return charts;
+    // }
+
+    private parseIncomingSensorData(newSensorsReadingsData: SensorReading[]): SplineAreaSeriesRequiredValues[] {
         let charts: SplineAreaSeriesRequiredValues[] = [];
-        newSensorsReadingsData.forEach((sensorsReadings) => {
-            const individualSensorReadingData = new Map<string, Array<SplineAreaSeriesChartDataItem>>();
-            sensorsReadings.forEach(sensorReading => {
-                const numberOfReadings = Object.keys(sensorReading.reading).length;
-                for (let i = 0; i < numberOfReadings; i++) {
-                    const readingKey: string = Object.keys(sensorReading.reading)[i];
-                    let date = new Date(sensorReading.time_of_reading);
+        // const charts = new Map<string, Record<string, any>>();
+        const testCharts = new Map<string, Record<string, any>>();
+        // for (let i = 0; i < newSensorsReadingsData.length; i++) {
+        //     let numberOfReadings = Object.keys(newSensorsReadingsData[i].reading).length;
+        //     for (let j = 0; j < numberOfReadings; j++) {
+        //         const chartKey = `${newSensorsReadingsData[i].sensor.id}${Object.keys(newSensorsReadingsData[i].reading[j])}`;
+        //         const readingKey: string = Object.keys(sensorReading.reading)[i];
+        //         if (!testCharts.has(chartKey)) {
+        //             testCharts.get(chartKey).chartTitle = newSensorsReadingsData[i].sensor.sensor_name;
+        //             testCharts.get(chartKey).legendTitle = newSensorsReadingsData[i].reading.;
+        //         }
+
+        //     }
+        // }
+
+        newSensorsReadingsData.forEach(sensorReading => {
+            const numberOfReadings = Object.keys(sensorReading.reading).length;
+            for (let i = 0; i < numberOfReadings; i++) {
+                const currentReadingKey = Object.keys(sensorReading.reading)[i];
+                const chartKey = `${sensorReading.sensor.id}${currentReadingKey}`;
+                if (testCharts.has(chartKey)) {
+                    let date = this.dateOffsetHours(sensorReading.time_of_reading, 7);
                     let timestamp = date.getTime();
-                    const chartDataItem: SplineAreaSeriesChartDataItem = {
-                        dataValue: sensorReading.reading[readingKey],
-                        date: date,
-                        timeStamp: timestamp
+                    testCharts.get(chartKey).dataItems
+                        .push(
+                            <SplineAreaSeriesChartDataItem>{
+                                dataValue: sensorReading.reading[currentReadingKey],
+                                date: date,
+                                timeStamp: timestamp
+                            }
+                    );
+                } else {
+                    const chart: {
+                        chartTitle: string,
+                        legendTitle: string,
+                        unitsSymbol:string,
+                        dataItems: SplineAreaSeriesChartDataItem[]
+                    } = {
+                        chartTitle: sensorReading.sensor.sensor_name,
+                        legendTitle: currentReadingKey,
+                        // change once done with test
+                        unitsSymbol: "",
+                        dataItems: []
                     };
-                    if (individualSensorReadingData.has(readingKey)) {
-                        individualSensorReadingData.get(readingKey).push(chartDataItem);
-                    } else {
-                        individualSensorReadingData.set(readingKey, [chartDataItem]);
-                    }
+                    testCharts.set(chartKey, chart);
                 }
-            });
-            individualSensorReadingData.forEach((value, key) => {
-                const newChart: SplineAreaSeriesRequiredValues = {
-                    dataItems: value,
-                    unitsSymbol: "",
-                    splineAreaProperties: {
-                        chartTitle: sensorsReadings[0].sensor.sensor_name,
-                        legendTitle: key,
-                        CurveBaseColor: new Color("#22b551")
-                    }
-                };
-                charts.push(newChart);
-            });
+            }
+        });
+        testCharts.forEach((chartData: {
+            chartTitle: string,
+            legendTitle: string,
+            unitsSymbol:string,
+            dataItems: SplineAreaSeriesChartDataItem[]
+        }) => {
+            const newChart: SplineAreaSeriesRequiredValues = {
+                dataItems: chartData.dataItems,
+                unitsSymbol: chartData.unitsSymbol,
+                splineAreaProperties: {
+                    chartTitle: chartData.chartTitle,
+                    legendTitle: chartData.legendTitle
+                }
+            };
+            charts.push(newChart);
         });
         return charts;
+    }
+
+    private dateOffsetHours(dateString: string, hoursToOffset: number): Date {
+        const date: Date = new Date(dateString);
+        return new Date(date.getTime() + (hoursToOffset * 60 * 60 * 1000));
     }
 
     fetchTemperatureData(): void {

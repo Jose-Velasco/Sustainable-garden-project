@@ -11,7 +11,7 @@ ChartSeriesLabel {
     font-weight: bold;
     font-size: 12;
     // handles how the text in the labels showed look like
-    format: "%.0f";
+    format: "%.1f";
 }
 DateTimeContinuousAxis {
     ticks-color: $primaryTextColor;
