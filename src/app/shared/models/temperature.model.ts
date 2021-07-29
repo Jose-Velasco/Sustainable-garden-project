@@ -1,3 +1,6 @@
+/**
+ * @deprecated Currently not in use by active/notDeprecated components
+ */
 export class Temperature {
     // the time value in milliseconds which is needed for RadChart plugin
     // to plot data on a chart based on the data date

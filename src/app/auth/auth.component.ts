@@ -17,8 +17,12 @@ export class AuthComponent implements OnInit {
 
     ngOnInit() {
         this.testNum = 15;
+
+        // TODO: this has been added here for charts view testing purposes only
+        // needs to be changed
         this.backendService.fetchSensorsReadings();
         this.chartsDataService.initializeChartServiceData();
+        // end TODO
     }
 
     Login() {

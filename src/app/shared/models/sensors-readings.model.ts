@@ -1,3 +1,6 @@
+/**
+ * Interface based on the backend model
+ */
 export interface sensor {
     id: number,
     created: string,
@@ -8,6 +11,9 @@ export interface sensor {
     in_use: boolean,
 }
 
+/**
+ * Interface based on the backend model
+ */
 export interface SensorReading {
     sensor: sensor
     reading: JSON,

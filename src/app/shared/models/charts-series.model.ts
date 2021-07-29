@@ -1,3 +1,4 @@
+import { ObservableArray } from "@nativescript/core";
 import { Color } from "@nativescript/core/color";
 
 export interface ContinuousGraphDataItem {
@@ -19,7 +20,7 @@ export interface ContinuousGraphDataItem {
  * custom properties per continuous chart series.
  */
 export interface BaseContinuousGraphRequiredProperties {
-    dataItems: ContinuousGraphDataItem[],
+    dataItems: ObservableArray<ContinuousGraphDataItem>,
     // The unit symbol of the data to be presented in the chart ui
     // example ％, °F, °C
     unitsSymbol: string,

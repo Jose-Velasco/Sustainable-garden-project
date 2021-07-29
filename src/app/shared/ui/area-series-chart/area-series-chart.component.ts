@@ -1,7 +1,9 @@
 import { Component, Input, OnInit } from "@angular/core";
+import { ObservableArray } from "@nativescript/core";
 import { Color } from "@nativescript/core/color";
 import { ChartEventData } from "nativescript-ui-chart/index";
 import { BaseContinuousGraphRequiredProperties, ContinuousGraphDataItem } from "../../models/charts-series.model";
+import { UIService } from "../../services/ui.service";
 
 @Component({
     selector: "ns-area-series-chart",
@@ -13,13 +15,13 @@ export class AreaSeriesChart implements OnInit {
     @Input() splineAreaProperties: BaseContinuousGraphRequiredProperties;
     // The dataItems array needs to be sorted by dates in ascending order
     // to avoid overlapping lines
-    private _dataItems: ContinuousGraphDataItem[];
+    private _dataItems: ObservableArray<ContinuousGraphDataItem>;
     private _linearAxisLabelFormatForDataItem: string;
     // _curveColor acts as the base color for the chart in the curve and the shaded area under the curve
     private _curveColor: Color;
     private _areaColor: Color;
 
-    constructor() {}
+    constructor(private UIService: UIService) {}
 
     ngOnInit() {
         this.dataItems = this.splineAreaProperties.dataItems;
@@ -29,7 +31,7 @@ export class AreaSeriesChart implements OnInit {
 
     get dataItems() { return this._dataItems; }
 
-    set dataItems(newDataItems: ContinuousGraphDataItem[]) { this._dataItems = newDataItems; }
+    set dataItems(newDataItems: ObservableArray<ContinuousGraphDataItem>) { this._dataItems = newDataItems; }
 
     get linearAxisLabelFormatForDataItem(): string { return this._linearAxisLabelFormatForDataItem; }
 
@@ -58,15 +60,6 @@ export class AreaSeriesChart implements OnInit {
         event.series.showLabels = false;
     }
 
-    private generateRandomColor(): Color {
-        let hexChars = '0123456789ABCDEF';
-        let color = '#';
-        for (var i = 0; i < 6; i++) {
-            color += hexChars[Math.floor(Math.random() * 16)];
-        }
-        return new Color(color);
-    }
-
     /**
      * Programmatically creates and sets the color of the area under the curve, so
      * it has a transparent look... Uses color in _curveColor rgba values but cuts the alpha
@@ -92,7 +85,7 @@ export class AreaSeriesChart implements OnInit {
     private initializeAreaAndCurveColors(): void {
         if (this.splineAreaProperties.splineAreaProperties.CurveBaseColor == null) {
             // generates a random color if one is not given
-            this.curveColor = this.generateRandomColor();
+            this.curveColor = this.UIService.generateRandomColor();
         } else {
             this.curveColor = this.splineAreaProperties.splineAreaProperties.CurveBaseColor;
         }

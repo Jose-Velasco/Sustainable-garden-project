@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { BehaviorSubject } from "rxjs";
-import { isAndroid, Label, EventData } from "@nativescript/core";
+import { isAndroid, Label, EventData, Color } from "@nativescript/core";
 
 @Injectable({ providedIn: 'root'})
 export class UIService {
@@ -25,5 +25,19 @@ export class UIService {
         if (isAndroid) {
             lbl.android.setGravity(android.view.Gravity.CENTER);
         }
+    }
+
+    /**
+     * Generates a random hex color string to instantiate a Color
+     * object
+     * @returns returns a random Color object
+     */
+    generateRandomColor(): Color {
+        let hexChars = '0123456789ABCDEF';
+        let color = '#';
+        for (var i = 0; i < 6; i++) {
+            color += hexChars[Math.floor(Math.random() * 16)];
+        }
+        return new Color(color);
     }
 }

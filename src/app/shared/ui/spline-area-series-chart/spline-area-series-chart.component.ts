@@ -1,7 +1,9 @@
 import { Component, Input, OnInit } from "@angular/core";
+import { ObservableArray } from "@nativescript/core";
 import { Color } from "@nativescript/core/color";
 import { ChartEventData } from "nativescript-ui-chart/index";
-import { SplineAreaSeriesRequiredValues, SplineAreaSeriesChartDataItem } from "../../models/spline-area-series-required-values.model";
+import { BaseContinuousGraphRequiredProperties, ContinuousGraphDataItem, } from "../../models/charts-series.model";
+import { UIService } from "../../services/ui.service";
 
 @Component({
     selector: "ns-spline-area-series-chart",
@@ -10,16 +12,16 @@ import { SplineAreaSeriesRequiredValues, SplineAreaSeriesChartDataItem } from ".
 })
 export class SplineAreaSeriesChart implements OnInit {
     // pass the required data for the chart component to work from the parent component
-    @Input() splineAreaProperties: SplineAreaSeriesRequiredValues;
+    @Input() splineAreaProperties: BaseContinuousGraphRequiredProperties;
     // The dataItems array needs to be sorted by dates in ascending order
     // to avoid overlapping lines
-    private _dataItems: SplineAreaSeriesChartDataItem[];
+    private _dataItems: ObservableArray<ContinuousGraphDataItem>;
     private _linearAxisLabelFormatForDataItem: string;
     // _curveColor acts as the base color for the chart in the curve and the shaded area under the curve
     private _curveColor: Color;
     private _areaColor: Color;
 
-    constructor() {}
+    constructor(private uiService: UIService) {}
 
     ngOnInit() {
         this.dataItems = this.splineAreaProperties.dataItems;
@@ -29,7 +31,7 @@ export class SplineAreaSeriesChart implements OnInit {
 
     get dataItems() { return this._dataItems; }
 
-    set dataItems(newDataItems: SplineAreaSeriesChartDataItem[]) { this._dataItems = newDataItems; }
+    set dataItems(newDataItems: ObservableArray<ContinuousGraphDataItem>) { this._dataItems = newDataItems; }
 
     get linearAxisLabelFormatForDataItem(): string { return this._linearAxisLabelFormatForDataItem; }
 
@@ -60,11 +62,13 @@ export class SplineAreaSeriesChart implements OnInit {
      * @param dateToFormat Date object that will be used to extract the year, month, day
      * @param isMinDate is the Date passed the min date else its the max date
      * @returns the formatted date string
+     * @deprecated let radChart library auto calculate the min/max dates and unit steps for now
      */
      private formatDateToPropertyRequirementsHelper(dateToFormat: Date, isMinDate: boolean): string {
         let year = dateToFormat.getFullYear();
         // since the Date object numbers month from 0-11 increment the month
         // by one. This numbers months from 1-12, the property uses this formatting.
+        // TODO: bug falls out of the 1-12 range utilize % as possible fix
         let month = dateToFormat.getMonth() + 1;
         let day = dateToFormat.getDate();
         if (isMinDate) {
@@ -72,17 +76,16 @@ export class SplineAreaSeriesChart implements OnInit {
         } else {
             day++;
         }
-        // day++
         return `${day}/${month}/${year}`;
     }
 
     getMinDate(): string {
-        return this.formatDateToPropertyRequirementsHelper(this.dataItems[0].date, true);
+        return this.formatDateToPropertyRequirementsHelper(this.dataItems[0]["date"], true);
     }
 
     getMaxDate(): string {
         let lastElemIndex = this.dataItems.length - 1;
-        return this.formatDateToPropertyRequirementsHelper(this.dataItems[lastElemIndex].date, false);
+        return this.formatDateToPropertyRequirementsHelper(this.dataItems[lastElemIndex]["date"], false);
     }
 
     onClickChart(event: ChartEventData) {
@@ -91,15 +94,6 @@ export class SplineAreaSeriesChart implements OnInit {
 
     onDeselectedChart(event: ChartEventData) {
         event.series.showLabels = false;
-    }
-
-    private generateRandomColor(): Color {
-        let hexChars = '0123456789ABCDEF';
-        let color = '#';
-        for (var i = 0; i < 6; i++) {
-            color += hexChars[Math.floor(Math.random() * 16)];
-        }
-        return new Color(color);
     }
 
     /**
@@ -127,7 +121,7 @@ export class SplineAreaSeriesChart implements OnInit {
     private initializeAreaAndCurveColors(): void {
         if (this.splineAreaProperties.splineAreaProperties.CurveBaseColor == null) {
             // generates a random color if one is not given
-            this.curveColor = this.generateRandomColor();
+            this.curveColor = this.uiService.generateRandomColor();
         } else {
             this.curveColor = this.splineAreaProperties.splineAreaProperties.CurveBaseColor;
         }

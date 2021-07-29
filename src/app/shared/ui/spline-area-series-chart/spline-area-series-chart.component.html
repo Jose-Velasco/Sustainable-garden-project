@@ -7,15 +7,6 @@
         horizontalLinesVisible="true"
         verticalLinesVisible="true">
     </RadCartesianChartGrid>
-    <!-- <DateTimeCategoricalAxis
-        tkCartesianHorizontalAxis
-        plotMode="BetweenTicks"
-        majorTickInterval="0"
-        dateFormat="HH-SS"
-        dateTimeComponent="Day"
-        labelFitMode="Rotate" labelRotationAngle="1.2"
-        allowPan="true">
-    </DateTimeCategoricalAxis> -->
     <DateTimeContinuousAxis
         tkCartesianHorizontalAxis
         plotMode="OnTicks"
@@ -23,6 +14,9 @@
         labelFitMode="Rotate" labelRotationAngle="1.2"
         allowPan="true">
     </DateTimeContinuousAxis>
+    <!-- another possible horizontal axis for the graph
+            that calculates the min and max date manually and
+            has a settable step units -->
     <!-- <DateTimeContinuousAxis
         tkCartesianHorizontalAxis
         [minimum]="getMinDate()" [maximum]="getMaxDate()"
@@ -44,7 +38,7 @@
         position="Top"
         enableSelection="true">
     </RadLegendView>
-    <!-- <SplineAreaSeries
+    <SplineAreaSeries
         [strokeColor]="curveColor"
         [fillColor]="areaColor"
         seriesName="splineArea"
@@ -58,20 +52,5 @@
             [strokeColor]="curveColor"
             [fillColor]="curveColor">
         </PointLabelStyle>
-    </SplineAreaSeries> -->
-    <AreaSeries
-        [strokeColor]="curveColor"
-        [fillColor]="areaColor"
-        seriesName="areaSeries"
-        [legendTitle]="splineAreaProperties.splineAreaProperties.legendTitle"
-        tkCartesianSeries
-        [items]="dataItems"
-        categoryProperty="timeStamp"
-        valueProperty="dataValue">
-        <PointLabelStyle
-            tkAreaLabelStyle
-            [strokeColor]="curveColor"
-            [fillColor]="curveColor">
-        </PointLabelStyle>
-    </AreaSeries>
+    </SplineAreaSeries>
 </RadCartesianChart>

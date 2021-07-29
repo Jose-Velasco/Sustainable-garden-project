@@ -1,0 +1,36 @@
+@use "sass:color";
+@import "../../scss/variables";
+
+// Might longer be needed since the values are being updated and applied
+// programmatically in the .ts file
+// SplineAreaSeries {
+//     fill-color: color.adjust($primaryUnselectedColor, $alpha: -0.5);
+//     // stroke-color: $primaryUnselectedColor;
+// }
+ChartSeriesLabel {
+    font-weight: bold;
+    font-size: 12;
+    // handles how the text in the labels showed look like
+    format: "%.1f";
+}
+DateTimeContinuousAxis {
+    ticks-color: $primaryTextColor;
+    ticks-length: 6;
+    ticks-thickness: 1;
+    line-thickness: 2;
+    line-color: $primaryTextColor;
+    label-text-color: $primaryTextColor;
+    label-size: 3;
+}
+LinearAxis {
+    ticks-color: $primaryTextColor;
+    ticks-length: 6;
+    ticks-thickness: 1;
+    line-thickness: 2;
+    line-color: $primaryTextColor;
+    label-text-color: $primaryTextColor;
+    label-size: 5;
+}
+ChartAxisLabel {
+    font-weight: bold;
+}

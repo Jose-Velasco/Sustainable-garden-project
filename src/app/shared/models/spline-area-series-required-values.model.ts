@@ -1,5 +1,9 @@
 import { Color } from "@nativescript/core/color";
 
+/**
+ * @deprecated Utilize ContinuousGraphDataItem instead and possibly implement it into
+ * new or custom interfaces if needed
+ */
 export interface SplineAreaSeriesChartDataItem {
     // the data value to be plotted on the graph
     // This basically is the Y-coordinate.
@@ -14,6 +18,8 @@ export interface SplineAreaSeriesChartDataItem {
 /**
  * Use this interface when reusing splineAreaSeriesChartComponent in other parts of the app
  * in order to reuse the component with different data
+ * @deprecated Utilize BaseContinuousGraphRequiredProperties instead and possibly implement it into
+ * new or custom interfaces if needed
  */
 export interface SplineAreaSeriesRequiredValues {
     dataItems: SplineAreaSeriesChartDataItem[],

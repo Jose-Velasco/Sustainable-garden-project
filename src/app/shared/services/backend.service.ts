@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
-import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { HttpClient } from "@angular/common/http";
 import { SensorsReadingsDataService } from "./sensors-readings-data.service";
+import { SensorReading } from "../models/sensors-readings.model";
 
 @Injectable({providedIn: "root"})
 export class BackendService {
@@ -12,12 +13,16 @@ export class BackendService {
         private sensorsReadingsDataService: SensorsReadingsDataService,
         private http: HttpClient) {}
 
+    /**
+     * gets all of the sensors readings from the backend.
+     * currently there are no accounts to it pulls all the readings
+     */
     fetchSensorsReadings() {
-        this.http.get(`${this._sustainableGardenBackendBaseURL}/sensors/readings`,
+        this.http.get<SensorReading[]>(`${this._sustainableGardenBackendBaseURL}/sensors/readings`,
         {headers: {
             "Content-Type": "application/json"
         }}).subscribe(
-            (sensorsReadingsData: []) => {
+            (sensorsReadingsData) => {
                 this.sensorsReadingsDataService.setSensorsReadingsData(sensorsReadingsData);
             }
         );
