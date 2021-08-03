@@ -1,0 +1,64 @@
+import { Injectable } from "@angular/core";
+import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
+import { SensorsReadingsDataService } from "./sensors-readings-data.service";
+import { SensorReading } from "../models/sensors-readings.model";
+
+@Injectable({providedIn: "root"})
+export class BackendService {
+    // use network address 10.0.2.2 to go to your 127.0.0.1 on you development machine from
+    // inside of the android emulator
+    private _sustainableGardenBackendBaseURL = "http://10.0.2.2:8000";
+    private _httpHeaders: HttpHeaders = new HttpHeaders({"Content-Type":"application/json"});
+    private _isEndpointTest = true;
+
+    constructor(
+        private sensorsReadingsDataService: SensorsReadingsDataService,
+        private http: HttpClient) {}
+
+    /**
+     * gets all of the sensors readings from the backend.
+     * currently there are no accounts so it pulls all the readings
+     */
+    fetchAllSensorsReadings() {
+        this.http.get<SensorReading[]>(
+            `${this._sustainableGardenBackendBaseURL}/sensors/readings`,
+            {
+                headers: this._httpHeaders
+            }
+            ).subscribe(
+                (sensorsReadingsData) => {
+                    this.sensorsReadingsDataService.setSensorsReadingsData(sensorsReadingsData);
+            }
+        );
+    }
+
+    /**
+     * Reads all current sensor values.
+     * If isEndpointTesting is true then server response will generate random test data values
+     */
+    readCurrentSensorValues() {
+        const queryParams = new HttpParams().set("is_endpoint_test", `${this._isEndpointTest}`);
+        this.http.get<SensorReading[]>(
+            `${this._sustainableGardenBackendBaseURL}/sensors/all/read`,
+            {
+                headers: this._httpHeaders,
+                params: queryParams
+            }
+            ).subscribe(data => {
+                this.sensorsReadingsDataService.processSensorValues(data);
+            }
+        );
+    }
+
+    /**
+     * For Dashboard view UI testing can be removed.
+     * Repeatedly call the backend for current(realtime?) sensor values
+     */
+    testDashboardViewUIWithCurrentSensorData(): void {
+        const millisecondsDelay = 2500;
+        setTimeout(()=> {
+            this.readCurrentSensorValues();
+            this.testDashboardViewUIWithCurrentSensorData();
+        }, millisecondsDelay);
+    }
+}

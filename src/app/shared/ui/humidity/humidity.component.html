@@ -5,9 +5,9 @@
         </AbsoluteLayout>
     </FlexboxLayout>
     <FlexboxLayout class="flex-center-nested-layouts">
-        <Label class="humidity-label-text" text="100%"></Label>
+        <Label class="humidity-label-text" text="{{ humidityValue | number : '1.1-1' }}%"></Label>
     </FlexboxLayout>
-    <!-- custom tear ui component test -->
+    <!-- TODO: custom tear ui component test -->
     <!-- <StackLayout class="drop-wrapper" verticalAlignment="center">
         <Label class="test-tear-top"></Label>
         <Label class="test-tear"></Label>

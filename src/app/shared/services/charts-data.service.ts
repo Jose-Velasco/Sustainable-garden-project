@@ -1,144 +1,84 @@
-import { Injectable } from "@angular/core";
-import { Color } from "@nativescript/core/color";
-import { Temperature } from "../models/temperature.model";
-import { SplineAreaSeriesRequiredValues, SplineAreaSeriesChartDataItem } from "../models/spline-area-series-required-values.model";
-import { BehaviorSubject, Observable } from "rxjs";
+import { Injectable, OnDestroy } from "@angular/core";
+import { Observable, Subject, Subscription } from "rxjs";
+import { SensorsReadingsDataService } from "./sensors-readings-data.service";
+import { SensorReading } from "../models/sensors-readings.model";
+import { ObservableArray } from "@nativescript/core";
+import { BaseContinuousGraphRequiredProperties, ContinuousGraphDataItem} from "../models/charts-series.model";
 
 @Injectable({ providedIn: 'root' })
-export class ChartsDataService {
-    private _humidityData = new BehaviorSubject<SplineAreaSeriesRequiredValues>(null);
-    private _temperatureData = new BehaviorSubject<SplineAreaSeriesRequiredValues>(null);
-    private _luminosityData = new BehaviorSubject<SplineAreaSeriesRequiredValues>(null);
+export class ChartsDataService implements OnDestroy {
+    private _sensorsReadingsDataChangedSub: Subscription;
+    private _chartsDataChanged = new Subject<BaseContinuousGraphRequiredProperties[]>();
+    private _chartsData: BaseContinuousGraphRequiredProperties[];
 
-    testHumidityData: SplineAreaSeriesChartDataItem[] = [
-        {
-            dataValue: 76,
-            date: new Date(2021, 9, 30, 0),
-            timeStamp: new Date(2021, 9, 30, 0).getTime()
-        },
-        {
-            dataValue: 66,
-            date: new Date(2021, 9, 30, 23),
-            timeStamp: new Date(2021, 9, 30, 23).getTime()
-        },
-        {
-            dataValue: 93,
-            date: new Date(2021, 10, 1, 5),
-            timeStamp: new Date(2021, 10, 1, 5).getTime()
-        },
-        {
-            dataValue: 84,
-            date: new Date(2021, 10, 1, 11),
-            timeStamp: new Date(2021, 10, 1, 11).getTime()
-        },
-        {
-            dataValue: 50,
-            date: new Date(2021, 10, 1, 17),
-            timeStamp: new Date(2021, 10, 1, 17).getTime()
-        },
-        {
-            dataValue: 55,
-            date: new Date(2021, 10, 1, 23),
-            timeStamp: new Date(2021, 10, 1, 23).getTime()
-        },
-        {
-            dataValue: 89,
-            date: new Date(2021, 10, 2, 5),
-            timeStamp: new Date(2021, 10, 2, 5).getTime()
-        },
-        {
-            dataValue: 21,
-            date: new Date(2021, 10, 3, 5),
-            timeStamp: new Date(2021, 10, 3, 5).getTime()
-        },
-        {
-            dataValue: 99,
-            date: new Date(2021, 10, 4, 5),
-            timeStamp: new Date(2021, 10, 4, 5).getTime()
-        },
-    ];
+    constructor(private sensorsReadingsService: SensorsReadingsDataService) {}
 
-
-    constructor() {
-        this.fetchTemperatureData();
-        this.fetchHumidityData();
-        this.fetchLuminosityData();
-    }
-
-    get temperatureData(): Observable<SplineAreaSeriesRequiredValues>  {
-        return this._temperatureData.asObservable();
-    }
-
-    get humidityData(): Observable<SplineAreaSeriesRequiredValues> {
-        return this._humidityData.asObservable();
-    }
-
-    get luminosityData(): Observable<SplineAreaSeriesRequiredValues> {
-        return this._luminosityData.asObservable();
-    }
-
-    fetchTemperatureData(): void {
-        this._temperatureData.next(this.getDummyTemperatureData());
-    }
-
-    fetchHumidityData(): void {
-        this._humidityData.next(this.getDummyHumidityData());
-    }
-
-    fetchLuminosityData(): void {
-        this._luminosityData.next(this.getDummySunData());
-    }
-
-    private getDummyTempDataArray(): Temperature[] {
-        return [
-            // the horus for dummy data 0-18 in increments of 6 hours(times here are offsets b/c timezone diff)
-            new Temperature(81, new Date(2021, 9, 30, 0)),
-            new Temperature(81, new Date(2021, 9, 30, 23)),
-            new Temperature(81, new Date(2021, 10, 1, 5)),
-            new Temperature(65, new Date(2021, 10, 1, 11)),
-            new Temperature(55, new Date(2021, 10, 1, 17)),
-            new Temperature(74, new Date(2021, 10, 1, 23)),
-            new Temperature(110, new Date(2021, 10, 2, 5)),
-            new Temperature(36, new Date(2021, 10, 2, 11)),
-            new Temperature(94, new Date(2021, 10, 2, 17)),
-            new Temperature(100, new Date(2021, 10, 2, 23)),
-            new Temperature(73, new Date(2021, 10, 3, 5)),
-            new Temperature(70, new Date(2021, 10, 3, 11)),
-            new Temperature(50, new Date(2021, 10, 3, 17)),
-            new Temperature(65, new Date(2021, 10, 3, 23)),
-            new Temperature(65, new Date(2021, 10, 4, 5)),
-        ];
-    }
-
-    private getDummyHumidityData(): SplineAreaSeriesRequiredValues{
-        return {
-            dataItems: this.testHumidityData,
-            unitsSymbol: "％",
-            splineAreaProperties: {
-                legendTitle: "Humidity",
-                CurveBaseColor: new Color("#1D4985")
-            }
-        };
-    }
-
-    private getDummyTemperatureData(): SplineAreaSeriesRequiredValues{
-        return {
-            dataItems: this.testHumidityData,
-            unitsSymbol: "°F",
-            splineAreaProperties: {
-                legendTitle: "Temperature"
-            }
-        };
-    }
-
-    private getDummySunData(): SplineAreaSeriesRequiredValues {
-        return {
-            dataItems: this.testHumidityData,
-            unitsSymbol: "watts",
-            splineAreaProperties: {
-                legendTitle: "luminosity",
-                CurveBaseColor: new Color("#EBDB7A")
-            }
+    ngOnDestroy() {
+        if (this._sensorsReadingsDataChangedSub) {
+            this._sensorsReadingsDataChangedSub.unsubscribe();
         }
+    }
+
+    get chartData(): BaseContinuousGraphRequiredProperties[] {
+        return this._chartsData.slice();
+    }
+
+    get chartsDataChanged(): Observable<BaseContinuousGraphRequiredProperties[]> {
+        return this._chartsDataChanged.asObservable();
+    }
+
+    setChartData(newChartsData: BaseContinuousGraphRequiredProperties[]): void {
+        this._chartsData = newChartsData;
+        this._chartsDataChanged.next(this._chartsData.slice());
+    }
+
+    initializeChartServiceData(): void {
+        this.setChartData(this.parseIncomingSensorsDataToForCharts(this.sensorsReadingsService.getSensorsReadingsData()));
+        this._sensorsReadingsDataChangedSub = this.sensorsReadingsService.sensorsReadingsDataChanged
+        .subscribe((sensorsReadingsData) => {
+            this.setChartData(this.parseIncomingSensorsDataToForCharts(sensorsReadingsData));
+        });
+    }
+
+    private parseIncomingSensorsDataToForCharts(newSensorsReadingsData: SensorReading[]): BaseContinuousGraphRequiredProperties[] {
+        const charts: BaseContinuousGraphRequiredProperties[] = [];
+        // string referencing a chart's index in charts array
+        const keyToIndexInChartsArray = new Map<string, number>();
+        let rearIndex = 0;
+        newSensorsReadingsData.forEach(sensorReading => {
+            const numberOfReadings = Object.keys(sensorReading.reading).length;
+            for (let i = 0; i < numberOfReadings; i++) {
+                // the key and name of the current reading
+                const currentReadingKey = Object.keys(sensorReading.reading)[i];
+                // unique key to reference the chart
+                // utilize sensor's id and the reading output name of sensor because
+                // sensors names are not unique
+                const chartKey = `${sensorReading.sensor.id}${currentReadingKey}`;
+                // adds chart
+                if (!keyToIndexInChartsArray.has(chartKey)) {
+                    // This maps a new chart's index position in the charts array
+                    // to have a reference to it chart by a key
+                    keyToIndexInChartsArray.set(chartKey, rearIndex);
+                    // updates the reference to the rear index in the charts array
+                    rearIndex++;
+                    const chart: BaseContinuousGraphRequiredProperties = {
+                        dataItems: new ObservableArray<ContinuousGraphDataItem>(),
+                        // change once done with test
+                        unitsSymbol: "",
+                        splineAreaProperties: {
+                            chartTitle: sensorReading.sensor.sensor_name,
+                            legendTitle: currentReadingKey,
+                        }
+                    };
+                    // add new chart
+                    charts.push(chart);
+                }
+                const newContinuosGraphDataItem = this.sensorsReadingsService.generateContinuosGraphDataItem(
+                    sensorReading.time_of_reading, sensorReading.reading[currentReadingKey]
+                );
+                charts[keyToIndexInChartsArray.get(chartKey)].dataItems.push(newContinuosGraphDataItem);
+            }
+        });
+        return charts;
     }
 }

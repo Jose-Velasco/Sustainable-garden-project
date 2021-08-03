@@ -1,8 +1,35 @@
 <RadSideDrawer drawerTransition="RevealTransition">
-  <GridLayout columns="*" rows="auto, auto, auto,auto" tkDrawerContent>
-    <Button row="1" col="0" text="Dashboard"></Button>
-    <Button row="2" col="0" text="Settings"></Button>
-    <Button row="3" col="0" text="Logout!"></Button>
+  <GridLayout class="navigation-menu-container" columns="*" rows="*, 2*" tkDrawerContent>
+    <FlexboxLayout row="0" class="profile-image-section-wrapper flex-center-nested-layouts">
+      <Label #profileIconLabel lblCenter text="&#xf06c;" class="fa"></Label>
+    </FlexboxLayout>
+    <GridLayout row="1" rows="auto, auto, auto, *" class="nav-buttons-wrapper">
+      <Button verticalAlignment="center" row="0" class="fa">
+        <FormattedString>
+          <Span class="button-icon-font" text="&#xf009;"></Span>
+          <Span text="     Dashboard"></Span>
+        </FormattedString>
+      </Button>
+      <Button row="1" class="fa">
+        <FormattedString>
+          <Span class="button-icon-font" text="&#xf2db;"></Span>
+          <Span text="     Sensors"></Span>
+        </FormattedString>
+      </Button>
+      <Button row="2" class="fa">
+        <FormattedString>
+          <Span class="button-icon-font" text="&#xf013;"></Span>
+          <Span text="     Settings"></Span>
+        </FormattedString>
+      </Button>
+      <GridLayout verticalAlignment="bottom" row="3" columns=" *, *" class="nav-footer-wrapper">
+        <Button column="0" class="fa logout-btn" text="Logout"></Button>
+        <FlexboxLayout column="1" class="brand-icons-wrapper">
+          <Label lblCenter (tap)="onClickSocialMediaIcon('Instagram')" class="fab btn-brand-icon" text="&#xf16d;"></Label>
+          <Label lblCenter (tap)="onClickSocialMediaIcon('Discord')" class="fab btn-brand-icon" text="&#xf392;"></Label>
+        </FlexboxLayout>
+      </GridLayout>
+    </GridLayout>
   </GridLayout>
     <page-router-outlet tkMainContent></page-router-outlet>
 </RadSideDrawer>

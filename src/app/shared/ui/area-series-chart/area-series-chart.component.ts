@@ -2,15 +2,15 @@ import { Component, Input, OnInit } from "@angular/core";
 import { ObservableArray } from "@nativescript/core";
 import { Color } from "@nativescript/core/color";
 import { ChartEventData } from "nativescript-ui-chart/index";
-import { BaseContinuousGraphRequiredProperties, ContinuousGraphDataItem, } from "../../models/charts-series.model";
+import { BaseContinuousGraphRequiredProperties, ContinuousGraphDataItem } from "../../models/charts-series.model";
 import { UIService } from "../../services/ui.service";
 
 @Component({
-    selector: "ns-spline-area-series-chart",
-    templateUrl: "./spline-area-series-chart.component.html",
-    styleUrls: ["./spline-area-series-chart.component.scss"]
+    selector: "ns-area-series-chart",
+    templateUrl: "./area-series-chart.component.html",
+    styleUrls: ["./area-series-chart.component.scss"]
 })
-export class SplineAreaSeriesChart implements OnInit {
+export class AreaSeriesChart implements OnInit {
     // pass the required data for the chart component to work from the parent component
     @Input() splineAreaProperties: BaseContinuousGraphRequiredProperties;
     // The dataItems array needs to be sorted by dates in ascending order
@@ -21,7 +21,7 @@ export class SplineAreaSeriesChart implements OnInit {
     private _curveColor: Color;
     private _areaColor: Color;
 
-    constructor(private uiService: UIService) {}
+    constructor(private UIService: UIService) {}
 
     ngOnInit() {
         this.dataItems = this.splineAreaProperties.dataItems;
@@ -46,47 +46,11 @@ export class SplineAreaSeriesChart implements OnInit {
 
     get curveColor(): Color { return this._curveColor; }
 
-    set curveColor(newColor: Color) {
-        this._curveColor = newColor;
-    }
+    set curveColor(newColor: Color) { this._curveColor = newColor; }
 
     get areaColor(): Color { return this._areaColor; }
 
-    set areaColor(newColor: Color) {
-        this._areaColor = newColor;
-    }
-
-    /**
-     * formats the Date string into a string that can be parsed by the minimum/maximum property
-     * of the DateTimeContinuousAxis tag in the html of this component
-     * @param dateToFormat Date object that will be used to extract the year, month, day
-     * @param isMinDate is the Date passed the min date else its the max date
-     * @returns the formatted date string
-     * @deprecated let radChart library auto calculate the min/max dates and unit steps for now
-     */
-     private formatDateToPropertyRequirementsHelper(dateToFormat: Date, isMinDate: boolean): string {
-        let year = dateToFormat.getFullYear();
-        // since the Date object numbers month from 0-11 increment the month
-        // by one. This numbers months from 1-12, the property uses this formatting.
-        // TODO: bug falls out of the 1-12 range utilize % as possible fix
-        let month = dateToFormat.getMonth() + 1;
-        let day = dateToFormat.getDate();
-        if (isMinDate) {
-            day--;
-        } else {
-            day++;
-        }
-        return `${day}/${month}/${year}`;
-    }
-
-    getMinDate(): string {
-        return this.formatDateToPropertyRequirementsHelper(this.dataItems[0]["date"], true);
-    }
-
-    getMaxDate(): string {
-        let lastElemIndex = this.dataItems.length - 1;
-        return this.formatDateToPropertyRequirementsHelper(this.dataItems[lastElemIndex]["date"], false);
-    }
+    set areaColor(newColor: Color) { this._areaColor = newColor; }
 
     onClickChart(event: ChartEventData) {
         event.series.showLabels = true;
@@ -121,7 +85,7 @@ export class SplineAreaSeriesChart implements OnInit {
     private initializeAreaAndCurveColors(): void {
         if (this.splineAreaProperties.splineAreaProperties.CurveBaseColor == null) {
             // generates a random color if one is not given
-            this.curveColor = this.uiService.generateRandomColor();
+            this.curveColor = this.UIService.generateRandomColor();
         } else {
             this.curveColor = this.splineAreaProperties.splineAreaProperties.CurveBaseColor;
         }

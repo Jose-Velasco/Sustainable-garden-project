@@ -14,16 +14,6 @@
         labelFitMode="Rotate" labelRotationAngle="1.2"
         allowPan="true">
     </DateTimeContinuousAxis>
-    <!-- another possible horizontal axis for the graph
-            that calculates the min and max date manually and
-            has a settable step units -->
-    <!-- <DateTimeContinuousAxis
-        tkCartesianHorizontalAxis
-        [minimum]="getMinDate()" [maximum]="getMaxDate()"
-        majorStep="1" majorStepUnit="Day" dateFormat="MMM-d"
-        labelFitMode="Rotate" labelRotationAngle="1.2"
-        allowPan="true">
-    </DateTimeContinuousAxis> -->
     <LinearAxis
         tkCartesianVerticalAxis
         [labelFormat]="linearAxisLabelFormatForDataItem"
@@ -38,19 +28,19 @@
         position="Top"
         enableSelection="true">
     </RadLegendView>
-    <SplineAreaSeries
+    <AreaSeries
         [strokeColor]="curveColor"
         [fillColor]="areaColor"
-        seriesName="splineArea"
+        seriesName="areaSeries"
         [legendTitle]="splineAreaProperties.splineAreaProperties.legendTitle"
         tkCartesianSeries
         [items]="dataItems"
         categoryProperty="timeStamp"
         valueProperty="dataValue">
         <PointLabelStyle
-            tkSplineAreaLabelStyle
+            tkAreaLabelStyle
             [strokeColor]="curveColor"
             [fillColor]="curveColor">
         </PointLabelStyle>
-    </SplineAreaSeries>
+    </AreaSeries>
 </RadCartesianChart>

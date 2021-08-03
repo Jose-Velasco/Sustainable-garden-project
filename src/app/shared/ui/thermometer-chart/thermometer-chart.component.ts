@@ -1,9 +1,12 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { Subscription } from "rxjs";
 import { Temperature, TemperatureDegreeAbbreviation } from "../../models/temperature.model";
-import { ChartsDataService } from "../../services/charts-data.service";
 import { ChartEventData } from "nativescript-ui-chart/index";
 
+
+/**
+ * @deprecated Component has been deprecated utilize SplineAreaSeriesChart, AreaSeriesChart ect...
+ */
 @Component({
     selector: "ns-thermometer-chart",
     templateUrl: "./thermometer-chart.component.html",
@@ -16,12 +19,14 @@ export class ThermometerChartComponent implements OnInit, OnDestroy {
     private _temperatureData: Temperature[];
     private _linearAxisLabelFormatForTemperature: string;
 
-    constructor(private chartsDataService: ChartsDataService) { }
+    constructor() { }
 
     ngOnInit() {
-        this._temperatureDataSub = this.chartsDataService.temperatureData.subscribe((temperatureData) => {
-            // this.temperatureData = temperatureData;
-        });
+        console.warn("This component has been deprecated utilize the more generalized chart components");
+        console.warn("EX. SplineAreaSeriesChart, AreaSeriesChart ect...");
+        // this._temperatureDataSub = this.chartsDataService.temperatureData.subscribe((temperatureData) => {
+        //     // this.temperatureData = temperatureData;
+        // });
         this.setLinearAxisLabelTemperatureFormat(TemperatureDegreeAbbreviation.Fahrenheit);
     }
 

@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, Input } from "@angular/core";
 
 @Component({
     selector: "ns-rain",
@@ -10,20 +10,14 @@ export class RainComponent implements OnInit {
     private _isRaining: boolean;
     readonly iconColors = {
         notRain: "#DEDEDE",
-        rainCloud: "#C7C7C7",
+        rainCloud: "#b1b1b1",
         rainDrops: "#91E7EB"
     };
 
     constructor() {}
 
-    ngOnInit() {
-        this.isRaining = true;
-    }
+    ngOnInit() { }
 
     get isRaining(): boolean { return this._isRaining; }
-    set isRaining(isRaining: boolean) { this._isRaining = isRaining; }
-
-    public testRainColor(): void {
-        this.isRaining = !this.isRaining;
-    }
+    @Input() set isRaining(isRaining: boolean) { this._isRaining = isRaining; }
 }
