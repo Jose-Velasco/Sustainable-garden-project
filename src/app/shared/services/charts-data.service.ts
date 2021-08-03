@@ -51,7 +51,7 @@ export class ChartsDataService implements OnDestroy {
                 // the key and name of the current reading
                 const currentReadingKey = Object.keys(sensorReading.reading)[i];
                 // unique key to reference the chart
-                // utilize sensor's id and the user given name of sensor because
+                // utilize sensor's id and the reading output name of sensor because
                 // sensors names are not unique
                 const chartKey = `${sensorReading.sensor.id}${currentReadingKey}`;
                 // adds chart
@@ -80,16 +80,5 @@ export class ChartsDataService implements OnDestroy {
             }
         });
         return charts;
-    }
-
-    /**
-     * Attempts to manually handle UTC to PST hours offsets
-     * @param dateString UTC date string Usually from the backend server
-     * @param hoursToOffset number of hours to offset
-     * @returns returns a new Date object with the calculated offsets hours
-     */
-    private dateOffsetHours(dateString: string, hoursToOffset: number): Date {
-        const date: Date = new Date(dateString);
-        return new Date(date.getTime() + (hoursToOffset * 60 * 60 * 1000));
     }
 }

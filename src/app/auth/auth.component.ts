@@ -20,7 +20,7 @@ export class AuthComponent implements OnInit {
 
         // TODO: this has been added here for charts view testing purposes only
         // needs to be changed
-        this.backendService.fetchSensorsReadings();
+        this.backendService.fetchAllSensorsReadings();
         this.chartsDataService.initializeChartServiceData();
         // end TODO
     }

@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, Input } from "@angular/core";
 
 @Component({
     selector: "ns-humidity",
@@ -6,5 +6,6 @@ import { Component } from "@angular/core";
     styleUrls: ["./humidity.component.scss"]
 })
 export class HumidityComponent {
+    @Input() humidityValue: number;
     constructor() {}
 }

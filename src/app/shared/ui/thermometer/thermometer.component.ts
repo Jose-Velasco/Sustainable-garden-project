@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
+import { Component, ElementRef, OnInit, ViewChild, Input } from "@angular/core";
 import { AbsoluteLayout, Enums, EventData, isAndroid, Label } from "@nativescript/core";
 
 @Component({
@@ -9,15 +9,12 @@ import { AbsoluteLayout, Enums, EventData, isAndroid, Label } from "@nativescrip
 export class ThermometerComponent implements OnInit {
     @ViewChild("absLayout", { read: ElementRef, static: true}) private _absLayout: ElementRef;
     @ViewChild("mainTopThermoLargeTickMarkLabel", { read: ElementRef, static: true}) private _mainTopThermoLargeTickMarkLabel: ElementRef;
+    @ViewChild("thermometerLiquid", {read: ElementRef, static: true}) private _thermometerLiquid: ElementRef<Label>;
     private _temperature: number;
     constructor() {}
 
     ngOnInit() {
-        /**
-         * Hook up and listen for when the temperature changes, once
-         * the backend is sett up
-         */
-        this.temperature = 790;
+        this.temperature = 0;
         this.renderThermoTickMarks(5, 4, 8.8);
     }
 
@@ -33,13 +30,17 @@ export class ThermometerComponent implements OnInit {
         return this._temperature;
     }
 
-    set temperature(temp: number) {
+    @Input() set temperature(temp: number) {
         this._temperature = temp;
+        this.animateThermometer(this.thermometerLiquid, this._temperature);
     }
 
+    // TODO: dynamically change the temperature units based on backend or user set setting
     getTemperatureText(): string {
-        return `${this.temperature}°F`;
+        return `${this.temperature.toFixed(0)}°C`;
     }
+
+    get thermometerLiquid(): ElementRef<Label> { return this._thermometerLiquid; }
 
     /**
      * helper function for renderThermoTickMarks method. top and left values
@@ -99,7 +100,7 @@ export class ThermometerComponent implements OnInit {
         // generates a random temperature for testing purposes [-20, 115]
         let randTemp =  Math.floor(Math.random() * (115 - (-20) + 1) - 20);
         this.temperature = randTemp;
-        this.animateThermometer(args, randTemp);
+        // this.animateThermometer(args, randTemp);
     }
 
     /**
@@ -123,12 +124,11 @@ export class ThermometerComponent implements OnInit {
 
     /**
      * Handles animating the thermometer based on the temperature.
-     * @param args Label to animate
+     * @param labelElement Label to animate
      * @param temperature will determine the height of the thermometer level
      */
-    private animateThermometer(args: EventData, temperature: number): void {
-        const lbl = args.object as Label;
-        lbl.animate({
+    private animateThermometer(labelElement: ElementRef<Label>, temperature: number): void {
+        labelElement.nativeElement.animate({
             translate: {x: 0, y: this.calculateThermoAniValue(temperature)},
             duration: 500,
             curve: Enums.AnimationCurve.easeIn

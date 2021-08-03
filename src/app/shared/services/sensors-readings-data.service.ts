@@ -7,6 +7,9 @@ import { SensorReading } from "../models/sensors-readings.model";
 export class SensorsReadingsDataService {
     private _sensorsReadingsDataChanged = new Subject <Array<SensorReading>>();
     private _sensorsReadingsData: SensorReading[] = [];
+    private _currentTemperatureChanged = new Subject<number>();
+    private _currentHumidityChanged = new Subject<number>();
+    private _currentRainStatusChanged = new Subject<number>();
     private _pSTHoursOffset: number = 7;
 
     constructor() {}
@@ -25,6 +28,20 @@ export class SensorsReadingsDataService {
     }
 
     get pSTHoursOffset(): number { return this._pSTHoursOffset; }
+
+    get currentTemperature(): Observable<number> { return this._currentTemperatureChanged.asObservable(); }
+    setCurrentTemperature(newTemperatureValue: number): void {
+        this._currentTemperatureChanged.next(newTemperatureValue);
+    }
+
+    get currentHumidity(): Observable<number> { return this._currentHumidityChanged.asObservable(); }
+    setCurrentHumidity(newHumidityValue: number): void {
+        this._currentHumidityChanged.next(newHumidityValue);
+    }
+    get currentRainStatus(): Observable<number> { return this._currentRainStatusChanged.asObservable(); }
+    setCurrentRainStatus(newRainStatus: number): void {
+        this._currentRainStatusChanged.next(newRainStatus);
+    }
 
     /**
      * Attempts to manually handle UTC to PST hours offsets
@@ -70,5 +87,92 @@ export class SensorsReadingsDataService {
             }
         });
         return incomingSensorsReadingsData;
+    }
+
+    /**
+     * TODO: dynamically change which sensors to read data outputs from based on user selected sensors in settings?
+     * Hard coded for two sensors with properties such as:
+     *  [
+     *       {
+     *           "sensor": {
+     *               "id": 1,
+     *               "created": "2021-08-03T00:12:15.545294Z",
+     *               "sensor_name": "Humidity and Temp",
+     *               "sensor_type": "DHT11 - Humidity/Temperature",
+     *               "pin": 1,
+     *               "usb_port": "/dev/ttyUSB0",
+     *               "in_use": true
+     *           },
+     *           "reading": {
+     *               "Humidity": 31.25,
+     *               "Temperature": 26.44
+     *           },
+     *           "time_of_reading": "2021-08-03T08:24:45.570769Z"
+     *       },
+     *       {
+     *           "sensor": {
+     *               "id": 2,
+     *               "created": "2021-08-03T00:12:15.552478Z",
+     *               "sensor_name": "Rain",
+     *               "sensor_type": "Rain Sensor",
+     *               "pin": 2,
+     *               "usb_port": "/dev/ttyUSB0",
+     *               "in_use": true
+     *           },
+     *           "reading": {
+     *               "Rain": 1
+     *           },
+     *           "time_of_reading": "2021-08-03T08:24:45.571852Z"
+     *       }
+     *   ]
+     * Takes in new current(realtime?) sensor reading values and processes them
+     * to be consumed by the Dashboard view
+     * @param currentSensorReadings new sensor Reading values
+     */
+    processSensorValues(currentSensorReadings: SensorReading[]) {
+        currentSensorReadings.forEach(currentSensorReading => {
+            // const numberOfReadings = Object.keys(currentSensorReading.reading).length;
+            // for (let i = 0; i < numberOfReadings; i++) {
+            //     const tempReading = currentSensorReading.reading[i]
+            //     this.dispatchCurrentSensorReadingValue(tempReading);
+            // }
+            for (var singleReadingKey in currentSensorReading.reading) {
+                const newTemp = new Map<string, number>([
+                    [singleReadingKey, currentSensorReading.reading[singleReadingKey]]
+                ]);
+                this.dispatchCurrentSensorReadingValue(newTemp);
+            }
+
+        });
+    }
+
+    /**
+     * A single key value pair where key points to the data stream to be updated
+     * and the value is the value that will be pushed to the observers
+     * @param newSingleReading a single key value pair
+     */
+    private dispatchCurrentSensorReadingValue(newSingleReading: Map<string, number>): void {
+        const currentOverviewInputActions = new Map([
+            ["Temperature", (e:number)=>this.setCurrentTemperature(e)],
+            ["Humidity", (e:number)=>this.setCurrentHumidity(e)],
+            ["Rain", (e:number)=>this.setCurrentRainStatus(e)],
+        ]);
+        const readingKey = newSingleReading.keys().next().value;
+        const readingValue = newSingleReading.get(readingKey)
+        currentOverviewInputActions.get(readingKey)(readingValue);
+        // switch (readingKey) {
+        //     case "Humidity":
+        //         this.setCurrentHumidity(readingValue);
+        //         break;
+        //     case "Rain":
+        //         this.setCurrentRainStatus(readingValue);
+        //         break;
+        //     case "Temperature":
+        //         this.setCurrentTemperature(readingValue)
+        //         break;
+        //     default:
+        //         console.warn(`Dispatch current sensor reading values key not found:${readingKey}`);
+        //         break;
+        // }
     }
 }

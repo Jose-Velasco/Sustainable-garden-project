@@ -5,13 +5,13 @@
     <ns-rain col="0" row="1"></ns-rain>
     <Label col="1" row="1" class="fa icon-sun" text="&#xf185;"></Label> -->
     <GridLayout col="0" row="0" class="dashboard-components-wrapper">
-        <ns-thermometer></ns-thermometer>
+        <ns-thermometer [temperature]="currentTemperatureValue"></ns-thermometer>
     </GridLayout>
     <GridLayout col="1" row="0" class="dashboard-components-wrapper">
-        <ns-humidity></ns-humidity>
+        <ns-humidity [humidityValue]="currentHumidityValue"></ns-humidity>
     </GridLayout>
     <GridLayout class="dashboard-components-wrapper" col="0" row="1">
-        <ns-rain></ns-rain>
+        <ns-rain [isRaining]="currentRainStatus"></ns-rain>
     </GridLayout>
     <GridLayout class="dashboard-components-wrapper" col="1" row="1">
         <Label

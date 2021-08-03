@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { ChartsDataService } from "../../shared/services/charts-data.service";
 import { Subscription } from "rxjs";
-import { BaseContinuousGraphRequiredProperties } from "src/app/shared/models/charts-series.model";
+import { BaseContinuousGraphRequiredProperties } from "../../shared/models/charts-series.model";
 
 @Component({
     selector: "ns-dashboard-charts",
