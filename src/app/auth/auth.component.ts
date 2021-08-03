@@ -1,5 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { RouterExtensions } from "@nativescript/angular";
+import { BackendService } from "../shared/services/backend.service";
+import { ChartsDataService } from "../shared/services/charts-data.service";
 
 @Component({
     selector: "ns-auth",
@@ -9,11 +11,18 @@ import { RouterExtensions } from "@nativescript/angular";
 export class AuthComponent implements OnInit {
     testNum: number;
     constructor(
-        private router: RouterExtensions
-    ) {}
+        private router: RouterExtensions,
+        private backendService: BackendService,
+        private chartsDataService: ChartsDataService) {}
 
     ngOnInit() {
         this.testNum = 15;
+
+        // TODO: this has been added here for charts view testing purposes only
+        // needs to be changed
+        this.backendService.fetchAllSensorsReadings();
+        this.chartsDataService.initializeChartServiceData();
+        // end TODO
     }
 
     Login() {

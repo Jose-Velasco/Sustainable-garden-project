@@ -1,0 +1,56 @@
+<RadCartesianChart
+    seriesSelectionMode="Single"
+    (seriesSelected)="onClickChart($event)"
+    (seriesDeselected)="onDeselectedChart($event)">
+    <RadCartesianChartGrid
+        tkCartesianGrid
+        horizontalLinesVisible="true"
+        verticalLinesVisible="true">
+    </RadCartesianChartGrid>
+    <DateTimeContinuousAxis
+        tkCartesianHorizontalAxis
+        plotMode="OnTicks"
+        dateFormat="MMM-d"
+        labelFitMode="Rotate" labelRotationAngle="1.2"
+        allowPan="true">
+    </DateTimeContinuousAxis>
+    <!-- another possible horizontal axis for the graph
+            that calculates the min and max date manually and
+            has a settable step units -->
+    <!-- <DateTimeContinuousAxis
+        tkCartesianHorizontalAxis
+        [minimum]="getMinDate()" [maximum]="getMaxDate()"
+        majorStep="1" majorStepUnit="Day" dateFormat="MMM-d"
+        labelFitMode="Rotate" labelRotationAngle="1.2"
+        allowPan="true">
+    </DateTimeContinuousAxis> -->
+    <LinearAxis
+        tkCartesianVerticalAxis
+        [labelFormat]="linearAxisLabelFormatForDataItem"
+        allowPan="true">
+    </LinearAxis>
+    <RadLegendView
+        tkCartesianLegend
+        height="52"
+        title=" {{splineAreaProperties.splineAreaProperties.chartTitle}}"
+        titleColor="black"
+        titleSize="7"
+        position="Top"
+        enableSelection="true">
+    </RadLegendView>
+    <SplineAreaSeries
+        [strokeColor]="curveColor"
+        [fillColor]="areaColor"
+        seriesName="splineArea"
+        [legendTitle]="splineAreaProperties.splineAreaProperties.legendTitle"
+        tkCartesianSeries
+        [items]="dataItems"
+        categoryProperty="timeStamp"
+        valueProperty="dataValue">
+        <PointLabelStyle
+            tkSplineAreaLabelStyle
+            [strokeColor]="curveColor"
+            [fillColor]="curveColor">
+        </PointLabelStyle>
+    </SplineAreaSeries>
+</RadCartesianChart>

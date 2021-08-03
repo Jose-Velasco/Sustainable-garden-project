@@ -13,6 +13,7 @@ The imported CSS rules must precede all other types of rules.
 @import "~@nativescript/theme/core";
 @import "~@nativescript/theme/blue";
 @import "./app/shared/scss/mixins";
+@import "./app/shared/scss/variables";
 
 /* Place any CSS rules you want to apply on both iOS and Android here.
 This is where the vast majority of your CSS code goes. */
@@ -24,6 +25,10 @@ The following CSS rule changes the font size of all Buttons that have the
 .fa {
     // font-family: "FontAwesome", "Font-Awesome";
     font-family: "fasolid900", "fa-solid-900";
+}
+// contains font icons for brands EX. instagram, twitter etc.
+.fab {
+    font-family: "faBrandsRegular400" ,"fa-Brands-Regular-400";
 }
 Button.-primary {
     font-size: 18;
@@ -38,4 +43,60 @@ Button.-primary {
 .flex-center-nested-layouts {
     justify-content: center;
     align-items: center;
+}
+
+// The following code section is the styling for the navigation menu
+.navigation-menu-container {
+    background-color: $primaryNavigationColor;
+    .profile-image-section-wrapper {
+        background-color: $primaryCanvas;
+        Label {
+            text-align: center;
+            height: 55%;
+            width: 50%;
+            border-radius: 70%;
+            font-size: 50;
+            color: $primaryCanvas;
+            background-color: #fc775f;
+        }
+    }
+    .nav-buttons-wrapper {
+        // background-color: purple;
+        // targets only the direct children Buttons
+        & > Button {
+            width: 100%;
+            margin-bottom: 15;
+            padding-left: 25;
+            font-size: 16;
+            background-color: $primaryNavigationColor;
+            color: $primaryTextColor;
+            text-align: left;
+            font-weight: bold;
+            android-elevation: 0;
+            .button-icon-font {
+                font-size: 21;
+            }
+        }
+        .nav-footer-wrapper {
+            .logout-btn {
+                background-color: $primaryNavigationColor;
+                border-radius: 30;
+                color: $primaryTextColor;
+                border-color: $primaryTextColor;
+                border-width: 2;
+            }
+            .brand-icons-wrapper {
+                padding-top: 9;
+                justify-content: space-around;
+                text-align: center;
+                .btn-brand-icon {
+                    text-align: center;
+                    background-color: $primaryNavigationColor;
+                    color: $primaryTextColor;
+                    font-size: 30;
+                    font-weight: bold;
+                }
+            }
+        }
+    }
 }

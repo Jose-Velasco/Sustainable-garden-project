@@ -11,7 +11,7 @@
     <FlexboxLayout class="flex-center-nested-layouts">
         <StackLayout class="thermo-inner-wrapper">
             <StackLayout>
-                <Label class="inner-round-square" (tap)="testThermometerAnimation($event)"></Label>
+                <Label #thermometerLiquid class="inner-round-square"></Label>
             </StackLayout>
             <Label class="inner-circle" [text]="this.getTemperatureText()" (loaded)="onCircleLabelLoaded($event)"></Label>
         </StackLayout>
