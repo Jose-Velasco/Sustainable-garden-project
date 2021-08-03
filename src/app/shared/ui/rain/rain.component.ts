@@ -20,8 +20,4 @@ export class RainComponent implements OnInit {
 
     get isRaining(): boolean { return this._isRaining; }
     @Input() set isRaining(isRaining: boolean) { this._isRaining = isRaining; }
-
-    testRainColor(): void {
-        this.isRaining = !this.isRaining;
-    }
 }

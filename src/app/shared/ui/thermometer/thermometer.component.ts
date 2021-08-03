@@ -90,20 +90,6 @@ export class ThermometerComponent implements OnInit {
     }
 
     /**
-     * function to test the thermometer animation. Might have to use
-     * viewChild to get the Label to animate when calling the function without a
-     * tap event since the animation should trigger based on when the this.temperature
-     * data changes.
-     * @param args Label to animate
-     */
-    testThermometerAnimation(args:EventData): void {
-        // generates a random temperature for testing purposes [-20, 115]
-        let randTemp =  Math.floor(Math.random() * (115 - (-20) + 1) - 20);
-        this.temperature = randTemp;
-        // this.animateThermometer(args, randTemp);
-    }
-
-    /**
      * will squeeze the temperature number into a value that is in the domain of the animation constraints and output it. This
      * is needed because this current animation can only accept numbers in the range of [0,100]
      * in order to avoid visual bugs. The higher the temperature the lower the output value.

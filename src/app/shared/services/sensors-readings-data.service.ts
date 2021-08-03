@@ -131,11 +131,6 @@ export class SensorsReadingsDataService {
      */
     processSensorValues(currentSensorReadings: SensorReading[]) {
         currentSensorReadings.forEach(currentSensorReading => {
-            // const numberOfReadings = Object.keys(currentSensorReading.reading).length;
-            // for (let i = 0; i < numberOfReadings; i++) {
-            //     const tempReading = currentSensorReading.reading[i]
-            //     this.dispatchCurrentSensorReadingValue(tempReading);
-            // }
             for (var singleReadingKey in currentSensorReading.reading) {
                 const newTemp = new Map<string, number>([
                     [singleReadingKey, currentSensorReading.reading[singleReadingKey]]
@@ -160,19 +155,5 @@ export class SensorsReadingsDataService {
         const readingKey = newSingleReading.keys().next().value;
         const readingValue = newSingleReading.get(readingKey)
         currentOverviewInputActions.get(readingKey)(readingValue);
-        // switch (readingKey) {
-        //     case "Humidity":
-        //         this.setCurrentHumidity(readingValue);
-        //         break;
-        //     case "Rain":
-        //         this.setCurrentRainStatus(readingValue);
-        //         break;
-        //     case "Temperature":
-        //         this.setCurrentTemperature(readingValue)
-        //         break;
-        //     default:
-        //         console.warn(`Dispatch current sensor reading values key not found:${readingKey}`);
-        //         break;
-        // }
     }
 }
