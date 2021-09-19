@@ -40,6 +40,12 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy  {
         this.changeDetectionRef.detectChanges();
     }
 
+    Logout() {
+        this.router.navigate(["auth"], { clearHistory: true});
+        this.uiService.toggleSidedrawer();
+        console.log("loggedOut");
+    }
+
     onProfileIconLabelLoaded(args: EventData): void {
         this.uiService.centerAndroidTextVerticallyAndHorizontally(args);
     }
