@@ -46,6 +46,10 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy  {
         console.log("loggedOut");
     }
 
+    DashboardReturn() {
+        this.uiService.toggleSidedrawer();
+    }
+
     onProfileIconLabelLoaded(args: EventData): void {
         this.uiService.centerAndroidTextVerticallyAndHorizontally(args);
     }
