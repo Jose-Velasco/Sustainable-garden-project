@@ -48,6 +48,8 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy  {
 
     DashboardReturn() {
         this.uiService.toggleSidedrawer();
+        
+        
     }
 
     onProfileIconLabelLoaded(args: EventData): void {

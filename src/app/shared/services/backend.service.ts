@@ -8,7 +8,7 @@ export class BackendService {
     // use network address 10.0.2.2 to go to your 127.0.0.1 on you development machine from
     // inside of the android emulator
     private _sustainableGardenBackendBaseURL = "http://10.0.2.2:8000";
-    private _httpHeaders: HttpHeaders = new HttpHeaders({"Content-Type":"application/json"});
+    private tns_httpHeaders: HttpHeaders = new HttpHeaders({"Content-Type":"application/json"});
     private _isEndpointTest = true;
 
     constructor(
@@ -23,7 +23,7 @@ export class BackendService {
         this.http.get<SensorReading[]>(
             `${this._sustainableGardenBackendBaseURL}/sensors/readings`,
             {
-                headers: this._httpHeaders
+                headers: this.tns_httpHeaders
             }
             ).subscribe(
                 (sensorsReadingsData) => {
@@ -41,7 +41,7 @@ export class BackendService {
         this.http.get<SensorReading[]>(
             `${this._sustainableGardenBackendBaseURL}/sensors/all/read`,
             {
-                headers: this._httpHeaders,
+                headers: this.tns_httpHeaders,
                 params: queryParams
             }
             ).subscribe(data => {
