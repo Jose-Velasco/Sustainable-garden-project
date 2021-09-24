@@ -1,8 +1,21 @@
 <StackLayout>
-    <Label class="testB" text="Auth component works!"></Label>
+    <Label class="TitleLogin" text="LOGIN" style="text-align:center"></Label>
+    
+    <Textfield  class="usernameField"
+                hint="Username"
+                [text]='name'
+                secure="false"
+                returnKeyType="done"
+                >
+    </Textfield>
 
-    <p>Please input your username</p>
-    <textarea name=? cols="10" rows="50"></textarea>
-    <textarea name=? cols="10" rows="50"></textarea>
-    <Button (tap)="Login()" text="Log in"></Button>
+    <Textfield  class="passwordField"
+                hint="Password"
+                [text]='name2'
+                secure="true"
+                returnKeyType="done"
+                >
+    </Textfield>
+    
+    <Button class="LoginButton" (tap)="Login()" text="Log in"></Button>
 </StackLayout>

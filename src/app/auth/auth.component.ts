@@ -10,6 +10,8 @@ import { ChartsDataService } from "../shared/services/charts-data.service";
 })
 export class AuthComponent implements OnInit {
     testNum: number;
+    name = "";
+    name2 = "";
     constructor(
         private router: RouterExtensions,
         private backendService: BackendService,
