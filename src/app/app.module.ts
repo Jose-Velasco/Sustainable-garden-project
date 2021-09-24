@@ -4,6 +4,7 @@ import { NativeScriptHttpClientModule, NativeScriptModule } from "@nativescript/
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { AuthComponent } from "./auth/auth.component";
+import { NewAccountPage } from "./newAccountPage/newAccountPage.component";
 import { DashboardOverviewComponent } from "./components/dashboard-overview/dashboard-overview.component";
 import { NativeScriptUISideDrawerModule } from "nativescript-ui-sidedrawer/angular";
 import { ThermometerComponent } from "./shared/ui/thermometer/thermometer.component";
@@ -33,6 +34,7 @@ import { AreaSeriesChart } from "./shared/ui/area-series-chart/area-series-chart
     declarations: [
         AppComponent,
         AuthComponent,
+        NewAccountPage,
         DashboardOverviewComponent,
         ThermometerComponent,
         TabsNavigationComponent,

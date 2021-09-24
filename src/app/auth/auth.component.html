@@ -2,10 +2,16 @@
     <Label class="TitleLogin" text="LOGIN" style="text-align:center"></Label>
     
     <Textfield  class="usernameField"
-                hint="Username"
+                hint="Username/Email"
                 [text]='name'
                 secure="false"
-                returnKeyType="done"
+                keyboardType="email"
+                returnKeyType="next" 
+                (returnPress)="usernameOnReturnPress($event)"
+                autocorrect="false"
+                maxLength="30"
+                (focus)="usernameOnFocus($event)" 
+                (blur)="usernameOnBlur($event)"
                 >
     </Textfield>
 
@@ -13,9 +19,18 @@
                 hint="Password"
                 [text]='name2'
                 secure="true"
-                returnKeyType="done"
+                keyboardType="email"
+                returnKeyType="done" 
+                (returnPress)="onReturnPress($event)"
+                autocorrect="false"
+                maxLength="30"
+                (focus)="onFocus($event)" 
+                (blur)="onBlur($event)"
                 >
     </Textfield>
     
     <Button class="LoginButton" (tap)="Login()" text="Log in"></Button>
+
+    <Button class="NewAccountButton" (tap)="createNewAccount()" text="New around here? Create an account!"></Button>
+
 </StackLayout>
