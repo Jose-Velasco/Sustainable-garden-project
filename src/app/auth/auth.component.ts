@@ -11,8 +11,11 @@ import { ChartsDataService } from "../shared/services/charts-data.service";
 })
 export class AuthComponent implements OnInit {
     testNum: number;
-    name = "";
-    name2 = "";
+    username = "";
+    password = "";
+    exisitngUser = "JosephC12";
+    existingPassword = "somePassword";
+    
     constructor(
         private router: RouterExtensions,
         private backendService: BackendService,
@@ -21,14 +24,52 @@ export class AuthComponent implements OnInit {
     ngOnInit() {
         this.testNum = 15;
 
-        // TODO: this has been added here for charts view testing purposes only
-        // needs to be changed
         this.backendService.fetchAllSensorsReadings();
         this.chartsDataService.initializeChartServiceData();
+        // TODO: this has been added here for charts view testing purposes only
+        // needs to be changed
         // end TODO
     }
 
+    
     Login() {
+        // TODO, create a server with docker to verfiy usernames and passwords
+        /*
+        let options = {
+            title: "Invalid Login",
+            message: "Username/Email was not found in database.",
+            okButtonText: "OK"
+        };
+        
+        alert(options).then(() => {
+            console.log("Race chosen!");
+        });
+
+        for dialog component in ui under shared
+        */
+        // the user's username input does not match any username in the database
+        /*if (this.username != this.exisitngUser){
+            // TODO, connect a server with data to check the users with HTTP request and docker
+            console.log(this.username);
+            console.log("Invalid input: username/email was not found in database");
+
+            // dialog, invalid input: username/email was not found in database
+        }
+        
+        // the user has a username in the database, but the password doesnt match
+        else if (this.username == this.exisitngUser && this.existingPassword != this.password) {
+            // TODO, connect a server with data to check the password with HTTP request and docker
+            console.log("Invalid input: password was not found in database")
+        }
+
+        // else, the user that has a username in the database and has matched with their password, login
+        else {
+            this.router.navigate(["tabs"], { clearHistory: true});
+            this.backendService.fetchAllSensorsReadings();
+            this.chartsDataService.initializeChartServiceData();
+            console.log("loggedIn");
+        }
+        */
         this.router.navigate(["tabs"], { clearHistory: true});
         console.log("loggedIn");
     }
@@ -46,6 +87,7 @@ export class AuthComponent implements OnInit {
         //console.log(textField.hint);
         // Gets or sets the input text.
         console.log("The username is " + textField.text);
+        textField.text = this.username;
         // Gets or sets the secure option (e.g. for passwords).
         //console.log(textField.secure);
 
@@ -88,6 +130,7 @@ export class AuthComponent implements OnInit {
         //console.log(textField.hint);
         // Gets or sets the input text.
         console.log("The password is " + textField.text);
+        textField.text = this.password;
         // Gets or sets the secure option (e.g. for passwords).
         //console.log(textField.secure);
 

@@ -24,6 +24,9 @@ export class NewAccountPage implements OnInit {
         //this.backendService.fetchAllSensorsReadings();
         //this.chartsDataService.initializeChartServiceData();
         // end TODO
+
+        this.backendService.fetchAllSensorsReadings();
+        this.chartsDataService.initializeChartServiceData();
     }
 
     AccountConfirmButton() {
@@ -34,7 +37,5 @@ export class NewAccountPage implements OnInit {
         
         this.router.navigate(["tabs"], { clearHistory: true});
         console.log("accountCreated");
-        this.backendService.fetchAllSensorsReadings();
-        this.chartsDataService.initializeChartServiceData();
     }
 }

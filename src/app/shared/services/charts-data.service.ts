@@ -47,6 +47,7 @@ export class ChartsDataService implements OnDestroy {
         let rearIndex = 0;
         newSensorsReadingsData.forEach(sensorReading => {
             const numberOfReadings = Object.keys(sensorReading.reading).length;
+            
             for (let i = 0; i < numberOfReadings; i++) {
                 // the key and name of the current reading
                 const currentReadingKey = Object.keys(sensorReading.reading)[i];
