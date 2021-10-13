@@ -4,31 +4,43 @@ import { TextField } from "@nativescript/core/ui/text-field";
 import { BackendService } from "../shared/services/backend.service";
 import { ChartsDataService } from "../shared/services/charts-data.service";
 
+// decorator, tells angular and nativescript what component we are talking about
 @Component({
-    selector: "ns-auth",
-    templateUrl: "./auth.component.html",
-    styleUrls: ["auth.component.scss"]
+    selector: "ns-auth", //where in nativescript is this componet
+    templateUrl: "./auth.component.html", // which html doc is this associated to
+    styleUrls: ["auth.component.scss"] // which scss styling doc is this associated to
 })
-export class AuthComponent implements OnInit {
-    testNum: number;
-    username = "";
-    password = "";
-    exisitngUser = "JosephC12";
-    existingPassword = "somePassword";
+// the auth component "auth" has an alias in Typescript: AuthComponent
+// AuthComponent can be found in app.module.ts, not needed to be touched with Angular CLI working  
+export class AuthComponent implements OnInit { // the AuthComponent initializes...
+    //...with the following data
+    testNum: number; //! is this used?
+    username = ""; // placeholder for string username
+    password = ""; // placeholder for string password
+    exisitngUser = "JosephC12"; // an exisiting user for testing
+    existingPassword = "somePassword"; // an exisiting password for testing
     
+    // TODO: need to set up a server for the exisitng password verification
+    // TODO: need to allow sending data to such server
+    // TODO: use the logic found in the Login() method inside the server code to verfiy username and password 
+    
+    // constructing the object
     constructor(
-        private router: RouterExtensions,
-        private backendService: BackendService,
-        private chartsDataService: ChartsDataService) {}
+        private router: RouterExtensions, // nativescript's navigation internally, needed to 
+                                          // navigate to the main portion of the program, see bottom of Login() method
+        private backendService: BackendService, // see src/app/shared/services/backend.service.ts for more information
+                                                // used to get the data from the backend service, see (1)
+        private chartsDataService: ChartsDataService) {} // see src/app/shared/services/charts-data.service.ts for more information
+                                                         // used to get the charts data, see (2)
 
+    // where Angular initializes the component, our main() equivalent
     ngOnInit() {
-        this.testNum = 15;
+        this.testNum = 15; //! is this used?
 
-        this.backendService.fetchAllSensorsReadings();
-        this.chartsDataService.initializeChartServiceData();
-        // TODO: this has been added here for charts view testing purposes only
-        // needs to be changed
-        // end TODO
+        this.backendService.fetchAllSensorsReadings(); // (1)
+        this.chartsDataService.initializeChartServiceData(); //! (2)
+        // TODO: "this.chartsDataService.initializeChartServiceData();" has been added here for charts view testing purposes only
+        //!needs to be changed
     }
 
     
@@ -58,7 +70,7 @@ export class AuthComponent implements OnInit {
         
         // the user has a username in the database, but the password doesnt match
         else if (this.username == this.exisitngUser && this.existingPassword != this.password) {
-            // TODO, connect a server with data to check the password with HTTP request and docker
+            // TODO, connect a server with data to check the password with HTTP request
             console.log("Invalid input: password was not found in database")
         }
 
@@ -70,10 +82,15 @@ export class AuthComponent implements OnInit {
             console.log("loggedIn");
         }
         */
-        this.router.navigate(["tabs"], { clearHistory: true});
-        console.log("loggedIn");
+        
+        this.router.navigate(["tabs"], { clearHistory: true});  
+        // uses the RouterExtentions from constructor to navigate to tabs, see "tabs" in
+        // src/app/app-routing.module.ts
+        // clearHistory clears the data to be ready for any data in the next component
+        console.log("loggedIn"); // tell us we logged in
     }
 
+    // go to newAccount page, same process as previous method but to newAccountPage
     createNewAccount(){
         this.router.navigate(["newAccountPage"], { clearHistory: true});
         console.log("creatingAccount");

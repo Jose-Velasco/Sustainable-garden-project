@@ -1,6 +1,22 @@
+<!-- 
+    Using the StackLayout to show the components of the auth page
+        - used to log in to the app or create an account, see 
+        src/app/newAccountPage to look at code for that page
+-->
 <StackLayout>
+    <!-- Align our title of the page -->
     <Label class="TitleLogin" text="LOGIN" style="text-align:center"></Label>
     
+    <!-- Textfield:
+         see the documentation of Textfield here: 
+    -->
+
+    <!-- 
+        Data: input from usernameField: [text]='username' 
+        
+        Events: usernameOnReturnPress, usernameOnReturnFocus, usernameOnReturnBlur
+        see auth.component.ts for function methods for these events
+    -->
     <Textfield  class="usernameField"
                 hint="Username/Email"
                 [text]='username'
@@ -15,6 +31,12 @@
                 >
     </Textfield>
 
+    <!-- 
+        Data: input from passwordField: [text]='password' 
+        
+        Events: onReturnPress, onReturnFocus, onReturnBlur
+        see auth.component.ts for function methods for these events
+    -->
     <Textfield  class="passwordField"
                 hint="Password"
                 [text]='password'
@@ -28,9 +50,9 @@
                 (blur)="onBlur($event)"
                 >
     </Textfield>
-    
+    <!-- create a button to login, see auth.component.ts for function method Login() -->
     <Button class="LoginButton" (tap)="Login()" text="Log in"></Button>
-
+    <!-- create a button to make a new account, see auth.component.ts for function method createNewAccount() -->
     <Button class="NewAccountButton" (tap)="createNewAccount()" text="New around here? Create an account!"></Button>
 
 </StackLayout>
