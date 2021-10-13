@@ -3,32 +3,46 @@ import { ChartsDataService } from "../../shared/services/charts-data.service";
 import { Subscription } from "rxjs";
 import { BaseContinuousGraphRequiredProperties } from "../../shared/models/charts-series.model";
 
+// decorator, tells angular and nativescript what component we are talking about
 @Component({
-    selector: "ns-dashboard-charts",
-    templateUrl: "./dashboard-charts.component.html",
-    styleUrls: ["./dashboard-charts.component.scss"]
+    selector: "ns-dashboard-charts", //where in nativescript is this component
+    templateUrl: "./dashboard-charts.component.html", // which html doc is this associated to
+    styleUrls: ["./dashboard-charts.component.scss"] // which scss styling doc is this associated to
 })
+
+// the dashboard charts component "dashboard-charts" has an alias in Typescript: DashboardChartsComponent
+// DashboardChartsComponent can be found in app.module.ts, not needed to be touched with Angular CLI working
 export class DashboardChartsComponent implements OnInit, OnDestroy {
+    // the AuthComponent initializes with the following data
+    
+    
+    //!required --- these next four lines are chart formatting
     private _charts: BaseContinuousGraphRequiredProperties[];
     private _chartsChangedSub: Subscription;
     private _gridLayoutRows: string;
     private _rowsSize: number;
 
+    //uses chartsDataService to grab data for charts, 
+    //see src/app/shared/services/charts-data.service.ts for more information
     constructor(private chartsDataService: ChartsDataService) {}
 
+    // where Angular initializes the component, our main() equivalent
     ngOnInit() {
-        this.rowsSize = 500
-        this.charts = this.chartsDataService.chartData;
+        this.rowsSize = 500 //row size
+        this.charts = this.chartsDataService.chartData; // our data going into the charts
+
         // generates a GridLayout dynamically based on the expected amount of charts
         // and sizes the rows
         this.gridLayoutRows = this.createGrindLayoutRowsString(this.charts.length, this.rowsSize);
         this._chartsChangedSub = this.chartsDataService.chartsDataChanged
+            // add data by subscribing and setting a part of the charts with the data
             .subscribe((newChartsData: BaseContinuousGraphRequiredProperties[]) => {
                 this.charts = newChartsData;
-                console.log("new charts!!!");
+                console.log("new charts!!!"); // tell us we got new charts
             });
     }
 
+    //get and set our new charts with the required properties, and row and col sizes
     get charts(): BaseContinuousGraphRequiredProperties[] { return this._charts; }
     set charts(newCharts) { this._charts = newCharts; }
 
@@ -45,9 +59,8 @@ export class DashboardChartsComponent implements OnInit, OnDestroy {
     }
 
     /**
-     * creates the string GrindLayout utilizes to make the up the layout dynamically based
-     * on the number of rows and row size. Check out the NativeScript docs from more info on
-     * the specific formatting of this string.
+     * creates the string GridLayout which utilizes the charts layout to be created dynamically based
+     * on the number of rows and row size. Check out the NativeScript docs from more info on the specific formatting of this string.
      * @param numberOfRows number of GridLayout rows
      * @param rowSize size of the rows in pixels
      * @returns
@@ -63,6 +76,7 @@ export class DashboardChartsComponent implements OnInit, OnDestroy {
         return rowsString;
     }
 
+    // Angular gets rid of the charts when we leave this page
     ngOnDestroy() {
         if (this._chartsChangedSub) {
             this._chartsChangedSub.unsubscribe();

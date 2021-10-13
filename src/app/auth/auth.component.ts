@@ -6,7 +6,7 @@ import { ChartsDataService } from "../shared/services/charts-data.service";
 
 // decorator, tells angular and nativescript what component we are talking about
 @Component({
-    selector: "ns-auth", //where in nativescript is this componet
+    selector: "ns-auth", //where in nativescript is this component
     templateUrl: "./auth.component.html", // which html doc is this associated to
     styleUrls: ["auth.component.scss"] // which scss styling doc is this associated to
 })

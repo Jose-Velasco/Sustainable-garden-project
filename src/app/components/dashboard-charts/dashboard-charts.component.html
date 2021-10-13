@@ -1,7 +1,7 @@
 <ns-action-bar title="Charts" ></ns-action-bar>
 <ScrollView orientation="vertical">
     <!-- TODO: need to dynamically adjust the height of the charts constrainer
-            so it can be responsive and display possibly two charts at a time -->
+               so it can be responsive and display possibly two charts at a time -->
     <GridLayout [rows]="gridLayoutRows">
         <GridLayout row="{{i}}" class="chart-wrapper" *ngFor="let chart of charts; index as i">
             <!-- uncomment this and comment out the other component to have a curve graph
@@ -13,6 +13,7 @@
             <!--<ns-area-series-chart
                 [splineAreaProperties]="chart">
             </ns-area-series-chart> --->
+            <!--! the past 6 lines are duplicated for testing only-->
         </GridLayout>
     </GridLayout>
 </ScrollView>
