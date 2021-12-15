@@ -1,8 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { RouterExtensions } from "@nativescript/angular";
 import { TextField } from "@nativescript/core/ui/text-field";
-import { BackendService } from "../shared/services/backend.service";
-import { ChartsDataService } from "../shared/services/charts-data.service";
 
 @Component({
     selector: "ns-newAccountPage",
@@ -11,22 +9,9 @@ import { ChartsDataService } from "../shared/services/charts-data.service";
 })
 export class NewAccountPage implements OnInit {
 
-    constructor(
-        private router: RouterExtensions,
-        private backendService: BackendService,
-        private chartsDataService: ChartsDataService) {}
+    constructor(private router: RouterExtensions,) {}
 
     ngOnInit() {
-        //this.testNum = 15;
-
-        // TODO: this has been added here for charts view testing purposes only
-        // needs to be changed
-        //this.backendService.fetchAllSensorsReadings();
-        //this.chartsDataService.initializeChartServiceData();
-        // end TODO
-
-        this.backendService.fetchAllSensorsReadings();
-        this.chartsDataService.initializeChartServiceData();
     }
 
     AccountConfirmButton() {

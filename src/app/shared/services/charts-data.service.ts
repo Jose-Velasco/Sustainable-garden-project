@@ -32,6 +32,8 @@ export class ChartsDataService implements OnDestroy {
         this._chartsDataChanged.next(this._chartsData.slice());
     }
 
+    // we can use this to fix the error to change where we ask for data in the dashboard
+    // todo change the auth asking this
     initializeChartServiceData(): void {
         this.setChartData(this.parseIncomingSensorsDataToForCharts(this.sensorsReadingsService.getSensorsReadingsData()));
         this._sensorsReadingsDataChangedSub = this.sensorsReadingsService.sensorsReadingsDataChanged

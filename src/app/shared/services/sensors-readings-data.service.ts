@@ -155,6 +155,6 @@ export class SensorsReadingsDataService {
         const readingKey = newSingleReading.keys().next().value;
         const readingValue = newSingleReading.get(readingKey)
         currentOverviewInputActions.get(readingKey)(readingValue);
-        console.log("The Temp is: " + readingValue);
+        //console.log("The Temp is: " + readingValue);
     }
 }

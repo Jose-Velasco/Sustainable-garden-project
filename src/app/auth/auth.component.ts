@@ -40,12 +40,14 @@ export class AuthComponent implements OnInit { // the AuthComponent initializes.
         this.backendService.fetchAllSensorsReadings(); // (1)
         this.chartsDataService.initializeChartServiceData(); //! (2)
         // TODO: "this.chartsDataService.initializeChartServiceData();" has been added here for charts view testing purposes only
-        //!needs to be changed
+        //!needs to be changed */
     }
 
     
     Login() {
         // TODO, create a server with docker to verfiy usernames and passwords
+        // Note: a new service in the service folder needed to send data with HTTP request,
+        //   
         /*
         let options = {
             title: "Invalid Login",

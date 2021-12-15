@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from "@angular/core";
 import { Subscription } from "rxjs";
 import { BackendService } from "../../shared/services/backend.service";
 import { SensorsReadingsDataService } from "../../shared/services/sensors-readings-data.service";
+import { ChartsDataService } from "../../shared/services/charts-data.service";
 
 // decorator, tells angular and nativescript what component we are talking about
 @Component({
@@ -31,10 +32,15 @@ export class DashboardOverviewComponent implements OnInit, OnDestroy {
     //see src/app/shared/services/backend.service.ts for more information
     constructor(
         private sensorReadingDataService: SensorsReadingsDataService,
-        private backendService: BackendService
+        private backendService: BackendService,
+        private chartsDataService: ChartsDataService
         ) {}
 
     ngOnInit() {
+
+        //this.backendService.fetchAllSensorsReadings();
+        //this.chartsDataService.initializeChartServiceData();
+
         //the changed humidity value is the data from the sensors with the current humidity reading
         this._currentHumidityValueChanged = this.sensorReadingDataService.currentHumidity
             .subscribe(newValue => {
@@ -51,7 +57,7 @@ export class DashboardOverviewComponent implements OnInit, OnDestroy {
             this.currentRainStatus = newValue == 1 ? true : false ; //assign and check the value
         });
 
-        // this.backendService.readCurrentSensorValues();
+        this.backendService.readCurrentSensorValues();
         this.backendService.testDashboardViewUIWithCurrentSensorData();
     }
 
