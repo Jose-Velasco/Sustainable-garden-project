@@ -75,9 +75,12 @@ export class SensorsReadingsDataService {
      * @param newSensorsReadingsData
      * @returns returns a map of SensorsReadings where the key is the sensor's id
      */
-    organizeNewSensorReadingsDataBySensorID(newSensorsReadingsData: SensorReading[]): Map<number, SensorReading[]> {
+    organizeNewSensorReadingsDataBySensorID(newSensorsReadingsData: SensorReading[]): Map<number, SensorReading[]>
+    {
         let incomingSensorsReadingsData = new Map<number, SensorReading[]>();
 
+        // possible fix: change next line to the following as a HTML collection converting to Array
+        // [...newSensorsReadingsData].forEach((sensorReading: SensorReading) => {
         newSensorsReadingsData.forEach((sensorReading: SensorReading) => {
             let sensorId = sensorReading.sensor.id;
             if (incomingSensorsReadingsData.has(sensorId)) {
@@ -130,6 +133,8 @@ export class SensorsReadingsDataService {
      * @param currentSensorReadings new sensor Reading values
      */
     processSensorValues(currentSensorReadings: SensorReading[]) {
+        // possible fix: change next line to the following as a HTML collection converting to Array
+        // [...currentSensorReadings].forEach(currentSensorReading => {
         currentSensorReadings.forEach(currentSensorReading => {
             for (var singleReadingKey in currentSensorReading.reading) {
                 const newTemp = new Map<string, number>([

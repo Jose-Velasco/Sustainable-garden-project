@@ -21,7 +21,7 @@ export class BackendService {
      */
     fetchAllSensorsReadings() {
         this.http.get<SensorReading[]>(
-            `${this._sustainableGardenBackendBaseURL}/sensors/readings`,
+            `${this._sustainableGardenBackendBaseURL}/sensors/1/read`,
             {
                 headers: this.tns_httpHeaders
             }
@@ -39,7 +39,7 @@ export class BackendService {
     readCurrentSensorValues() {
         const queryParams = new HttpParams().set("is_endpoint_test", `${this._isEndpointTest}`);
         this.http.get<SensorReading[]>(
-            `${this._sustainableGardenBackendBaseURL}/sensors/all/read`,
+            `${this._sustainableGardenBackendBaseURL}/sensors/1/read`,
             {
                 headers: this.tns_httpHeaders,
                 params: queryParams
