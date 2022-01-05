@@ -1,6 +1,75 @@
 <StackLayout>
     <Label class="TitleNewAccount" text="New Account" style="text-align:center"></Label>
 
+    <Textfield  class="newUsernameField"
+                hint="Username/Email"
+                [text]='newUsername'
+                secure="false"
+                keyboardType="email"
+                returnKeyType="next" 
+                (returnPress)="newUsernameOnReturnPress($event)"
+                autocorrect="false"
+                maxLength="30"
+                (focus)="newUsernameOnFocus($event)" 
+                (blur)="newUsernameOnBlur($event)"
+                [ngStyle]="{'background-color' : newUsernameFieldColor, 'opacity':newUsernameFieldsetOpacity}"
+                >
+    </Textfield>
+      
+    <Textfield  class="newPasswordField"
+                hint="Password"
+                [text]='newPassword'
+                secure="true"
+                keyboardType="email"
+                returnKeyType="next" 
+                (returnPress)="newPasswordOnReturnPress($event)"
+                autocorrect="false"
+                maxLength="30"
+                (focus)="newPasswordOnFocus($event)" 
+                (blur)="newPasswordOnBlur($event)"
+                [ngStyle]="{'background-color' : newPasswordFieldColor, 'opacity':newPasswordFieldsetOpacity}"
+                >
+    </Textfield>
+
+
+    <Textfield  class="verifyNewPasswordField"
+                hint="Verify Password"
+                [text]='verifyNewPassword'
+                secure="true"
+                keyboardType="email"
+                returnKeyType="next" 
+                (returnPress)="verifyNewPasswordOnReturnPress($event)"
+                autocorrect="false"
+                maxLength="30"
+                (focus)="verifyNewPasswordOnFocus($event)" 
+                (blur)="verifyNewPasswordOnBlur($event)"
+                [ngStyle]="{'background-color' : verifyNewPasswordFieldColor, 'opacity':verifyNewPasswordFieldsetOpacity}"
+                >
+    </Textfield>
+    
+    <Label class="SubtitlePassword" text="Password must be at least 8 characters, and have both uppercase"></Label>
+
+    <Label class="SubtitlePassword" text= "and lowercase letters with numbers"></Label>
+
+    <Textfield  class="classCodeField"
+                hint="Class Code"
+                [text]='classCode'
+                secure="false"
+                keyboardType="number"
+                returnKeyType="done" 
+                (returnPress)="classCodeOnReturnPress($event)"
+                autocorrect="false"
+                maxLength="6"
+                (focus)="classCodeOnFocus($event)" 
+                (blur)="classCodeOnBlur($event)"
+                [ngStyle]="{'background-color' : classCodeFieldColor, 'opacity':classCodeFieldsetOpacity}"
+                >
+    </Textfield>
+    
+    <Label class="SubtitleClassCode" text="Enter a 6 digit class code if you are part of a group"></Label>
+
     <Button class="AccountConfirmButton" (tap)="AccountConfirmButton()" text="Create Account"></Button>
+
+    <Label class="SubtitleInvalidInput" [text]="subtitleInvalidInput" style="text-align:center">></Label>
 
 </StackLayout>
