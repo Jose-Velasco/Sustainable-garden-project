@@ -68,8 +68,6 @@
     
     <Label class="SubtitleClassCode" text="Enter a 6 digit class code if you are part of a group"></Label>
 
-    <Button class="AccountConfirmButton" (tap)="AccountConfirmButton()" text="Create Account"></Button>
-
-    <Label class="SubtitleInvalidInput" [text]="subtitleInvalidInput" style="text-align:center">></Label>
+    <Button class="AccountConfirmButton" (tap)="AccountConfirmButton()" [isEnabled]="buttonEnabled" text="Create Account" ></Button>
 
 </StackLayout>

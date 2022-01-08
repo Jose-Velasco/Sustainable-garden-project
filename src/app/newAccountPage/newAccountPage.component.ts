@@ -11,6 +11,8 @@ import { TextFieldObject } from "../shared/models/textFieldObject.model";
 
 export class NewAccountPage implements OnInit {
 
+    textFieldObjCollection:TextFieldObject[] = new Array();
+
     newUsername = ""; // placeholder for string newUsername
     newUsernameFieldColor:string;
     newUsernameFieldOpacity:number;
@@ -31,14 +33,61 @@ export class NewAccountPage implements OnInit {
     classCodeFieldOpacity:number;
     ClassCodeTextFieldObj = new TextFieldObject(this.classCode,3);
 
-    subtitleInvalidInput:string; //placeholder for the string subtitleInvalidInput
-    countingNullFields = 0;
-    textFieldCollection = [];
+    buttonEnabled = false;
+
     constructor(private router: RouterExtensions,) {}
 
     ngOnInit() {
+        this.textFieldObjCollection.push(this.UsernameTextFieldObj);
+        this.textFieldObjCollection.push(this.PasswordTextFieldObj);
+        this.textFieldObjCollection.push(this.VerifyPasswordTextFieldObj);
+        this.textFieldObjCollection.push(this.ClassCodeTextFieldObj);
     }
     
+    // could be used elsewhere in the future for other places in the app
+    refreshPagePropsWithObjCollection(someObjCollection:TextFieldObject[],checkAllIfEmpty:boolean,colorChosen:string,inputMode:boolean){
+        let countEmptyFields = 0;
+
+        for (let i= 0; i<someObjCollection.length-1; i++){
+            let objectInCollection = someObjCollection[i];
+            //let nextObjectInCollection;
+            if(colorChosen == "green"){
+                objectInCollection.changeColorAndOpacitySwitch(false,"green");
+            }
+            //if(someObjCollection[i+1])
+                //nextObjectInCollection = someObjCollection[i+1];
+            if(objectInCollection.getDataOfTextField() == ""){
+                countEmptyFields++;
+                if(checkAllIfEmpty)
+                    objectInCollection.changeColorAndOpacitySwitch(inputMode,colorChosen);
+            }
+            
+            this.pageDataRefresh(objectInCollection);
+
+            if((countEmptyFields==0)&&(this.buttonEnabled ==true)&&(inputMode == false)){
+                this.buttonEnabled = true;
+            }
+            else{
+                this.buttonEnabled = false;
+            }
+        }
+    }
+
+    pageDataRefresh(object:TextFieldObject){
+        if(object == this.UsernameTextFieldObj){
+            this.newUsernameFieldColor = object.getColorOfTextField();
+            this.newUsernameFieldOpacity = object.getOpacityOfTextField();
+        }
+        else if(object == this.PasswordTextFieldObj){
+            this.newPasswordFieldColor = object.getColorOfTextField();
+            this.newPasswordFieldOpacity = object.getOpacityOfTextField();
+        }
+        else if(object == this.VerifyPasswordTextFieldObj){
+            this.verifyNewPasswordFieldColor = object.getColorOfTextField();
+            this.verifyNewPasswordFieldOpacity = object.getOpacityOfTextField();
+        }
+    }
+
     newUsernameOnReturnPress(args) {
         // returnPress event will be triggered when user submits a value
         let textField = <TextField>args.object;
@@ -69,9 +118,9 @@ export class NewAccountPage implements OnInit {
         // Limits input to a certain number of characters.
         //console.log(textField.maxLength)
 
-        this.UsernameTextFieldObj.changeColorAndOpacitySwitch(false);
-        this.newUsernameFieldColor = this.UsernameTextFieldObj.getColorOfTextField();
-        this.newUsernameFieldOpacity = this.UsernameTextFieldObj.getOpacityOfTextField();
+        this.UsernameTextFieldObj.changeColorAndOpacitySwitch(false,"red");
+        this.refreshPagePropsWithObjCollection(this.textFieldObjCollection,false,"red",false);
+        
 
         setTimeout(() => {
             textField.dismissSoftInput(); // Hides the soft input method, ususally a soft keyboard.
@@ -81,9 +130,9 @@ export class NewAccountPage implements OnInit {
     newUsernameOnFocus(args) {
         // focus event will be triggered when the users enters the TextField
         let textField = <TextField>args.object;
-        this.UsernameTextFieldObj.changeColorAndOpacitySwitch(true);
-        this.newUsernameFieldColor = this.UsernameTextFieldObj.getColorOfTextField();
-        this.newUsernameFieldOpacity = this.UsernameTextFieldObj.getOpacityOfTextField();
+        this.UsernameTextFieldObj.changeColorAndOpacitySwitch(true,"red");
+        this.refreshPagePropsWithObjCollection(this.textFieldObjCollection,false,"red",true);
+        
     }
 
     newUsernameOnBlur(args) {
@@ -92,9 +141,9 @@ export class NewAccountPage implements OnInit {
         this.newUsername = textField.text;
         this.UsernameTextFieldObj.setDataOfTextField(this.newUsername);
         console.log("The newUsername is " + textField.text);
-        this.UsernameTextFieldObj.changeColorAndOpacitySwitch(false);
-        this.newUsernameFieldColor = this.UsernameTextFieldObj.getColorOfTextField();
-        this.newUsernameFieldOpacity = this.UsernameTextFieldObj.getOpacityOfTextField();
+        this.UsernameTextFieldObj.changeColorAndOpacitySwitch(false,"red");
+        this.refreshPagePropsWithObjCollection(this.textFieldObjCollection,false,"red",false);
+        
     }
 
     newPasswordOnReturnPress(args) {
@@ -104,9 +153,13 @@ export class NewAccountPage implements OnInit {
         this.newPassword = textField.text;
         this.PasswordTextFieldObj.setDataOfTextField(this.newPassword);
         console.log("The newPassword is " + textField.text);
-        this.PasswordTextFieldObj.changeColorAndOpacitySwitch(false);
-        this.newPasswordFieldColor = this.PasswordTextFieldObj.getColorOfTextField();
-        this.newPasswordFieldOpacity = this.PasswordTextFieldObj.getOpacityOfTextField();
+        this.PasswordTextFieldObj.changeColorAndOpacitySwitch(false,"red");
+        this.refreshPagePropsWithObjCollection(this.textFieldObjCollection,false,"red",false);
+        
+        this.PasswordTextFieldObj.compareTextFieldDataOfObjs(this.VerifyPasswordTextFieldObj);
+        this.buttonEnabled = this.PasswordTextFieldObj.getPasswordsMatchProp();
+        this.refreshPagePropsWithObjCollection(this.textFieldObjCollection,false,"red",false);
+        
         
         setTimeout(() => {
             textField.dismissSoftInput(); // Hides the soft input method, ususally a soft keyboard.
@@ -116,9 +169,9 @@ export class NewAccountPage implements OnInit {
     newPasswordOnFocus(args) {
         // focus event will be triggered when the users enters the TextField
         let textField = <TextField>args.object;
-        this.PasswordTextFieldObj.changeColorAndOpacitySwitch(true);
-        this.newPasswordFieldColor = this.PasswordTextFieldObj.getColorOfTextField();
-        this.newPasswordFieldOpacity = this.PasswordTextFieldObj.getOpacityOfTextField();
+        this.PasswordTextFieldObj.changeColorAndOpacitySwitch(true,"red");
+        this.refreshPagePropsWithObjCollection(this.textFieldObjCollection,false,"red",true);
+        
     }
 
     newPasswordOnBlur(args) {
@@ -127,10 +180,12 @@ export class NewAccountPage implements OnInit {
         this.newPassword = textField.text;
         this.PasswordTextFieldObj.setDataOfTextField(this.newPassword);
         console.log("The newPassword is " + textField.text);
-        this.PasswordTextFieldObj.changeColorAndOpacitySwitch(false);
-        this.newPasswordFieldColor = this.PasswordTextFieldObj.getColorOfTextField();
-        this.newPasswordFieldOpacity = this.PasswordTextFieldObj.getOpacityOfTextField();
+        this.PasswordTextFieldObj.changeColorAndOpacitySwitch(false,"red");
+        this.refreshPagePropsWithObjCollection(this.textFieldObjCollection,false,"red",false);
         
+        this.PasswordTextFieldObj.compareTextFieldDataOfObjs(this.VerifyPasswordTextFieldObj);
+        this.buttonEnabled = this.PasswordTextFieldObj.getPasswordsMatchProp();
+        this.refreshPagePropsWithObjCollection(this.textFieldObjCollection,false,"red",false);
     }
 
     verifyNewPasswordOnReturnPress(args) {
@@ -140,14 +195,12 @@ export class NewAccountPage implements OnInit {
         this.verifyNewPassword = textField.text;
         this.VerifyPasswordTextFieldObj.setDataOfTextField(this.verifyNewPassword);
         console.log("The verifyNewPassword is " + textField.text);
-        this.VerifyPasswordTextFieldObj.changeColorAndOpacitySwitch(false);
-        this.verifyNewPasswordFieldColor = this.VerifyPasswordTextFieldObj.getColorOfTextField();
-        this.verifyNewPasswordFieldOpacity = this.VerifyPasswordTextFieldObj.getOpacityOfTextField();
+        this.VerifyPasswordTextFieldObj.changeColorAndOpacitySwitch(false,"red");
+        this.refreshPagePropsWithObjCollection(this.textFieldObjCollection,false,"red",false);
+        
         this.VerifyPasswordTextFieldObj.compareTextFieldDataOfObjs(this.PasswordTextFieldObj);
-        this.verifyNewPasswordFieldColor = this.VerifyPasswordTextFieldObj.getColorOfTextField();
-        this.verifyNewPasswordFieldOpacity = this.VerifyPasswordTextFieldObj.getOpacityOfTextField();
-        this.newPasswordFieldColor = this.PasswordTextFieldObj.getColorOfTextField();
-        this.newPasswordFieldOpacity = this.PasswordTextFieldObj.getOpacityOfTextField();
+        this.buttonEnabled = this.VerifyPasswordTextFieldObj.getPasswordsMatchProp();
+        this.refreshPagePropsWithObjCollection(this.textFieldObjCollection,false,"red",false);
 
         setTimeout(() => {
             textField.dismissSoftInput(); // Hides the soft input method, ususally a soft keyboard.
@@ -157,10 +210,8 @@ export class NewAccountPage implements OnInit {
     verifyNewPasswordOnFocus(args) {
         // focus event will be triggered when the users enters the TextField
         let textField = <TextField>args.object;
-        this.verifyNewPasswordFieldColor = "";
-        this.VerifyPasswordTextFieldObj.changeColorAndOpacitySwitch(true);
-        this.verifyNewPasswordFieldColor = this.VerifyPasswordTextFieldObj.getColorOfTextField();
-        this.verifyNewPasswordFieldOpacity = this.VerifyPasswordTextFieldObj.getOpacityOfTextField();
+        this.VerifyPasswordTextFieldObj.changeColorAndOpacitySwitch(true,"red");
+        this.refreshPagePropsWithObjCollection(this.textFieldObjCollection,false,"red",true);
     }
 
     verifyNewPasswordOnBlur(args) {
@@ -169,14 +220,13 @@ export class NewAccountPage implements OnInit {
         this.verifyNewPassword = textField.text;
         this.VerifyPasswordTextFieldObj.setDataOfTextField(this.verifyNewPassword);
         console.log("The verifyNewPassword is " + textField.text);
-        this.VerifyPasswordTextFieldObj.changeColorAndOpacitySwitch(false);
-        this.verifyNewPasswordFieldColor = this.VerifyPasswordTextFieldObj.getColorOfTextField();
-        this.verifyNewPasswordFieldOpacity = this.VerifyPasswordTextFieldObj.getOpacityOfTextField();
+        
+        this.VerifyPasswordTextFieldObj.changeColorAndOpacitySwitch(false,"red");
+        this.refreshPagePropsWithObjCollection(this.textFieldObjCollection,false,"red",false);
+        
         this.VerifyPasswordTextFieldObj.compareTextFieldDataOfObjs(this.PasswordTextFieldObj);
-        this.verifyNewPasswordFieldColor = this.VerifyPasswordTextFieldObj.getColorOfTextField();
-        this.verifyNewPasswordFieldOpacity = this.VerifyPasswordTextFieldObj.getOpacityOfTextField();
-        this.newPasswordFieldColor = this.PasswordTextFieldObj.getColorOfTextField();
-        this.newPasswordFieldOpacity = this.PasswordTextFieldObj.getOpacityOfTextField();
+        this.buttonEnabled = this.VerifyPasswordTextFieldObj.getPasswordsMatchProp();
+        this.refreshPagePropsWithObjCollection(this.textFieldObjCollection,false,"red",false);
     }
 
     classCodeOnReturnPress(args) {
@@ -184,6 +234,7 @@ export class NewAccountPage implements OnInit {
         let textField = <TextField>args.object;
 
         this.classCode = textField.text;
+        this.ClassCodeTextFieldObj.setDataOfTextField(this.classCode);
         console.log("The classCode is " + textField.text);
         
         setTimeout(() => {
@@ -200,16 +251,18 @@ export class NewAccountPage implements OnInit {
         // blur event will be triggered when the user leaves the TextField
         let textField = <TextField>args.object;
         this.classCode = textField.text;
+        this.ClassCodeTextFieldObj.setDataOfTextField(this.classCode);
         console.log("The classCode is " + textField.text);
     }
-
 
     AccountConfirmButton() {
         // and that pressing the button creates a dialog that the account was
         // successfully created and goes to the tabs
         this.router.navigate(["tabs"], { clearHistory: true});
         console.log("accountCreated");
-        console.log("newUsername = " + this.newUsername + "newPassword = " + this.newPassword + "verifyNewPassword = " 
-                    + this.verifyNewPassword + "classCode = " + this.classCode);
+        console.log("newUsername = " + this.newUsername + " newPassword = " + this.newPassword + " verifyNewPassword = " 
+                    + this.verifyNewPassword + " classCode = " + this.classCode);
+        this.refreshPagePropsWithObjCollection(this.textFieldObjCollection,false,"green",false);
     }
 }
+
