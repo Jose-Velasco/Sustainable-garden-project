@@ -8,9 +8,17 @@ export class TextFieldObject {
     private _opacityOfTextField =  1;
     private _inputStatus = false;
     private _passwordsMatch:boolean;
+    private _passwordFitCriteria:boolean;
+    private _allCharacterPattern = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[-+_!@#$%^&*.,?]).+$"); // based on RFC 5521 and 5522 specs
+    /*
+    usage convention for _pattern:
+    if (pattern.test(username))
+        ^^^^^^^^^^^^^^^^^^^^^^will return either true or false
+    */
 
     // specified data and index of object is unique
     constructor(private _dataOfTextField: string, private _indexOfTextField: number){}
+
 
     setColorAndOpacityOfTextField(textFieldColor, textFieldOpacity){
         this._colorOfTextField = textFieldColor;
@@ -39,6 +47,10 @@ export class TextFieldObject {
 
     getPasswordsMatchProp(){
         return this._passwordsMatch;
+    }
+
+    getPasswordFitCriteriaProp(){
+        return this._passwordFitCriteria;
     }
 
     getInputStatusOfTextField(){
@@ -104,8 +116,31 @@ export class TextFieldObject {
         }
     }
 
+    checkDataWithCriteria(secondTextFieldObject:TextFieldObject){
+        if((this._allCharacterPattern.test(this.getDataOfTextField())) && (this.getDataOfTextField().length >= 8)){
+            this.changeColorAndOpacitySwitch(true,"red");
+            secondTextFieldObject.changeColorAndOpacitySwitch(true,"red");
+            this._passwordFitCriteria == true;
+            secondTextFieldObject._passwordFitCriteria = true;
+        }
+            
+        else{
+            // get the current data of the two objects and store temporary data
+            let firstObjectTempData = this._dataOfTextField;
+            let secondObjectTempData = secondTextFieldObject._dataOfTextField;
 
-    checkDataWithCriteria(){
+            // set the data of objects to empty to trigger an invalid input indicator for both objects
+            this._dataOfTextField = "";
+            secondTextFieldObject._dataOfTextField = "";
+            this.changeColorAndOpacitySwitch(false,"red");
+            secondTextFieldObject.changeColorAndOpacitySwitch(false,"red");
 
+            // get the data from temporary storage and set the data back to original
+            this._dataOfTextField = firstObjectTempData;
+            secondTextFieldObject._dataOfTextField = secondObjectTempData;
+            this._passwordFitCriteria = false;
+            secondTextFieldObject._passwordFitCriteria = false;
+        }
     }
+
 }

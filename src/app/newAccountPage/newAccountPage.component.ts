@@ -117,7 +117,6 @@ export class NewAccountPage implements OnInit {
         //console.log(textField.autocorrect);
         // Limits input to a certain number of characters.
         //console.log(textField.maxLength)
-
         this.UsernameTextFieldObj.changeColorAndOpacitySwitch(false,"red");
         this.refreshPagePropsWithObjCollection(this.textFieldObjCollection,false,"red",false);
         
@@ -160,6 +159,9 @@ export class NewAccountPage implements OnInit {
         this.buttonEnabled = this.PasswordTextFieldObj.getPasswordsMatchProp();
         this.refreshPagePropsWithObjCollection(this.textFieldObjCollection,false,"red",false);
         
+        this.PasswordTextFieldObj.checkDataWithCriteria(this.VerifyPasswordTextFieldObj);
+        this.refreshPagePropsWithObjCollection(this.textFieldObjCollection,false,"red",false);
+        
         
         setTimeout(() => {
             textField.dismissSoftInput(); // Hides the soft input method, ususally a soft keyboard.
@@ -170,6 +172,7 @@ export class NewAccountPage implements OnInit {
         // focus event will be triggered when the users enters the TextField
         let textField = <TextField>args.object;
         this.PasswordTextFieldObj.changeColorAndOpacitySwitch(true,"red");
+        this.VerifyPasswordTextFieldObj.changeColorAndOpacitySwitch(true,"red");
         this.refreshPagePropsWithObjCollection(this.textFieldObjCollection,false,"red",true);
         
     }
@@ -186,6 +189,9 @@ export class NewAccountPage implements OnInit {
         this.PasswordTextFieldObj.compareTextFieldDataOfObjs(this.VerifyPasswordTextFieldObj);
         this.buttonEnabled = this.PasswordTextFieldObj.getPasswordsMatchProp();
         this.refreshPagePropsWithObjCollection(this.textFieldObjCollection,false,"red",false);
+
+        this.PasswordTextFieldObj.checkDataWithCriteria(this.VerifyPasswordTextFieldObj);
+        this.refreshPagePropsWithObjCollection(this.textFieldObjCollection,false,"red",false);
     }
 
     verifyNewPasswordOnReturnPress(args) {
@@ -201,6 +207,9 @@ export class NewAccountPage implements OnInit {
         this.VerifyPasswordTextFieldObj.compareTextFieldDataOfObjs(this.PasswordTextFieldObj);
         this.buttonEnabled = this.VerifyPasswordTextFieldObj.getPasswordsMatchProp();
         this.refreshPagePropsWithObjCollection(this.textFieldObjCollection,false,"red",false);
+        
+        this.VerifyPasswordTextFieldObj.checkDataWithCriteria(this.PasswordTextFieldObj);
+        this.refreshPagePropsWithObjCollection(this.textFieldObjCollection,false,"red",false);
 
         setTimeout(() => {
             textField.dismissSoftInput(); // Hides the soft input method, ususally a soft keyboard.
@@ -211,6 +220,7 @@ export class NewAccountPage implements OnInit {
         // focus event will be triggered when the users enters the TextField
         let textField = <TextField>args.object;
         this.VerifyPasswordTextFieldObj.changeColorAndOpacitySwitch(true,"red");
+        this.PasswordTextFieldObj.changeColorAndOpacitySwitch(true,"red");
         this.refreshPagePropsWithObjCollection(this.textFieldObjCollection,false,"red",true);
     }
 
@@ -226,6 +236,9 @@ export class NewAccountPage implements OnInit {
         
         this.VerifyPasswordTextFieldObj.compareTextFieldDataOfObjs(this.PasswordTextFieldObj);
         this.buttonEnabled = this.VerifyPasswordTextFieldObj.getPasswordsMatchProp();
+        this.refreshPagePropsWithObjCollection(this.textFieldObjCollection,false,"red",false);
+
+        this.VerifyPasswordTextFieldObj.checkDataWithCriteria(this.PasswordTextFieldObj);
         this.refreshPagePropsWithObjCollection(this.textFieldObjCollection,false,"red",false);
     }
 
