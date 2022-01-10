@@ -135,6 +135,7 @@ export class SensorsReadingsDataService {
     processSensorValues(currentSensorReadings: SensorReading[]) {
         // possible fix: change next line to the following as a HTML collection converting to Array
         // [...currentSensorReadings].forEach(currentSensorReading => {
+        console.log("The current sensor reading is: " + currentSensorReadings);
         currentSensorReadings.forEach(currentSensorReading => {
             for (var singleReadingKey in currentSensorReading.reading) {
                 const newTemp = new Map<string, number>([
