@@ -28,6 +28,7 @@
                 maxLength="30"
                 (focus)="usernameOnFocus($event)" 
                 (blur)="usernameOnBlur($event)"
+                [ngStyle]="{'background-color' : usernameFieldColor, 'opacity':usernameFieldOpacity}"
                 >
     </Textfield>
 
@@ -43,16 +44,18 @@
                 secure="true"
                 keyboardType="email"
                 returnKeyType="done" 
-                (returnPress)="onReturnPress($event)"
+                (returnPress)="passwordOnReturnPress($event)"
                 autocorrect="false"
                 maxLength="30"
-                (focus)="onFocus($event)" 
-                (blur)="onBlur($event)"
+                (focus)="passwordOnFocus($event)" 
+                (blur)="passwordOnBlur($event)"
+                [ngStyle]="{'background-color' : passwordFieldColor, 'opacity':passwordFieldOpacity}"
                 >
     </Textfield>
     <!-- create a button to login, see auth.component.ts for function method Login() -->
-    <Button class="LoginButton" (tap)="Login()" text="Log in"></Button>
+    <Button class="LoginButton" (tap)="Login()" [isEnabled]="buttonEnabled" text="Log in"></Button>
     <!-- create a button to make a new account, see auth.component.ts for function method createNewAccount() -->
     <Button class="NewAccountButton" (tap)="createNewAccount()" text="New around here? Create an account!"></Button>
+
 
 </StackLayout>
