@@ -53,40 +53,13 @@ export class NewAccountPage implements OnInit {
         this.verifyNewPasswordFieldColor = this.VerifyPasswordTextFieldObj.getColorOfTextField();
         this.verifyNewPasswordFieldOpacity = this.VerifyPasswordTextFieldObj.getOpacityOfTextField();
     }
-
-    // could be used elsewhere in the future for other places in the app
-    refreshPagePropsWithObjCollection(someObjCollection:TextFieldObject[],colorChosen:string,inputMode:boolean){
-        let countEmptyFields = 0;
-        let isButtonEnabled:boolean;
-
-        for (let i= 0; i<someObjCollection.length-1; i++){
-            let objectInCollection = someObjCollection[i];
-            
-            if(colorChosen == "#008C00")
-                objectInCollection.changeColorAndOpacitySwitch(false,"#008C00");
-            
-            if(objectInCollection.getIsRequiredStatusOfTextField()){
-                if(objectInCollection.getDataOfTextField() == "")
-                    countEmptyFields++;
-            }
-            
-            this.newAccountPageDataRefresh();
-
-            if((countEmptyFields==0)&&(objectInCollection.getPasswordsMatchProp())&&(objectInCollection.getPasswordFitCriteriaProp())&&(inputMode == false))
-                isButtonEnabled = true;
-            
-            else
-                isButtonEnabled = false;
-        }
-
-        return isButtonEnabled;
-    }
     
     newUsernameEnterField(args){
         // focus event will be triggered when the users enters the TextField
         let textField = <TextField>args.object;
         this.UsernameTextFieldObj.changeColorAndOpacitySwitch(true,"#ff0000");
-        this.buttonEnabled = this.refreshPagePropsWithObjCollection(this.textFieldObjCollection,"#ff0000",true);
+        this.buttonEnabled = this.UsernameTextFieldObj.refreshPagePropsWithObjCollection(this.textFieldObjCollection,"#ff0000",true);
+        this.newAccountPageDataRefresh();
     }
 
     newUsernameExitField(args,timeoutEnabled:boolean){
@@ -97,7 +70,8 @@ export class NewAccountPage implements OnInit {
         console.log("The newUsername is " + textField.text);
         
         this.UsernameTextFieldObj.changeColorAndOpacitySwitch(false,"#ff0000");
-        this.buttonEnabled = this.refreshPagePropsWithObjCollection(this.textFieldObjCollection,"#ff0000",false);
+        this.buttonEnabled = this.UsernameTextFieldObj.refreshPagePropsWithObjCollection(this.textFieldObjCollection,"#ff0000",false);
+        this.newAccountPageDataRefresh();
         
         if(timeoutEnabled){
             setTimeout(() => {
@@ -111,7 +85,8 @@ export class NewAccountPage implements OnInit {
         let textField = <TextField>args.object;
         this.PasswordTextFieldObj.changeColorAndOpacitySwitch(true,"#ff0000");
         this.VerifyPasswordTextFieldObj.changeColorAndOpacitySwitch(true,"#ff0000");
-        this.buttonEnabled = this.refreshPagePropsWithObjCollection(this.textFieldObjCollection,"#ff0000",true);
+        this.buttonEnabled = this.PasswordTextFieldObj.refreshPagePropsWithObjCollection(this.textFieldObjCollection,"#ff0000",true);
+        this.newAccountPageDataRefresh();
     }
     
     newPasswordExitField(args,timeoutEnabled:boolean){
@@ -124,7 +99,8 @@ export class NewAccountPage implements OnInit {
         this.PasswordTextFieldObj.changeColorAndOpacitySwitch(false,"#ff0000");
         this.PasswordTextFieldObj.checkDataWithCriteria(this.VerifyPasswordTextFieldObj);
         this.PasswordTextFieldObj.compareTextFieldDataOfObjs(this.VerifyPasswordTextFieldObj);
-        this.buttonEnabled = this.refreshPagePropsWithObjCollection(this.textFieldObjCollection,"#ff0000",false);
+        this.buttonEnabled = this.PasswordTextFieldObj.refreshPagePropsWithObjCollection(this.textFieldObjCollection,"#ff0000",false);
+        this.newAccountPageDataRefresh();
 
         if(timeoutEnabled){
             setTimeout(() => {
@@ -137,7 +113,8 @@ export class NewAccountPage implements OnInit {
         let textField = <TextField>args.object;
         this.VerifyPasswordTextFieldObj.changeColorAndOpacitySwitch(true,"#ff0000");
         this.PasswordTextFieldObj.changeColorAndOpacitySwitch(true,"#ff0000");
-        this.buttonEnabled = this.refreshPagePropsWithObjCollection(this.textFieldObjCollection,"#ff0000",true);
+        this.buttonEnabled = this.VerifyPasswordTextFieldObj.refreshPagePropsWithObjCollection(this.textFieldObjCollection,"#ff0000",true);
+        this.newAccountPageDataRefresh();
     }
     
     verifyNewPasswordExitField(args,timeoutEnabled:boolean){
@@ -150,7 +127,8 @@ export class NewAccountPage implements OnInit {
         this.VerifyPasswordTextFieldObj.changeColorAndOpacitySwitch(false,"#ff0000");        
         this.VerifyPasswordTextFieldObj.checkDataWithCriteria(this.PasswordTextFieldObj);
         this.VerifyPasswordTextFieldObj.compareTextFieldDataOfObjs(this.PasswordTextFieldObj);
-        this.buttonEnabled = this.refreshPagePropsWithObjCollection(this.textFieldObjCollection,"#ff0000",false);
+        this.buttonEnabled = this.VerifyPasswordTextFieldObj.refreshPagePropsWithObjCollection(this.textFieldObjCollection,"#ff0000",false);
+        this.newAccountPageDataRefresh();
 
         if(timeoutEnabled){
             setTimeout(() => {
@@ -162,6 +140,7 @@ export class NewAccountPage implements OnInit {
     classCodeEnterField(args){
         // focus event will be triggered when the users enters the TextField
         let textField = <TextField>args.object;
+        
     }
     
     classCodeExitField(args,timeoutEnabled:boolean){
@@ -185,7 +164,8 @@ export class NewAccountPage implements OnInit {
         console.log("accountCreated");
         console.log("newUsername = " + this.newUsername + " newPassword = " + this.newPassword + " verifyNewPassword = " 
                     + this.verifyNewPassword + " classCode = " + this.classCode);
-        this.refreshPagePropsWithObjCollection(this.textFieldObjCollection,"#008C00",false);
+        this.VerifyPasswordTextFieldObj.refreshPagePropsWithObjCollection(this.textFieldObjCollection,"#008C00",false);
+        this.newAccountPageDataRefresh();
     }
 }
 

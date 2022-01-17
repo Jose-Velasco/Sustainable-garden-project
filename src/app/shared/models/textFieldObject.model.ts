@@ -1,6 +1,4 @@
 import { Validators } from "@angular/forms";
-import { NewAccountPage } from "src/app/newAccountPage/newAccountPage.component";
-import { AuthComponent } from "src/app/auth/auth.component";
 /**
  * Class for modifying text field objects
  */
@@ -154,6 +152,30 @@ export class TextFieldObject {
             this._doesPasswordFitCriteria = false;
             secondTextFieldObject._doesPasswordFitCriteria = false;
         }
+    }
+
+    refreshPagePropsWithObjCollection(someObjCollection:TextFieldObject[],colorChosen:string,inputMode:boolean){
+        let countEmptyFields = 0;
+        let isButtonEnabled:boolean;
+
+        for (let i= 0; i<someObjCollection.length-1; i++){
+            let objectInCollection = someObjCollection[i];
+            
+            if(colorChosen == "#008C00")
+                objectInCollection.changeColorAndOpacitySwitch(false,"#008C00");
+            
+            if(objectInCollection.getIsRequiredStatusOfTextField()){
+                if(objectInCollection.getDataOfTextField() == "")
+                    countEmptyFields++;
+            }
+
+            if((countEmptyFields==0)&&(objectInCollection.getPasswordsMatchProp())&&(objectInCollection.getPasswordFitCriteriaProp())&&(inputMode == false))
+                isButtonEnabled = true;
+            else
+                isButtonEnabled = false;
+        }
+
+        return isButtonEnabled;
     }
 
 }

@@ -53,32 +53,6 @@ export class AuthComponent implements OnInit {
         
     }
 
-    
-    // refactor into TextFieldObject model to be reused everywhere, see new account page for the whole method
-    refreshPagePropsWithObjCollection(someObjCollection:TextFieldObject[],colorChosen:string,inputMode:boolean){
-        let countEmptyFields = 0;
-        let isButtonEnabled:boolean;
-
-        for (let i= 0; i<someObjCollection.length; i++){
-            let objectInCollection = someObjCollection[i];;
-            if(colorChosen == "#008C00")
-                objectInCollection.changeColorAndOpacitySwitch(false,"#008C00");
-            
-            if(objectInCollection.getDataOfTextField() == "")
-                countEmptyFields++;
-            
-            this.loginPageDataRefresh();
-
-            if((countEmptyFields==0)&&(inputMode == false))
-                isButtonEnabled = true;
-            else
-                isButtonEnabled = false;
-
-            console.log("Is the button enabled based on object? " + isButtonEnabled);
-        }
-        return isButtonEnabled;
-    }
-
     loginPageDataRefresh(){
         this.usernameFieldColor = this.LoginUsernameTextFieldObj.getColorOfTextField();
         this.usernameFieldOpacity = this.LoginUsernameTextFieldObj.getOpacityOfTextField();
@@ -90,7 +64,8 @@ export class AuthComponent implements OnInit {
         // focus event will be triggered when the users enters the TextField
         let textField = <TextField>args.object;
         this.LoginUsernameTextFieldObj.changeColorAndOpacitySwitch(true,"#ff0000");
-        this.buttonEnabled = this.refreshPagePropsWithObjCollection(this.loginTextFieldObjCollection,"#ff0000",true);
+        this.buttonEnabled = this.LoginUsernameTextFieldObj.refreshPagePropsWithObjCollection(this.loginTextFieldObjCollection,"#ff0000",true);
+        this.loginPageDataRefresh();
     }
 
     usernameExitField(args,timeoutEnabled:boolean){
@@ -124,7 +99,9 @@ export class AuthComponent implements OnInit {
         //console.log(textField.maxLength);
 
         this.LoginUsernameTextFieldObj.changeColorAndOpacitySwitch(false,"#ff0000");
-        this.buttonEnabled = this.refreshPagePropsWithObjCollection(this.loginTextFieldObjCollection,"#ff0000",false);
+        this.buttonEnabled = this.LoginUsernameTextFieldObj.refreshPagePropsWithObjCollection(this.loginTextFieldObjCollection,"#ff0000",false);
+        this.loginPageDataRefresh();
+
         if(timeoutEnabled){
             setTimeout(() => {
                 textField.dismissSoftInput(); // Hides the soft input method, ususally a soft keyboard.
@@ -136,7 +113,9 @@ export class AuthComponent implements OnInit {
         // focus event will be triggered when the users enters the TextField
         let textField = <TextField>args.object;
         this.LoginPasswordTextFieldObj.changeColorAndOpacitySwitch(true,"#ff0000");
-        this.buttonEnabled = this.refreshPagePropsWithObjCollection(this.loginTextFieldObjCollection,"#ff0000",true);
+        this.buttonEnabled = this.LoginPasswordTextFieldObj.refreshPagePropsWithObjCollection(this.loginTextFieldObjCollection,"#ff0000",true);
+        this.loginPageDataRefresh();
+
     }
 
     passwordExitField(args,timeoutEnabled:boolean){
@@ -149,8 +128,9 @@ export class AuthComponent implements OnInit {
         console.log("The password is " + textField.text);
 
         this.LoginPasswordTextFieldObj.changeColorAndOpacitySwitch(false,"#ff0000");
-        this.buttonEnabled = this.refreshPagePropsWithObjCollection(this.loginTextFieldObjCollection,"#ff0000",false);
-        
+        this.buttonEnabled = this.LoginPasswordTextFieldObj.refreshPagePropsWithObjCollection(this.loginTextFieldObjCollection,"#ff0000",false);
+        this.loginPageDataRefresh();
+
         if(timeoutEnabled){
             setTimeout(() => {
                 textField.dismissSoftInput(); // Hides the soft input method, ususally a soft keyboard.
@@ -159,8 +139,8 @@ export class AuthComponent implements OnInit {
     }
 
     Login() {
-        this.refreshPagePropsWithObjCollection(this.loginTextFieldObjCollection,"#008C00",false);
-        
+        this.LoginPasswordTextFieldObj.refreshPagePropsWithObjCollection(this.loginTextFieldObjCollection,"#008C00",false);
+        this.loginPageDataRefresh();
         this.router.navigate(["tabs"], { clearHistory: true});  
         // uses the RouterExtentions from constructor to navigate to tabs, see "tabs" in
         // src/app/app-routing.module.ts
