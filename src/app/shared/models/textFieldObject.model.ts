@@ -1,4 +1,6 @@
 import { Validators } from "@angular/forms";
+import { NewAccountPage } from "src/app/newAccountPage/newAccountPage.component";
+import { AuthComponent } from "src/app/auth/auth.component";
 /**
  * Class for modifying text field objects
  */
@@ -18,7 +20,7 @@ export class TextFieldObject {
     */
 
     // specified data and index of object is unique
-    constructor(private _dataOfTextField: string, private _indexOfTextField: number){}
+    constructor(private _dataOfTextField: string, private _indexOfTextField: number,private _isDataRequired:boolean,private _pageParentName:string){}
 
 
     setColorAndOpacityOfTextField(textFieldColor, textFieldOpacity){
@@ -58,6 +60,14 @@ export class TextFieldObject {
         let tempData = this._indexOfTextField;
         console.log("The input status of the object with index "+ tempData.toString() + " is " + this._inputStatus);
         return this._inputStatus;
+    }
+
+    getIsRequiredStatusOfTextField(){
+        return this._isDataRequired;
+    }
+
+    getPageParentName(){
+        return this._pageParentName;
     }
 
     changeColorAndOpacitySwitch(inputStatus:boolean,customColorChosen:string){

@@ -7,11 +7,11 @@
                 secure="false"
                 keyboardType="email"
                 returnKeyType="next" 
-                (returnPress)="newUsernameOnReturnPress($event)"
+                (returnPress)="newUsernameExitField($event,true)"
                 autocorrect="false"
                 maxLength="30"
-                (focus)="newUsernameOnFocus($event)" 
-                (blur)="newUsernameOnBlur($event)"
+                (focus)="newUsernameEnterField($event)" 
+                (blur)="newUsernameExitField($event,false)"
                 [ngStyle]="{'background-color' : newUsernameFieldColor, 'opacity':newUsernameFieldOpacity}"
                 >
     </Textfield>
@@ -22,11 +22,11 @@
                 secure="true"
                 keyboardType="email"
                 returnKeyType="next" 
-                (returnPress)="newPasswordOnReturnPress($event)"
+                (returnPress)="newPasswordExitField($event,true)"
                 autocorrect="false"
                 maxLength="30"
-                (focus)="newPasswordOnFocus($event)" 
-                (blur)="newPasswordOnBlur($event)"
+                (focus)="newPasswordEnterField($event)" 
+                (blur)="newPasswordExitField($event,false)"
                 [ngStyle]="{'background-color' : newPasswordFieldColor, 'opacity':newPasswordFieldOpacity}"
                 >
     </Textfield>
@@ -38,17 +38,16 @@
                 secure="true"
                 keyboardType="email"
                 returnKeyType="next" 
-                (returnPress)="verifyNewPasswordOnReturnPress($event)"
+                (returnPress)="verifyNewPasswordExitField($event,true)"
                 autocorrect="false"
                 maxLength="30"
-                (focus)="verifyNewPasswordOnFocus($event)" 
-                (blur)="verifyNewPasswordOnBlur($event)"
+                (focus)="verifyNewPasswordEnterField($event)" 
+                (blur)="verifyNewPasswordExitField($event,false)"
                 [ngStyle]="{'background-color' : verifyNewPasswordFieldColor, 'opacity':verifyNewPasswordFieldOpacity}"
                 >
     </Textfield>
     
     <Label class="SubtitlePassword" text="Password must be at least 8 characters, have a mix"></Label>
-
     <Label class="SubtitlePassword" text= "of uppercase and lowercase letters, and contains at"></Label>
     <Label class="SubtitlePassword" text= "least one number and special character."></Label>
 
@@ -58,11 +57,11 @@
                 secure="false"
                 keyboardType="number"
                 returnKeyType="done" 
-                (returnPress)="classCodeOnReturnPress($event)"
+                (returnPress)="classCodeExitField($event,true)"
                 autocorrect="false"
                 maxLength="6"
-                (focus)="classCodeOnFocus($event)" 
-                (blur)="classCodeOnBlur($event)"
+                (focus)="classCodeEnterField($event)" 
+                (blur)="classCodeExitField($event,false)"
                 [ngStyle]="{'background-color' : classCodeFieldColor, 'opacity':classCodeFieldOpacity}"
                 >
     </Textfield>

@@ -19,12 +19,12 @@ export class AuthComponent implements OnInit {
     username= "";
     usernameFieldColor: string;
     usernameFieldOpacity: number;
-    LoginUsernameTextFieldObj = new TextFieldObject(this.username,0);
+    LoginUsernameTextFieldObj = new TextFieldObject(this.username,0,true,"auth");
 
     password= "";
     passwordFieldColor: string;
     passwordFieldOpacity: number;
-    LoginPasswordTextFieldObj = new TextFieldObject(this.password,1);
+    LoginPasswordTextFieldObj = new TextFieldObject(this.password,1,true,"auth");
     buttonEnabled = false;
 
 
@@ -57,6 +57,7 @@ export class AuthComponent implements OnInit {
     // refactor into TextFieldObject model to be reused everywhere, see new account page for the whole method
     refreshPagePropsWithObjCollection(someObjCollection:TextFieldObject[],colorChosen:string,inputMode:boolean){
         let countEmptyFields = 0;
+        let isButtonEnabled:boolean;
 
         for (let i= 0; i<someObjCollection.length; i++){
             let objectInCollection = someObjCollection[i];;
@@ -66,31 +67,33 @@ export class AuthComponent implements OnInit {
             if(objectInCollection.getDataOfTextField() == "")
                 countEmptyFields++;
             
-            this.pageDataRefresh(objectInCollection);
+            this.loginPageDataRefresh();
 
             if((countEmptyFields==0)&&(inputMode == false))
-                this.buttonEnabled = true;
-            
+                isButtonEnabled = true;
             else
-                this.buttonEnabled = false;
-            
+                isButtonEnabled = false;
+
+            console.log("Is the button enabled based on object? " + isButtonEnabled);
         }
+        return isButtonEnabled;
     }
 
-    pageDataRefresh(object:TextFieldObject){
-        if(object == this.LoginUsernameTextFieldObj){
-            console.log("The username on login is changing color");
-            this.usernameFieldColor = object.getColorOfTextField();
-            this.usernameFieldOpacity = object.getOpacityOfTextField();
-        }
-        else if(object == this.LoginPasswordTextFieldObj){
-            console.log("The password on login is changing color");
-            this.passwordFieldColor = object.getColorOfTextField();
-            this.passwordFieldOpacity = object.getOpacityOfTextField();
-        }
+    loginPageDataRefresh(){
+        this.usernameFieldColor = this.LoginUsernameTextFieldObj.getColorOfTextField();
+        this.usernameFieldOpacity = this.LoginUsernameTextFieldObj.getOpacityOfTextField();
+        this.passwordFieldColor = this.LoginPasswordTextFieldObj.getColorOfTextField();
+        this.passwordFieldOpacity = this.LoginPasswordTextFieldObj.getOpacityOfTextField();
     }
 
-    usernameOnReturnPress(args) {
+    usernameEnterField(args){
+        // focus event will be triggered when the users enters the TextField
+        let textField = <TextField>args.object;
+        this.LoginUsernameTextFieldObj.changeColorAndOpacitySwitch(true,"#ff0000");
+        this.buttonEnabled = this.refreshPagePropsWithObjCollection(this.loginTextFieldObjCollection,"#ff0000",true);
+    }
+
+    usernameExitField(args,timeoutEnabled:boolean){
         // returnPress event will be triggered when user submits a value
         let textField = <TextField>args.object;
 
@@ -121,33 +124,22 @@ export class AuthComponent implements OnInit {
         //console.log(textField.maxLength);
 
         this.LoginUsernameTextFieldObj.changeColorAndOpacitySwitch(false,"#ff0000");
-        this.refreshPagePropsWithObjCollection(this.loginTextFieldObjCollection,"#ff0000",false);
-
-        setTimeout(() => {
-            textField.dismissSoftInput(); // Hides the soft input method, ususally a soft keyboard.
-        }, 100);
+        this.buttonEnabled = this.refreshPagePropsWithObjCollection(this.loginTextFieldObjCollection,"#ff0000",false);
+        if(timeoutEnabled){
+            setTimeout(() => {
+                textField.dismissSoftInput(); // Hides the soft input method, ususally a soft keyboard.
+            }, 100);
+        }
     }
 
-    usernameOnFocus(args) {
+    passwordEnterField(args){
         // focus event will be triggered when the users enters the TextField
         let textField = <TextField>args.object;
-        this.LoginUsernameTextFieldObj.changeColorAndOpacitySwitch(true,"#ff0000");
-        this.refreshPagePropsWithObjCollection(this.loginTextFieldObjCollection,"#ff0000",true);
+        this.LoginPasswordTextFieldObj.changeColorAndOpacitySwitch(true,"#ff0000");
+        this.buttonEnabled = this.refreshPagePropsWithObjCollection(this.loginTextFieldObjCollection,"#ff0000",true);
     }
 
-    usernameOnBlur(args) {
-        // blur event will be triggered when the user leaves the TextField
-        let textField = <TextField>args.object;
-        this.username = textField.text;
-        this.LoginUsernameTextFieldObj.setDataOfTextField(this.username);
-        
-        console.log("The username is " + textField.text);
-
-        this.LoginUsernameTextFieldObj.changeColorAndOpacitySwitch(false,"#ff0000");
-        this.refreshPagePropsWithObjCollection(this.loginTextFieldObjCollection,"#ff0000",false);
-    }
-
-    passwordOnReturnPress(args) {
+    passwordExitField(args,timeoutEnabled:boolean){
         // returnPress event will be triggered when user submits a value
         let textField = <TextField>args.object;
 
@@ -157,31 +149,13 @@ export class AuthComponent implements OnInit {
         console.log("The password is " + textField.text);
 
         this.LoginPasswordTextFieldObj.changeColorAndOpacitySwitch(false,"#ff0000");
-        this.refreshPagePropsWithObjCollection(this.loginTextFieldObjCollection,"#ff0000",false);
-
-        setTimeout(() => {
-            textField.dismissSoftInput(); // Hides the soft input method, ususally a soft keyboard.
-        }, 100);
-    }
-
-    passwordOnFocus(args) {
-        // focus event will be triggered when the users enters the TextField
-        let textField = <TextField>args.object;
-        this.LoginPasswordTextFieldObj.changeColorAndOpacitySwitch(true,"#ff0000");
-        this.refreshPagePropsWithObjCollection(this.loginTextFieldObjCollection,"#ff0000",true);
-    }
-
-    passwordOnBlur(args) {
-        // blur event will be triggered when the user leaves the TextField
-        let textField = <TextField>args.object;
-        this.password = textField.text;
-        this.LoginPasswordTextFieldObj.setDataOfTextField(this.password);
+        this.buttonEnabled = this.refreshPagePropsWithObjCollection(this.loginTextFieldObjCollection,"#ff0000",false);
         
-        console.log("The password is " + textField.text);
-
-        this.LoginPasswordTextFieldObj.changeColorAndOpacitySwitch(false,"#ff0000");
-        this.refreshPagePropsWithObjCollection(this.loginTextFieldObjCollection,"#ff0000",false);
-
+        if(timeoutEnabled){
+            setTimeout(() => {
+                textField.dismissSoftInput(); // Hides the soft input method, ususally a soft keyboard.
+            }, 100);
+        }
     }
 
     Login() {
