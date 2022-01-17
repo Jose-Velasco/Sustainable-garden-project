@@ -45,31 +45,28 @@ export class NewAccountPage implements OnInit {
     }
     
     // could be used elsewhere in the future for other places in the app
-    refreshPagePropsWithObjCollection(someObjCollection:TextFieldObject[],checkAllIfEmpty:boolean,colorChosen:string,inputMode:boolean){
+    refreshPagePropsWithObjCollection(someObjCollection:TextFieldObject[],colorChosen:string,inputMode:boolean){
         let countEmptyFields = 0;
 
         for (let i= 0; i<someObjCollection.length-1; i++){
             let objectInCollection = someObjCollection[i];
             //let nextObjectInCollection;
-            if(colorChosen == "green"){
-                objectInCollection.changeColorAndOpacitySwitch(false,"green");
-            }
+            if(colorChosen == "#008C00")
+                objectInCollection.changeColorAndOpacitySwitch(false,"#008C00");
+            
             //if(someObjCollection[i+1])
                 //nextObjectInCollection = someObjCollection[i+1];
-            if(objectInCollection.getDataOfTextField() == ""){
+            if(objectInCollection.getDataOfTextField() == "")
                 countEmptyFields++;
-                if(checkAllIfEmpty)
-                    objectInCollection.changeColorAndOpacitySwitch(inputMode,colorChosen);
-            }
             
             this.pageDataRefresh(objectInCollection);
 
-            if((countEmptyFields==0)&&(this.buttonEnabled ==true)&&(inputMode == false)){
+            if((countEmptyFields==0)&&(objectInCollection.getPasswordsMatchProp())&&(objectInCollection.getPasswordFitCriteriaProp())&&(inputMode == false))
                 this.buttonEnabled = true;
-            }
-            else{
+            
+            else
                 this.buttonEnabled = false;
-            }
+            
         }
     }
 
@@ -91,34 +88,12 @@ export class NewAccountPage implements OnInit {
     newUsernameOnReturnPress(args) {
         // returnPress event will be triggered when user submits a value
         let textField = <TextField>args.object;
-
-        // Gets or sets the placeholder text.
-        //console.log(textField.hint);
-        // Gets or sets the input text.
         this.newUsername = textField.text;
         this.UsernameTextFieldObj.setDataOfTextField(this.newUsername);
-        //this.UsernameTextFieldObj.setDataOfObject = this.newUsername;
         console.log("The newUsername is " + textField.text);
-        // Gets or sets the secure option (e.g. for passwords).
-        //console.log(textField.secure);
-
-        // Gets or sets the soft keyboard type. Options: "datetime" | "phone" | "number" | "url" | "email"
-        //console.log(textField.keyboardType);
-        // Gets or sets the soft keyboard return key flavor. Options: "done" | "next" | "go" | "search" | "send"
-        //console.log(textField.returnKeyType);
-        // Gets or sets the autocapitalization type. Options: "none" | "words" | "sentences" | "allcharacters"
-        //console.log(textField.autocapitalizationType);
-
-        // Gets or sets a value indicating when the text property will be updated.
-        //console.log(textField.updateTextTrigger);
-        // Gets or sets whether the instance is editable.
-        //console.log(textField.editable);
-        // Enables or disables autocorrection.
-        //console.log(textField.autocorrect);
-        // Limits input to a certain number of characters.
-        //console.log(textField.maxLength)
-        this.UsernameTextFieldObj.changeColorAndOpacitySwitch(false,"red");
-        this.refreshPagePropsWithObjCollection(this.textFieldObjCollection,false,"red",false);
+        
+        this.UsernameTextFieldObj.changeColorAndOpacitySwitch(false,"#ff0000");
+        this.refreshPagePropsWithObjCollection(this.textFieldObjCollection,"#ff0000",false);
         
 
         setTimeout(() => {
@@ -129,8 +104,8 @@ export class NewAccountPage implements OnInit {
     newUsernameOnFocus(args) {
         // focus event will be triggered when the users enters the TextField
         let textField = <TextField>args.object;
-        this.UsernameTextFieldObj.changeColorAndOpacitySwitch(true,"red");
-        this.refreshPagePropsWithObjCollection(this.textFieldObjCollection,false,"red",true);
+        this.UsernameTextFieldObj.changeColorAndOpacitySwitch(true,"#ff0000");
+        this.refreshPagePropsWithObjCollection(this.textFieldObjCollection,"#ff0000",true);
         
     }
 
@@ -140,8 +115,8 @@ export class NewAccountPage implements OnInit {
         this.newUsername = textField.text;
         this.UsernameTextFieldObj.setDataOfTextField(this.newUsername);
         console.log("The newUsername is " + textField.text);
-        this.UsernameTextFieldObj.changeColorAndOpacitySwitch(false,"red");
-        this.refreshPagePropsWithObjCollection(this.textFieldObjCollection,false,"red",false);
+        this.UsernameTextFieldObj.changeColorAndOpacitySwitch(false,"#ff0000");
+        this.refreshPagePropsWithObjCollection(this.textFieldObjCollection,"#ff0000",false);
         
     }
 
@@ -152,16 +127,10 @@ export class NewAccountPage implements OnInit {
         this.newPassword = textField.text;
         this.PasswordTextFieldObj.setDataOfTextField(this.newPassword);
         console.log("The newPassword is " + textField.text);
-        this.PasswordTextFieldObj.changeColorAndOpacitySwitch(false,"red");
-        this.refreshPagePropsWithObjCollection(this.textFieldObjCollection,false,"red",false);
-        
-        this.PasswordTextFieldObj.compareTextFieldDataOfObjs(this.VerifyPasswordTextFieldObj);
-        this.buttonEnabled = this.PasswordTextFieldObj.getPasswordsMatchProp();
-        this.refreshPagePropsWithObjCollection(this.textFieldObjCollection,false,"red",false);
-        
+        this.PasswordTextFieldObj.changeColorAndOpacitySwitch(false,"#ff0000");
         this.PasswordTextFieldObj.checkDataWithCriteria(this.VerifyPasswordTextFieldObj);
-        this.refreshPagePropsWithObjCollection(this.textFieldObjCollection,false,"red",false);
-        
+        this.PasswordTextFieldObj.compareTextFieldDataOfObjs(this.VerifyPasswordTextFieldObj);
+        this.refreshPagePropsWithObjCollection(this.textFieldObjCollection,"#ff0000",false);
         
         setTimeout(() => {
             textField.dismissSoftInput(); // Hides the soft input method, ususally a soft keyboard.
@@ -171,9 +140,9 @@ export class NewAccountPage implements OnInit {
     newPasswordOnFocus(args) {
         // focus event will be triggered when the users enters the TextField
         let textField = <TextField>args.object;
-        this.PasswordTextFieldObj.changeColorAndOpacitySwitch(true,"red");
-        this.VerifyPasswordTextFieldObj.changeColorAndOpacitySwitch(true,"red");
-        this.refreshPagePropsWithObjCollection(this.textFieldObjCollection,false,"red",true);
+        this.PasswordTextFieldObj.changeColorAndOpacitySwitch(true,"#ff0000");
+        this.VerifyPasswordTextFieldObj.changeColorAndOpacitySwitch(true,"#ff0000");
+        this.refreshPagePropsWithObjCollection(this.textFieldObjCollection,"#ff0000",true);
         
     }
 
@@ -183,15 +152,11 @@ export class NewAccountPage implements OnInit {
         this.newPassword = textField.text;
         this.PasswordTextFieldObj.setDataOfTextField(this.newPassword);
         console.log("The newPassword is " + textField.text);
-        this.PasswordTextFieldObj.changeColorAndOpacitySwitch(false,"red");
-        this.refreshPagePropsWithObjCollection(this.textFieldObjCollection,false,"red",false);
-        
-        this.PasswordTextFieldObj.compareTextFieldDataOfObjs(this.VerifyPasswordTextFieldObj);
-        this.buttonEnabled = this.PasswordTextFieldObj.getPasswordsMatchProp();
-        this.refreshPagePropsWithObjCollection(this.textFieldObjCollection,false,"red",false);
-
+        this.PasswordTextFieldObj.changeColorAndOpacitySwitch(false,"#ff0000");
         this.PasswordTextFieldObj.checkDataWithCriteria(this.VerifyPasswordTextFieldObj);
-        this.refreshPagePropsWithObjCollection(this.textFieldObjCollection,false,"red",false);
+        this.PasswordTextFieldObj.compareTextFieldDataOfObjs(this.VerifyPasswordTextFieldObj);
+        this.refreshPagePropsWithObjCollection(this.textFieldObjCollection,"#ff0000",false);
+        
     }
 
     verifyNewPasswordOnReturnPress(args) {
@@ -201,15 +166,10 @@ export class NewAccountPage implements OnInit {
         this.verifyNewPassword = textField.text;
         this.VerifyPasswordTextFieldObj.setDataOfTextField(this.verifyNewPassword);
         console.log("The verifyNewPassword is " + textField.text);
-        this.VerifyPasswordTextFieldObj.changeColorAndOpacitySwitch(false,"red");
-        this.refreshPagePropsWithObjCollection(this.textFieldObjCollection,false,"red",false);
-        
-        this.VerifyPasswordTextFieldObj.compareTextFieldDataOfObjs(this.PasswordTextFieldObj);
-        this.buttonEnabled = this.VerifyPasswordTextFieldObj.getPasswordsMatchProp();
-        this.refreshPagePropsWithObjCollection(this.textFieldObjCollection,false,"red",false);
-        
+        this.VerifyPasswordTextFieldObj.changeColorAndOpacitySwitch(false,"#ff0000");        
         this.VerifyPasswordTextFieldObj.checkDataWithCriteria(this.PasswordTextFieldObj);
-        this.refreshPagePropsWithObjCollection(this.textFieldObjCollection,false,"red",false);
+        this.VerifyPasswordTextFieldObj.compareTextFieldDataOfObjs(this.PasswordTextFieldObj);
+        this.refreshPagePropsWithObjCollection(this.textFieldObjCollection,"#ff0000",false);
 
         setTimeout(() => {
             textField.dismissSoftInput(); // Hides the soft input method, ususally a soft keyboard.
@@ -219,9 +179,9 @@ export class NewAccountPage implements OnInit {
     verifyNewPasswordOnFocus(args) {
         // focus event will be triggered when the users enters the TextField
         let textField = <TextField>args.object;
-        this.VerifyPasswordTextFieldObj.changeColorAndOpacitySwitch(true,"red");
-        this.PasswordTextFieldObj.changeColorAndOpacitySwitch(true,"red");
-        this.refreshPagePropsWithObjCollection(this.textFieldObjCollection,false,"red",true);
+        this.VerifyPasswordTextFieldObj.changeColorAndOpacitySwitch(true,"#ff0000");
+        this.PasswordTextFieldObj.changeColorAndOpacitySwitch(true,"#ff0000");
+        this.refreshPagePropsWithObjCollection(this.textFieldObjCollection,"#ff0000",true);
     }
 
     verifyNewPasswordOnBlur(args) {
@@ -230,16 +190,10 @@ export class NewAccountPage implements OnInit {
         this.verifyNewPassword = textField.text;
         this.VerifyPasswordTextFieldObj.setDataOfTextField(this.verifyNewPassword);
         console.log("The verifyNewPassword is " + textField.text);
-        
-        this.VerifyPasswordTextFieldObj.changeColorAndOpacitySwitch(false,"red");
-        this.refreshPagePropsWithObjCollection(this.textFieldObjCollection,false,"red",false);
-        
+        this.VerifyPasswordTextFieldObj.changeColorAndOpacitySwitch(false,"#ff0000");
+        this.VerifyPasswordTextFieldObj.checkDataWithCriteria(this.PasswordTextFieldObj);        
         this.VerifyPasswordTextFieldObj.compareTextFieldDataOfObjs(this.PasswordTextFieldObj);
-        this.buttonEnabled = this.VerifyPasswordTextFieldObj.getPasswordsMatchProp();
-        this.refreshPagePropsWithObjCollection(this.textFieldObjCollection,false,"red",false);
-
-        this.VerifyPasswordTextFieldObj.checkDataWithCriteria(this.PasswordTextFieldObj);
-        this.refreshPagePropsWithObjCollection(this.textFieldObjCollection,false,"red",false);
+        this.refreshPagePropsWithObjCollection(this.textFieldObjCollection,"#ff0000",false);
     }
 
     classCodeOnReturnPress(args) {
@@ -275,7 +229,7 @@ export class NewAccountPage implements OnInit {
         console.log("accountCreated");
         console.log("newUsername = " + this.newUsername + " newPassword = " + this.newPassword + " verifyNewPassword = " 
                     + this.verifyNewPassword + " classCode = " + this.classCode);
-        this.refreshPagePropsWithObjCollection(this.textFieldObjCollection,false,"green",false);
+        this.refreshPagePropsWithObjCollection(this.textFieldObjCollection,"#008C00",false);
     }
 }
 

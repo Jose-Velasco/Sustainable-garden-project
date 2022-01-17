@@ -5,7 +5,7 @@ import { BackendService } from "../shared/services/backend.service";
 import { ChartsDataService } from "../shared/services/charts-data.service";
 import { TextFieldObject } from "../shared/models/textFieldObject.model";
 
-// decorator, tells angular and nativescript what component we are talking about
+// decorator, tells angular and nativescript what component we are talking abou
 @Component({
     selector: "ns-auth", //where in nativescript is this component
     templateUrl: "./auth.component.html", // which html doc is this associated to
@@ -55,31 +55,24 @@ export class AuthComponent implements OnInit {
 
     
     // refactor into TextFieldObject model to be reused everywhere, see new account page for the whole method
-    refreshPagePropsWithObjCollection(someObjCollection:TextFieldObject[],checkAllIfEmpty:boolean,colorChosen:string,inputMode:boolean){
+    refreshPagePropsWithObjCollection(someObjCollection:TextFieldObject[],colorChosen:string,inputMode:boolean){
         let countEmptyFields = 0;
 
         for (let i= 0; i<someObjCollection.length; i++){
-            let objectInCollection = someObjCollection[i];
-            //let nextObjectInCollection;
-            if(colorChosen == "green"){
-                objectInCollection.changeColorAndOpacitySwitch(false,"green");
-            }
-            //if(someObjCollection[i+1])
-                //nextObjectInCollection = someObjCollection[i+1];
-            if(objectInCollection.getDataOfTextField() == ""){
+            let objectInCollection = someObjCollection[i];;
+            if(colorChosen == "#008C00")
+                objectInCollection.changeColorAndOpacitySwitch(false,"#008C00");
+            
+            if(objectInCollection.getDataOfTextField() == "")
                 countEmptyFields++;
-                if(checkAllIfEmpty)
-                    objectInCollection.changeColorAndOpacitySwitch(inputMode,colorChosen);
-            }
             
             this.pageDataRefresh(objectInCollection);
 
-            if(countEmptyFields==0){
+            if((countEmptyFields==0)&&(inputMode == false))
                 this.buttonEnabled = true;
-            }
-            else{
+            
+            else
                 this.buttonEnabled = false;
-            }
             
         }
     }
@@ -127,8 +120,8 @@ export class AuthComponent implements OnInit {
         // Limits input to a certain number of characters.
         //console.log(textField.maxLength);
 
-        this.LoginUsernameTextFieldObj.changeColorAndOpacitySwitch(false,"red");
-        this.refreshPagePropsWithObjCollection(this.loginTextFieldObjCollection,false,"red",false);
+        this.LoginUsernameTextFieldObj.changeColorAndOpacitySwitch(false,"#ff0000");
+        this.refreshPagePropsWithObjCollection(this.loginTextFieldObjCollection,"#ff0000",false);
 
         setTimeout(() => {
             textField.dismissSoftInput(); // Hides the soft input method, ususally a soft keyboard.
@@ -138,8 +131,8 @@ export class AuthComponent implements OnInit {
     usernameOnFocus(args) {
         // focus event will be triggered when the users enters the TextField
         let textField = <TextField>args.object;
-        this.LoginUsernameTextFieldObj.changeColorAndOpacitySwitch(true,"red");
-        this.refreshPagePropsWithObjCollection(this.loginTextFieldObjCollection,false,"red",true);
+        this.LoginUsernameTextFieldObj.changeColorAndOpacitySwitch(true,"#ff0000");
+        this.refreshPagePropsWithObjCollection(this.loginTextFieldObjCollection,"#ff0000",true);
     }
 
     usernameOnBlur(args) {
@@ -150,8 +143,8 @@ export class AuthComponent implements OnInit {
         
         console.log("The username is " + textField.text);
 
-        this.LoginUsernameTextFieldObj.changeColorAndOpacitySwitch(false,"red");
-        this.refreshPagePropsWithObjCollection(this.loginTextFieldObjCollection,false,"red",false);
+        this.LoginUsernameTextFieldObj.changeColorAndOpacitySwitch(false,"#ff0000");
+        this.refreshPagePropsWithObjCollection(this.loginTextFieldObjCollection,"#ff0000",false);
     }
 
     passwordOnReturnPress(args) {
@@ -163,8 +156,8 @@ export class AuthComponent implements OnInit {
         
         console.log("The password is " + textField.text);
 
-        this.LoginPasswordTextFieldObj.changeColorAndOpacitySwitch(false,"red");
-        this.refreshPagePropsWithObjCollection(this.loginTextFieldObjCollection,false,"red",false);
+        this.LoginPasswordTextFieldObj.changeColorAndOpacitySwitch(false,"#ff0000");
+        this.refreshPagePropsWithObjCollection(this.loginTextFieldObjCollection,"#ff0000",false);
 
         setTimeout(() => {
             textField.dismissSoftInput(); // Hides the soft input method, ususally a soft keyboard.
@@ -174,8 +167,8 @@ export class AuthComponent implements OnInit {
     passwordOnFocus(args) {
         // focus event will be triggered when the users enters the TextField
         let textField = <TextField>args.object;
-        this.LoginPasswordTextFieldObj.changeColorAndOpacitySwitch(true,"red");
-        this.refreshPagePropsWithObjCollection(this.loginTextFieldObjCollection,false,"red",true);
+        this.LoginPasswordTextFieldObj.changeColorAndOpacitySwitch(true,"#ff0000");
+        this.refreshPagePropsWithObjCollection(this.loginTextFieldObjCollection,"#ff0000",true);
     }
 
     passwordOnBlur(args) {
@@ -186,13 +179,13 @@ export class AuthComponent implements OnInit {
         
         console.log("The password is " + textField.text);
 
-        this.LoginPasswordTextFieldObj.changeColorAndOpacitySwitch(false,"red");
-        this.refreshPagePropsWithObjCollection(this.loginTextFieldObjCollection,false,"red",false);
+        this.LoginPasswordTextFieldObj.changeColorAndOpacitySwitch(false,"#ff0000");
+        this.refreshPagePropsWithObjCollection(this.loginTextFieldObjCollection,"#ff0000",false);
 
     }
 
     Login() {
-        this.refreshPagePropsWithObjCollection(this.loginTextFieldObjCollection,false,"green",false);
+        this.refreshPagePropsWithObjCollection(this.loginTextFieldObjCollection,"#008C00",false);
         
         this.router.navigate(["tabs"], { clearHistory: true});  
         // uses the RouterExtentions from constructor to navigate to tabs, see "tabs" in

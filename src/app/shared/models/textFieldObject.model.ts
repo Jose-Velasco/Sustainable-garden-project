@@ -1,14 +1,15 @@
+import { Validators } from "@angular/forms";
 /**
  * Class for modifying text field objects
  */
 export class TextFieldObject {
     
     //defaults of all objects
-    private _colorOfTextField =  "white"; 
+    private _colorOfTextField =  "#ffffff"; 
     private _opacityOfTextField =  1;
     private _inputStatus = false;
-    private _passwordsMatch:boolean;
-    private _passwordFitCriteria:boolean;
+    private _doPasswordsMatch=true;
+    private _doesPasswordFitCriteria=true;
     private _allCharacterPattern = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[-+_!@#$%^&*.,?]).+$"); // based on RFC 5521 and 5522 specs
     /*
     usage convention for _pattern:
@@ -46,11 +47,11 @@ export class TextFieldObject {
     }
 
     getPasswordsMatchProp(){
-        return this._passwordsMatch;
+        return this._doPasswordsMatch;
     }
 
     getPasswordFitCriteriaProp(){
-        return this._passwordFitCriteria;
+        return this._doesPasswordFitCriteria;
     }
 
     getInputStatusOfTextField(){
@@ -67,7 +68,7 @@ export class TextFieldObject {
                 console.log("Changing the color of Text Field to " + customColorChosen);
                 this.setColorAndOpacityOfTextField(customColorChosen,0.5);
             }
-            else if(customColorChosen == "green"){
+            else if(customColorChosen == "#008C00"){
                 console.log("Changing the color of Text Field to " + customColorChosen);
                 this.setColorAndOpacityOfTextField(customColorChosen,0.5);
             }
@@ -75,14 +76,14 @@ export class TextFieldObject {
             // else, the user is in input mode of the text field, do not indicate invalid input
             else{
                 console.log("Removing the color of Text Field");
-                this.setColorAndOpacityOfTextField("white",1);
+                this.setColorAndOpacityOfTextField("#ffffff",1);
             }
         }
 
         // else, the user has inputted nonempty data, do not indicate invalid input
         else{
             console.log("Removing the color of Text Field");
-            this.setColorAndOpacityOfTextField("white",1);
+            this.setColorAndOpacityOfTextField("#ffffff",1);
         }
     }
 
@@ -97,31 +98,33 @@ export class TextFieldObject {
             // set the data of objects to empty to trigger an invalid input indicator for both objects
             this._dataOfTextField = "";
             secondTextFieldObject._dataOfTextField = "";
-            this.changeColorAndOpacitySwitch(false,"red");
-            secondTextFieldObject.changeColorAndOpacitySwitch(false,"red");
+            this.changeColorAndOpacitySwitch(false,"#ff0000");
+            secondTextFieldObject.changeColorAndOpacitySwitch(false,"#ff0000");
 
             // get the data from temporary storage and set the data back to original
             this._dataOfTextField = firstObjectTempData;
             secondTextFieldObject._dataOfTextField = secondObjectTempData;
             console.log("Passwords do not match");
-            this._passwordsMatch = false;
+            this._doPasswordsMatch = false;
+            secondTextFieldObject._doPasswordsMatch = false;
         }
 
         // else, the data compared between both objects are the same, do not indicate invalid input
         else{
-            this.changeColorAndOpacitySwitch(false,"red");
-            secondTextFieldObject.changeColorAndOpacitySwitch(false,"red");
+            this.changeColorAndOpacitySwitch(false,"#ff0000");
+            secondTextFieldObject.changeColorAndOpacitySwitch(false,"#ff0000");
             console.log("Passwords do match");
-            this._passwordsMatch = true;
+            this._doPasswordsMatch = true;
+            secondTextFieldObject._doPasswordsMatch = true;
         }
     }
 
     checkDataWithCriteria(secondTextFieldObject:TextFieldObject){
         if((this._allCharacterPattern.test(this.getDataOfTextField())) && (this.getDataOfTextField().length >= 8)){
-            this.changeColorAndOpacitySwitch(true,"red");
-            secondTextFieldObject.changeColorAndOpacitySwitch(true,"red");
-            this._passwordFitCriteria == true;
-            secondTextFieldObject._passwordFitCriteria = true;
+            this.changeColorAndOpacitySwitch(true,"#ff0000");
+            secondTextFieldObject.changeColorAndOpacitySwitch(true,"#ff0000");
+            this._doesPasswordFitCriteria == true;
+            secondTextFieldObject._doesPasswordFitCriteria = true;
         }
             
         else{
@@ -132,14 +135,14 @@ export class TextFieldObject {
             // set the data of objects to empty to trigger an invalid input indicator for both objects
             this._dataOfTextField = "";
             secondTextFieldObject._dataOfTextField = "";
-            this.changeColorAndOpacitySwitch(false,"red");
-            secondTextFieldObject.changeColorAndOpacitySwitch(false,"red");
+            this.changeColorAndOpacitySwitch(false,"#ff0000");
+            secondTextFieldObject.changeColorAndOpacitySwitch(false,"#ff0000");
 
             // get the data from temporary storage and set the data back to original
             this._dataOfTextField = firstObjectTempData;
             secondTextFieldObject._dataOfTextField = secondObjectTempData;
-            this._passwordFitCriteria = false;
-            secondTextFieldObject._passwordFitCriteria = false;
+            this._doesPasswordFitCriteria = false;
+            secondTextFieldObject._doesPasswordFitCriteria = false;
         }
     }
 
