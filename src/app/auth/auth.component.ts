@@ -19,12 +19,12 @@ export class AuthComponent implements OnInit {
     username= "";
     usernameFieldColor: string;
     usernameFieldOpacity: number;
-    LoginUsernameTextFieldObj = new TextFieldObject(this.username,0,true,"auth");
+    LoginUsernameTextFieldObj = new TextFieldObject(this.username,0,true,true);
 
     password= "";
     passwordFieldColor: string;
     passwordFieldOpacity: number;
-    LoginPasswordTextFieldObj = new TextFieldObject(this.password,1,true,"auth");
+    LoginPasswordTextFieldObj = new TextFieldObject(this.password,1,true);
     buttonEnabled = false;
 
 
@@ -46,7 +46,7 @@ export class AuthComponent implements OnInit {
 
         this.backendService.fetchAllSensorsReadings(); // (1)
         this.chartsDataService.initializeChartServiceData(); 
-        // TODO: "this.chartsDataService.initializeChartServiceData();" has been added here for charts view testing purposes only
+        // "this.chartsDataService.initializeChartServiceData();" has been added here for charts view testing purposes only
 
         this.loginTextFieldObjCollection.push(this.LoginUsernameTextFieldObj);
         this.loginTextFieldObjCollection.push(this.LoginPasswordTextFieldObj);
@@ -63,8 +63,8 @@ export class AuthComponent implements OnInit {
     usernameEnterField(args){
         // focus event will be triggered when the users enters the TextField
         let textField = <TextField>args.object;
-        this.LoginUsernameTextFieldObj.changeColorAndOpacitySwitch(true,"#ff0000");
-        this.buttonEnabled = this.LoginUsernameTextFieldObj.refreshPagePropsWithObjCollection(this.loginTextFieldObjCollection,"#ff0000",true);
+        this.LoginUsernameTextFieldObj.changeColorAndOpacitySwitch(true,true);
+        this.buttonEnabled = this.LoginUsernameTextFieldObj.refreshPagePropsWithObjCollection(this.loginTextFieldObjCollection,true);
         this.loginPageDataRefresh();
     }
 
@@ -77,8 +77,6 @@ export class AuthComponent implements OnInit {
         // Gets or sets the input text.
         this.username = textField.text;
         this.LoginUsernameTextFieldObj.setDataOfTextField(this.username);
-        
-        console.log("The username is " + textField.text);
         // Gets or sets the secure option (e.g. for passwords).
         //console.log(textField.secure);
 
@@ -98,8 +96,8 @@ export class AuthComponent implements OnInit {
         // Limits input to a certain number of characters.
         //console.log(textField.maxLength);
 
-        this.LoginUsernameTextFieldObj.changeColorAndOpacitySwitch(false,"#ff0000");
-        this.buttonEnabled = this.LoginUsernameTextFieldObj.refreshPagePropsWithObjCollection(this.loginTextFieldObjCollection,"#ff0000",false);
+        this.LoginUsernameTextFieldObj.changeColorAndOpacitySwitch(true,false);
+        this.buttonEnabled = this.LoginUsernameTextFieldObj.refreshPagePropsWithObjCollection(this.loginTextFieldObjCollection,false);
         this.loginPageDataRefresh();
 
         if(timeoutEnabled){
@@ -112,8 +110,8 @@ export class AuthComponent implements OnInit {
     passwordEnterField(args){
         // focus event will be triggered when the users enters the TextField
         let textField = <TextField>args.object;
-        this.LoginPasswordTextFieldObj.changeColorAndOpacitySwitch(true,"#ff0000");
-        this.buttonEnabled = this.LoginPasswordTextFieldObj.refreshPagePropsWithObjCollection(this.loginTextFieldObjCollection,"#ff0000",true);
+        this.LoginPasswordTextFieldObj.changeColorAndOpacitySwitch(true,true);
+        this.buttonEnabled = this.LoginPasswordTextFieldObj.refreshPagePropsWithObjCollection(this.loginTextFieldObjCollection,true);
         this.loginPageDataRefresh();
 
     }
@@ -124,11 +122,9 @@ export class AuthComponent implements OnInit {
 
         this.password = textField.text;
         this.LoginPasswordTextFieldObj.setDataOfTextField(this.password);
-        
-        console.log("The password is " + textField.text);
 
-        this.LoginPasswordTextFieldObj.changeColorAndOpacitySwitch(false,"#ff0000");
-        this.buttonEnabled = this.LoginPasswordTextFieldObj.refreshPagePropsWithObjCollection(this.loginTextFieldObjCollection,"#ff0000",false);
+        this.LoginPasswordTextFieldObj.changeColorAndOpacitySwitch(true,false);
+        this.buttonEnabled = this.LoginPasswordTextFieldObj.refreshPagePropsWithObjCollection(this.loginTextFieldObjCollection,false);
         this.loginPageDataRefresh();
 
         if(timeoutEnabled){
@@ -139,13 +135,12 @@ export class AuthComponent implements OnInit {
     }
 
     Login() {
-        this.LoginPasswordTextFieldObj.refreshPagePropsWithObjCollection(this.loginTextFieldObjCollection,"#008C00",false);
+        this.LoginPasswordTextFieldObj.refreshPagePropsWithObjCollection(this.loginTextFieldObjCollection,false,"#008C00");
         this.loginPageDataRefresh();
         this.router.navigate(["tabs"], { clearHistory: true});  
-        // uses the RouterExtentions from constructor to navigate to tabs, see "tabs" in
-        // src/app/app-routing.module.ts
-        // clearHistory clears the data to be ready for any data in the next component
+        
         console.log("loggedIn"); // tell us we logged in
+        console.log("this.username = "+this.username+", this.password = "+this.password);
     }
 
     // go to newAccount page, same process as previous method but to newAccountPage
