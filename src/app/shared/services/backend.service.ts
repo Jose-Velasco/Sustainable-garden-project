@@ -2,6 +2,8 @@ import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
 import { SensorsReadingsDataService } from "./sensors-readings-data.service";
 import { SensorReading } from "../models/sensors-readings.model";
+import { UserDataReadWriteService } from "./userDataReadWrite.service";
+import { Observable } from "rxjs";
 
 @Injectable({providedIn: "root"})
 export class BackendService {
@@ -13,7 +15,9 @@ export class BackendService {
 
     constructor(
         private sensorsReadingsDataService: SensorsReadingsDataService,
-        private http: HttpClient) {}
+        private http: HttpClient,
+        private userDataReadWriteService:UserDataReadWriteService
+        ) {}
 
     /**
      * gets all of the sensors readings from the backend.
@@ -50,15 +54,18 @@ export class BackendService {
         );
     }
 
+    // TODO: add a way to get and post user data here
+
     /**
      * For Dashboard view UI testing can be removed.
      * Repeatedly call the backend for current(realtime?) sensor values
      */
     testDashboardViewUIWithCurrentSensorData(): void {
-        const millisecondsDelay = 2500;
+        const millisecondsDelay = 10000;
         setTimeout(()=> {
             this.readCurrentSensorValues();
             this.testDashboardViewUIWithCurrentSensorData();
         }, millisecondsDelay);
     }
+    
 }

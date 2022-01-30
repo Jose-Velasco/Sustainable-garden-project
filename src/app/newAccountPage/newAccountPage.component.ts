@@ -2,11 +2,13 @@ import { Component, OnInit } from "@angular/core";
 import { RouterExtensions } from "@nativescript/angular";
 import { TextField } from "@nativescript/core/ui/text-field";
 import { TextFieldObject } from "../shared/models/textFieldObject.model";
+import { UserDataReadWriteService } from "../shared/services/userDataReadWrite.service";
 
 @Component({
     selector: "ns-newAccountPage",
     templateUrl: "./newAccountPage.component.html",
-    styleUrls: ["newAccountPage.component.scss"]
+    styleUrls: ["newAccountPage.component.scss"],
+    providers: [UserDataReadWriteService]
 })
 
 export class NewAccountPage implements OnInit {
@@ -36,7 +38,9 @@ export class NewAccountPage implements OnInit {
 
     buttonEnabled = false;
 
-    constructor(private router: RouterExtensions,) {}
+    newUserRegisterObj;
+
+    constructor(private router: RouterExtensions,private userDataReadWriteService:UserDataReadWriteService) {}
 
     ngOnInit() {
         this.textFieldObjCollection.push(this.UsernameTextFieldObj);
@@ -166,6 +170,19 @@ export class NewAccountPage implements OnInit {
         console.log("accountCreated");
         console.log("newUsername = " + this.newUsername + " newPassword = " + this.newPassword + " verifyNewPassword = " 
                     + this.verifyNewPassword + " classCode = " + this.classCode);
+
+        this.newUserRegisterObj = {
+            username: this.newUsername,
+            password: this.newPassword,
+            email: this.newUsername
+        };
+
+        this.userDataReadWriteService.registerUser(this.newUserRegisterObj).subscribe(
+            responce => {
+                console.log("User " + this.newUserRegisterObj.username + " has been created.")
+            },
+            error => console.log("Error, user was not created:", error)
+        );
     }
 }
 
