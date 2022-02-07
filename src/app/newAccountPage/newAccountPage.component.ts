@@ -181,7 +181,7 @@ export class NewAccountPage implements OnInit {
             responce => {
                 console.log("User " + this.newUserRegisterObj.username + " has been created.")
             },
-            error => console.log("Error, user was not created:", error)
+            error => console.log("Error, user was not created:", error) // fix error handling for if user exists, or account can't be created if server gives error
         );
     }
 }

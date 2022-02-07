@@ -61,7 +61,7 @@ export class BackendService {
      * Repeatedly call the backend for current(realtime?) sensor values
      */
     testDashboardViewUIWithCurrentSensorData(): void {
-        const millisecondsDelay = 10000;
+        const millisecondsDelay = 2000;
         setTimeout(()=> {
             this.readCurrentSensorValues();
             this.testDashboardViewUIWithCurrentSensorData();
