@@ -25,6 +25,8 @@ export class SplineAreaSeriesChart implements OnInit {
 
     ngOnInit() {
         this.dataItems = this.splineAreaProperties.dataItems;
+        
+        
         this.setLinearAxisLabelDataItemFormat();
         this.initializeAreaAndCurveColors();
     }
@@ -41,7 +43,9 @@ export class SplineAreaSeriesChart implements OnInit {
      * similar to how one formats string with % in python.
      */
     setLinearAxisLabelDataItemFormat(): void {
+        
         this._linearAxisLabelFormatForDataItem = `%.1f${this.splineAreaProperties.unitsSymbol}`;
+        
     }
 
     get curveColor(): Color { return this._curveColor; }

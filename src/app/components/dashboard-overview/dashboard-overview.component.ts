@@ -20,10 +20,12 @@ export class DashboardOverviewComponent implements OnInit, OnDestroy {
     private _currentHumidityValueChanged: Subscription;
     private _currentTemperatureValueChanged: Subscription;
     private _currentRainStatusChanged: Subscription;
+    private _currentSoilValueChanged:Subscription;
 
     //data used, can be modified
     currentHumidityValue: number;
     currentTemperatureValue: number;
+    currentSoilValue:number;
     currentRainStatus: boolean;
     hasSunLight = false; //!change when we get the data working for the sunlight card
     
@@ -46,6 +48,11 @@ export class DashboardOverviewComponent implements OnInit, OnDestroy {
             .subscribe(newValue => {
                 this.currentHumidityValue = newValue; //assign the value 
             });
+        //the changed soil value is the data from the sensors with the current humidity reading
+        this._currentSoilValueChanged = this.sensorReadingDataService.currentSoilValue
+        .subscribe(newValue => {
+            this.currentSoilValue = newValue; //assign the value 
+        });
         //the changed temperature value is the data from the sensors with the current temperature reading
         this._currentTemperatureValueChanged = this.sensorReadingDataService.currentTemperature
             .subscribe(newValue=> {
@@ -68,6 +75,9 @@ export class DashboardOverviewComponent implements OnInit, OnDestroy {
         }
         if (this._currentTemperatureValueChanged) {
             this._currentTemperatureValueChanged.unsubscribe()
+        }
+        if (this._currentSoilValueChanged) {
+            this._currentSoilValueChanged.unsubscribe()
         }
         if (this._currentRainStatusChanged) {
             this._currentRainStatusChanged.unsubscribe();

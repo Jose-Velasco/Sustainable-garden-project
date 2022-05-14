@@ -1,12 +1,13 @@
 <ns-action-bar [showBackButton]="false"></ns-action-bar>
 
 <!-- the GridLayout can be used to format in the style of a 2D array -->
-<GridLayout class="dashboard-overview-container" columns="*, *" rows="3*, *">
+<!-- <GridLayout class="dashboard-overview-container" columns="*, *" rows="2*, *"> -->
+<GridLayout class="dashboard-overview-container" columns="*, *" rows="3*, *,*"> >
     <!-- <ns-thermometer col="0" row="0"></ns-thermometer>
     <ns-humidity  col="1" row="0"></ns-humidity>
     <ns-rain col="0" row="1"></ns-rain>
     <Label col="1" row="1" class="fa icon-sun" text="&#xf185;"></Label> -->
-    
+
     <!--Every part of this dashboard has a wrapper internally-->
     <!--
         Template to make another card/button in grid:
@@ -15,7 +16,7 @@
         </GridLayout>
     -->
     <GridLayout></GridLayout>
-    <GridLayout col="0" row="0" class="dashboard-components-wrapper">
+    <GridLayout col="0" row="0" rowspan="2" class="dashboard-components-wrapper">
         <ns-thermometer [temperature]="currentTemperatureValue"></ns-thermometer>
         <!--            ^^^^^^^^^^^^^---we get data for the therometer -->
     </GridLayout>
@@ -23,17 +24,18 @@
         <ns-humidity [humidityValue]="currentHumidityValue"></ns-humidity>
         <!--         ^^^^^^^^^^^^^^^---we get data for the humidity -->
     </GridLayout>
-    <GridLayout class="dashboard-components-wrapper" col="0" row="1">
+    <GridLayout col="0" row="2" class="dashboard-components-wrapper">
+        <ns-soil [soilValue]="currentSoilValue"></ns-soil>
+        <!--         ^^^^^^^^^^^^^^^---we get data for the humidity -->
+    </GridLayout>
+    <GridLayout class="dashboard-components-wrapper" col="1" row="1">
         <ns-rain [isRaining]="currentRainStatus"></ns-rain>
         <!--     ^^^^^^^^^^^---we get data for the rain status -->
     </GridLayout>
-    <GridLayout class="dashboard-components-wrapper" col="1" row="1">
+    <GridLayout class="dashboard-components-wrapper" col="1" row="2">
         <!-- The sun is just left as a button to click-->
         <!-- TODO: must change to the previous format with other parts in the layout-->
-        <Label
-            (tap)="onSunlightTest()"
-            class="fa icon-sun"
-            text="&#xf185;"
+        <Label (tap)="onSunlightTest()" class="fa icon-sun" text="&#xf185;"
             [ngStyle]="{color: hasSunLight ? 'yellow' : 'lightgray'}">
         </Label>
     </GridLayout>

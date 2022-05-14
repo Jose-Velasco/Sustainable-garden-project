@@ -1,14 +1,29 @@
 @import "../../scss/variables";
 
-.icon-drop {
-    color: $primaryBaseColor;
-    font-size: 200;
+.icon-seedling {
+    color: #34aa63;
+    font-size: 60%;
+    text-align: center;
+    vertical-align: middle;
 }
-.humidity-label-text {
-    font-size: 40;
-    
+.soil-label-text {
+    font-size: 40%;
+    vertical-align: middle;
     font-weight: bold;
+    text-align: center;
     color: black;
+}
+.icon-soil {
+    font-size: 40%;
+    color: #7c4331;
+    text-align: center;
+    vertical-align: middle;
+}
+.icon-water {
+    font-size: 40%;
+    color: $primaryBaseColor;
+    text-align: center;
+    vertical-align: middle;
 }
 // .drop-wrapper {
 //     background: white;

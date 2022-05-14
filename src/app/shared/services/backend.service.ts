@@ -9,6 +9,7 @@ import { Observable } from "rxjs";
 export class BackendService {
     // use network address 10.0.2.2 to go to your 127.0.0.1 on you development machine from
     // inside of the android emulator
+    // pi IP goes into the BackendBaseURL
     private _sustainableGardenBackendBaseURL = "http://10.0.2.2:8000";
     private tns_httpHeaders: HttpHeaders = new HttpHeaders({"Content-Type":"application/json"});
     private _isEndpointTest = true;
@@ -61,9 +62,10 @@ export class BackendService {
      * Repeatedly call the backend for current(realtime?) sensor values
      */
     testDashboardViewUIWithCurrentSensorData(): void {
-        const millisecondsDelay = 2000;
+        const millisecondsDelay = 15000;
         setTimeout(()=> {
             this.readCurrentSensorValues();
+            this.fetchAllSensorsReadings();
             this.testDashboardViewUIWithCurrentSensorData();
         }, millisecondsDelay);
     }

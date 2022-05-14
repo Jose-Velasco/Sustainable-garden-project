@@ -9,6 +9,7 @@ export class SensorsReadingsDataService {
     private _sensorsReadingsData: SensorReading[] = [];
     private _currentTemperatureChanged = new Subject<number>();
     private _currentHumidityChanged = new Subject<number>();
+    private _currentSoilValueChanged = new Subject<number>();
     private _currentRainStatusChanged = new Subject<number>();
     private _pSTHoursOffset: number = 7;
 
@@ -32,12 +33,19 @@ export class SensorsReadingsDataService {
     get currentTemperature(): Observable<number> { return this._currentTemperatureChanged.asObservable(); }
     setCurrentTemperature(newTemperatureValue: number): void {
         this._currentTemperatureChanged.next(newTemperatureValue);
+        
     }
 
     get currentHumidity(): Observable<number> { return this._currentHumidityChanged.asObservable(); }
     setCurrentHumidity(newHumidityValue: number): void {
         this._currentHumidityChanged.next(newHumidityValue);
     }
+
+    get currentSoilValue(): Observable<number> { return this._currentSoilValueChanged.asObservable(); }
+    setCurrentSoilValue(newSoilValue: number): void {
+        this._currentSoilValueChanged.next(newSoilValue);
+    }
+
     get currentRainStatus(): Observable<number> { return this._currentRainStatusChanged.asObservable(); }
     setCurrentRainStatus(newRainStatus: number): void {
         this._currentRainStatusChanged.next(newRainStatus);
@@ -156,6 +164,7 @@ export class SensorsReadingsDataService {
         const currentOverviewInputActions = new Map([
             ["Temperature", (e:number)=>this.setCurrentTemperature(e)],
             ["Humidity", (e:number)=>this.setCurrentHumidity(e)],
+            ["Soil",(e:number)=>this.setCurrentSoilValue(e)],
             ["Rain", (e:number)=>this.setCurrentRainStatus(e)],
         ]);
         const readingKey = newSingleReading.keys().next().value;

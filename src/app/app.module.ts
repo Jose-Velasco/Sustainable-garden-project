@@ -11,6 +11,7 @@ import { ThermometerComponent } from "./shared/ui/thermometer/thermometer.compon
 import { TabsNavigationComponent } from "./components/tabs-navigation/tabs-navigation.component";
 import { HumidityComponent } from "./shared/ui/humidity/humidity.component";
 import { RainComponent } from "./shared/ui/rain/rain.component";
+import { SoilComponent } from "./shared/ui/soil/soil.component";
 import { ActionBarComponent } from "./shared/ui/action-bar/action-bar.component";
 import { DashboardChartsComponent } from "./components/dashboard-charts/dashboard-charts.component";
 import { ThermometerChartComponent } from "./shared/ui/thermometer-chart/thermometer-chart.component";
@@ -40,6 +41,7 @@ import { AreaSeriesChart } from "./shared/ui/area-series-chart/area-series-chart
         TabsNavigationComponent,
         HumidityComponent,
         RainComponent,
+        SoilComponent,
         ActionBarComponent,
         DashboardChartsComponent,
         ThermometerChartComponent,
