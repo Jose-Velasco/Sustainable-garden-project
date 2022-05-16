@@ -1,0 +1,15 @@
+@import "../../shared/scss/variables";
+
+.sensors-overview-container {
+    background-color: $primaryCanvas;
+    border-radius: 20;
+    text-align: center;
+}
+.sensors-components-wrapper {
+    // This might cause the app to crash on IOS
+    // If it does cause issues then add property only on android devices
+    android-elevation: 16;
+    margin: 5;
+    border-radius: 20;
+    background: $primaryCanvas;
+}

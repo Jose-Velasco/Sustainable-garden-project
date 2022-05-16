@@ -1,0 +1,70 @@
+<ns-action-bar [showBackButton]="false"></ns-action-bar>
+
+<!-- the GridLayout can be used to format in the style of a 2D array -->
+<!-- <GridLayout class="dashboard-overview-container" columns="*, *" rows="2*, *"> -->
+<GridLayout class="sensors-overview-container" columns="*, *, *" rows="*, *" >
+    <GridLayout col="0" row="0" class="sensors-components-wrapper">
+        <GridLayout class="sensors-overview-container" columns="*" rows="*, *, *,*" >
+            <GridLayout col="0" row="0" rowspan="2">
+                <Image src="res://sgp_logos_dht_sensor" stretch="none" horizontalAlignment="center"></Image>
+            </GridLayout>
+            <GridLayout col="0" row="2" >
+                <Label text="DHT11 Sensor"></Label>
+            </GridLayout>
+            <GridLayout col="0" row="3" >
+                <Label text="Status:"></Label>
+            </GridLayout>
+        </GridLayout>
+    </GridLayout>
+    <GridLayout col="1" row="0" class="sensors-components-wrapper">
+        <GridLayout class="sensors-overview-container" columns="*" rows="*, *, *,*" >
+            <GridLayout col="0" row="0" rowspan="2">
+                <Image src="res://sgp_logos_soil_sensor" stretch="none" horizontalAlignment="center" ></Image>
+            </GridLayout>
+            <GridLayout col="0" row="2" >
+                <Label text="Soil Sensor"></Label>
+            </GridLayout>
+            <GridLayout col="0" row="3" >
+                <Label text="Status:"></Label>
+            </GridLayout>
+        </GridLayout>
+    </GridLayout>
+    <GridLayout col="2" row="0" class="sensors-components-wrapper">
+        <GridLayout class="sensors-overview-container" columns="*" rows="*,*,*,*" >
+            <GridLayout col="0" row="0" rowspan="2">
+                <Image src="res://sgp_logos_water_sensor" stretch="none" horizontalAlignment="center" ></Image>
+            </GridLayout>
+            <GridLayout col="0" row="2" >
+                <Label text="Water Sensor"></Label>
+            </GridLayout>
+            <GridLayout col="0" row="3" >
+                <Label text="Status:"></Label>
+            </GridLayout>
+        </GridLayout>
+    </GridLayout>
+    <GridLayout col="0" row="1" columnspan="3" class="sensors-components-wrapper">
+        <GridLayout class="sensors-overview-container" columns="*, *" rows="*" >
+            <GridLayout col="0" row="0" >
+                <Image src="res://sgp_logos_solar_panel" stretch="none" ></Image>
+            </GridLayout>
+            <GridLayout col="1" row="0" >
+                <Label text="Solar Panel Voltage:"></Label>
+            </GridLayout>
+        </GridLayout>
+    </GridLayout>
+
+<!-- 
+
+    <GridLayout col="1" row="0" class="sensor-components-wrapper">
+        <ns-soilSensor [soilValue]="currentSoilValue"></ns-soilSensor>
+    </GridLayout>
+    <GridLayout col="2" row="0" class="sensor-components-wrapper">
+        <ns-waterSensor [isRaining]="currentRainStatus"></ns-waterSensor>
+                ^^^^^^^^^^^^^^^---we get data for the humidity
+    </GridLayout>
+    <GridLayout col="0" row="1" columnspan="3" class="sensor-components-wrapper">
+                ^^^^^^^^^^^^^^^---we get data for the humidity
+    </GridLayout>
+-->
+
+</GridLayout>

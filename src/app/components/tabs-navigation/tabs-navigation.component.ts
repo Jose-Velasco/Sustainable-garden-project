@@ -14,7 +14,6 @@ import { Page, isAndroid } from "@nativescript/core";
 // TabsNavigationComponent can be found in app.module.ts, not needed to be touched with Angular CLI working
 export class TabsNavigationComponent implements OnInit {
     constructor(
-        //!required --- these next four lines are chart formatting
         private router: RouterExtensions,
         private active: ActivatedRoute,
         private page: Page
