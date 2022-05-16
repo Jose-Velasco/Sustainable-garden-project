@@ -22,6 +22,14 @@ export class SensorsOverviewComponent implements OnInit, OnDestroy {
     private _currentRainStatusChanged: Subscription;
     private _currentSoilValueChanged:Subscription;
 
+    isDHTsensorActive: string;
+    dhtActiveTextColor: string;
+    isSoilSensorActive: string;
+    soilActiveTextColor: string;
+    isWaterSensorActive: string;
+    waterActiveTextColor:string;
+    solarPanelVoltage: number;
+
     //data used, can be modified
     currentHumidityValue: number;
     currentTemperatureValue: number;
@@ -39,18 +47,30 @@ export class SensorsOverviewComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
 
+        this.isDHTsensorActive= "INACTIVE";
+        this.dhtActiveTextColor= "red";
+        this.isSoilSensorActive= "INACTIVE";
+        this.soilActiveTextColor= "red";
+        this.isWaterSensorActive= "INACTIVE";
+        this.waterActiveTextColor="red";
+        this.solarPanelVoltage= 0;
+
         //this.backendService.fetchAllSensorsReadings();
         //this.chartsDataService.initializeChartServiceData();
 
         //the changed humidity value is the data from the sensors with the current humidity reading
         this._currentHumidityValueChanged = this.sensorReadingDataService.currentHumidity
             .subscribe(newValue => {
-                this.currentHumidityValue = newValue; //assign the value 
+                this.currentHumidityValue = newValue; //assign the value
+                this.isDHTsensorActive = "ACTIVE"; 
+                this.dhtActiveTextColor = "green";
             });
         //the changed soil value is the data from the sensors with the current humidity reading
         this._currentSoilValueChanged = this.sensorReadingDataService.currentSoilValue
         .subscribe(newValue => {
             this.currentSoilValue = newValue; //assign the value 
+            this.isSoilSensorActive= "ACTIVE";
+            this.soilActiveTextColor="green";
         });
         //the changed temperature value is the data from the sensors with the current temperature reading
         this._currentTemperatureValueChanged = this.sensorReadingDataService.currentTemperature
@@ -61,6 +81,8 @@ export class SensorsOverviewComponent implements OnInit, OnDestroy {
         this._currentRainStatusChanged = this.sensorReadingDataService.currentRainStatus
         .subscribe(newValue => {
             this.currentRainStatus = newValue == 1 ? true : false ; //assign and check the value
+            this.isWaterSensorActive= "ACTIVE";
+            this.waterActiveTextColor="green";
         });
 
         this.backendService.readCurrentSensorValues();

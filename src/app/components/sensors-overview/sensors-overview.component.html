@@ -9,10 +9,10 @@
                 <Image src="res://sgp_logos_dht_sensor" stretch="none" horizontalAlignment="center"></Image>
             </GridLayout>
             <GridLayout col="0" row="2" >
-                <Label text="DHT11 Sensor"></Label>
+                <Label text="DHT11"></Label>
             </GridLayout>
-            <GridLayout col="0" row="3" >
-                <Label text="Status:"></Label>
+            <GridLayout col="0" row="3">
+                <Label [text]="isDHTsensorActive" [ngStyle]="{'color': dhtActiveTextColor}"></Label>
             </GridLayout>
         </GridLayout>
     </GridLayout>
@@ -24,8 +24,8 @@
             <GridLayout col="0" row="2" >
                 <Label text="Soil Sensor"></Label>
             </GridLayout>
-            <GridLayout col="0" row="3" >
-                <Label text="Status:"></Label>
+            <GridLayout col="0" row="3">
+                <Label [text]="isSoilSensorActive" [ngStyle]="{'color': soilActiveTextColor}"></Label>
             </GridLayout>
         </GridLayout>
     </GridLayout>
@@ -37,18 +37,18 @@
             <GridLayout col="0" row="2" >
                 <Label text="Water Sensor"></Label>
             </GridLayout>
-            <GridLayout col="0" row="3" >
-                <Label text="Status:"></Label>
+            <GridLayout col="0" row="3">
+                <Label [text]="isWaterSensorActive" [ngStyle]="{'color': waterActiveTextColor}"></Label>
             </GridLayout>
         </GridLayout>
     </GridLayout>
     <GridLayout col="0" row="1" columnspan="3" class="sensors-components-wrapper">
         <GridLayout class="sensors-overview-container" columns="*, *" rows="*" >
-            <GridLayout col="0" row="0" >
-                <Image src="res://sgp_logos_solar_panel" stretch="none" ></Image>
+            <GridLayout col="0" row="0" verticalAlignment="center">
+                <Image src="res://sgp_logos_solar_panel" stretch="none"></Image>
             </GridLayout>
-            <GridLayout col="1" row="0" >
-                <Label text="Solar Panel Voltage:"></Label>
+            <GridLayout col="1" row="0" verticalAlignment="center">
+                <Label [text]="solarPanelVoltage"></Label>
             </GridLayout>
         </GridLayout>
     </GridLayout>

@@ -21,7 +21,6 @@ import { LblCenterDirective } from "./shared/directives/lbl-center.directive";
 import { WebViewerComponent } from "./components/web-viewer/web-viewer.component";
 import { AreaSeriesChart } from "./shared/ui/area-series-chart/area-series-chart.component";
 import { SensorsOverviewComponent } from "./components/sensors-overview/sensors-overview.component.";
-import { DhtSensorComponent } from "./shared/ui/dhtSensor/dhtSensor.component";
 
 @NgModule({
     bootstrap: [
@@ -52,7 +51,6 @@ import { DhtSensorComponent } from "./shared/ui/dhtSensor/dhtSensor.component";
         WebViewerComponent,
         AreaSeriesChart,
         SensorsOverviewComponent,
-        DhtSensorComponent,
     ],
     providers: [],
     schemas: [
