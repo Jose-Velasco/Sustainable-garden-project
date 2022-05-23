@@ -2,6 +2,7 @@
 
 .dashboard-overview-container {
     background-color: $primaryCanvas;
+    text-align: center;
 }
 .dashboard-components-wrapper {
     // This might cause the app to crash on IOS
@@ -10,6 +11,10 @@
     margin: 5;
     border-radius: 20;
     background: $primaryCanvas;
+}
+
+Label {
+    font-size: 20;
 }
 
 .icon-sun {
