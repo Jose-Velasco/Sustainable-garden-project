@@ -1,4 +1,39 @@
 <StackLayout>
-    <Label class="testB" text="Auth component works!"></Label>
-    <Button (tap)="Login()" text="Log in"></Button>
+    <Label class="TitleLogin" text="LOGIN" style="text-align:center"></Label>
+ 
+    <Textfield  class="usernameField"
+                hint="Username/Email"
+                [text]='username'
+                secure="false"
+                keyboardType="email"
+                returnKeyType="next" 
+                (returnPress)="usernameExitField($event,true)"
+                autocorrect="false"
+                maxLength="30"
+                (focus)="usernameEnterField($event)" 
+                (blur)="usernameExitField($event,false)"
+                [ngStyle]="{'background-color' : usernameFieldColor, 'opacity':usernameFieldOpacity}"
+                >
+    </Textfield>
+
+    <Textfield  class="passwordField"
+                hint="Password"
+                [text]='password'
+                secure="true"
+                keyboardType="email"
+                returnKeyType="done" 
+                (returnPress)="passwordExitField($event,true)"
+                autocorrect="false"
+                maxLength="30"
+                (focus)="passwordEnterField($event)" 
+                (blur)="passwordExitField($event,false)"
+                [ngStyle]="{'background-color' : passwordFieldColor, 'opacity':passwordFieldOpacity}"
+                >
+    </Textfield>
+    
+    <Button class="LoginButton" (tap)="Login()" [isEnabled]="buttonEnabled" text="Log in"></Button>
+    
+    <Button class="NewAccountButton" (tap)="createNewAccount()" text="New around here? Create an account!"></Button>
+
+
 </StackLayout>

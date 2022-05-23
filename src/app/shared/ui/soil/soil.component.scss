@@ -1,0 +1,44 @@
+@import "../../scss/variables";
+
+.icon-seedling {
+    color: #34aa63;
+    font-size: 60%;
+    text-align: center;
+    vertical-align: middle;
+}
+Label {
+    font-size: 20;
+}
+.soil-label-text {
+    font-size: 30%;
+    vertical-align: middle;
+    font-weight: bold;
+    text-align: center;
+    color: black;
+}
+.icon-soil {
+    font-size: 40%;
+    text-align: center;
+    vertical-align: middle;
+}
+.icon-water {
+    font-size: 40%;
+    color: $primaryBaseColor;
+    text-align: center;
+    vertical-align: middle;
+}
+// .drop-wrapper {
+//     background: white;
+// }
+// .test-tear {
+//     clip-path: circle(80% at 50% 50%);
+//     background: linear-gradient(0deg, rgba(42,173,212,1) 70%, rgba(30,207,221,0.2) 74%);
+//     height: 200;
+//     width: 350;
+// }
+// .test-tear-top {
+//     clip-path: ellipse(9% 40% at 50% 50%);
+//     background: blue;
+//     height: 200;
+//     width: 250;
+// }

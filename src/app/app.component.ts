@@ -4,7 +4,10 @@ import { RadSideDrawerComponent } from "nativescript-ui-sidedrawer/angular";
 import { RadSideDrawer } from "nativescript-ui-sidedrawer";
 import { Subscription } from "rxjs";
 import { UIService } from "./shared/services/ui.service";
+import { ActivatedRoute } from "@angular/router";
 import { RouterExtensions } from "@nativescript/angular";
+
+
 
 @Component({
     selector: "ns-app",
@@ -15,19 +18,26 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy  {
     @ViewChild("profileIconLabel", { read: ElementRef, static: true }) private _profileIconLabel: ElementRef;
     private drawer: RadSideDrawer;
     private drawerSub: Subscription;
+    routerExtensions: any;
 
     constructor(
         private changeDetectionRef: ChangeDetectorRef,
         private uiService: UIService,
-        private router: RouterExtensions) {}
+        private router: RouterExtensions,
+        private active: ActivatedRoute,
+        ) {}
 
     ngOnInit() {
+        
+        
         this.drawerSub = this.uiService.drawerState.subscribe(() => {
             if (this.drawer) {
                 this.drawer.toggleDrawerState();
             }
         });
     }
+
+    
 
     ngOnDestroy() {
         this.drawerSub.unsubscribe();
@@ -38,6 +48,26 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy  {
     ngAfterViewInit() {
         this.drawer = this.drawerComponent.sideDrawer;
         this.changeDetectionRef.detectChanges();
+    }
+
+    
+
+    Logout() {
+        this.router.navigate(["auth"], { clearHistory: true});
+        this.uiService.toggleSidedrawer();
+        console.log("loggedOut");
+    }
+
+    DashboardReturn() {
+        this.router.navigate(["dashboardOverview"], { clearHistory: true});
+        this.router.navigate(["tabs"],{ clearHistory: true});
+        this.uiService.toggleSidedrawer();
+        
+    }
+
+    SensorsOverview() {
+        this.router.navigate(["sensorsOverview"], { clearHistory: true});
+        this.uiService.toggleSidedrawer();
     }
 
     onProfileIconLabelLoaded(args: EventData): void {

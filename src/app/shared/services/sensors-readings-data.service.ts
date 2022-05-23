@@ -9,6 +9,7 @@ export class SensorsReadingsDataService {
     private _sensorsReadingsData: SensorReading[] = [];
     private _currentTemperatureChanged = new Subject<number>();
     private _currentHumidityChanged = new Subject<number>();
+    private _currentSoilValueChanged = new Subject<number>();
     private _currentRainStatusChanged = new Subject<number>();
     private _pSTHoursOffset: number = 7;
 
@@ -32,12 +33,19 @@ export class SensorsReadingsDataService {
     get currentTemperature(): Observable<number> { return this._currentTemperatureChanged.asObservable(); }
     setCurrentTemperature(newTemperatureValue: number): void {
         this._currentTemperatureChanged.next(newTemperatureValue);
+        
     }
 
     get currentHumidity(): Observable<number> { return this._currentHumidityChanged.asObservable(); }
     setCurrentHumidity(newHumidityValue: number): void {
         this._currentHumidityChanged.next(newHumidityValue);
     }
+
+    get currentSoilValue(): Observable<number> { return this._currentSoilValueChanged.asObservable(); }
+    setCurrentSoilValue(newSoilValue: number): void {
+        this._currentSoilValueChanged.next(newSoilValue);
+    }
+
     get currentRainStatus(): Observable<number> { return this._currentRainStatusChanged.asObservable(); }
     setCurrentRainStatus(newRainStatus: number): void {
         this._currentRainStatusChanged.next(newRainStatus);
@@ -75,9 +83,12 @@ export class SensorsReadingsDataService {
      * @param newSensorsReadingsData
      * @returns returns a map of SensorsReadings where the key is the sensor's id
      */
-    organizeNewSensorReadingsDataBySensorID(newSensorsReadingsData: SensorReading[]): Map<number, SensorReading[]> {
+    organizeNewSensorReadingsDataBySensorID(newSensorsReadingsData: SensorReading[]): Map<number, SensorReading[]>
+    {
         let incomingSensorsReadingsData = new Map<number, SensorReading[]>();
 
+        // possible fix: change next line to the following as a HTML collection converting to Array
+        // [...newSensorsReadingsData].forEach((sensorReading: SensorReading) => {
         newSensorsReadingsData.forEach((sensorReading: SensorReading) => {
             let sensorId = sensorReading.sensor.id;
             if (incomingSensorsReadingsData.has(sensorId)) {
@@ -130,6 +141,9 @@ export class SensorsReadingsDataService {
      * @param currentSensorReadings new sensor Reading values
      */
     processSensorValues(currentSensorReadings: SensorReading[]) {
+        // possible fix: change next line to the following as a HTML collection converting to Array
+        // [...currentSensorReadings].forEach(currentSensorReading => {
+        // console.log("The current sensor reading is: " + currentSensorReadings);
         currentSensorReadings.forEach(currentSensorReading => {
             for (var singleReadingKey in currentSensorReading.reading) {
                 const newTemp = new Map<string, number>([
@@ -150,10 +164,12 @@ export class SensorsReadingsDataService {
         const currentOverviewInputActions = new Map([
             ["Temperature", (e:number)=>this.setCurrentTemperature(e)],
             ["Humidity", (e:number)=>this.setCurrentHumidity(e)],
+            ["Soil",(e:number)=>this.setCurrentSoilValue(e)],
             ["Rain", (e:number)=>this.setCurrentRainStatus(e)],
         ]);
         const readingKey = newSingleReading.keys().next().value;
         const readingValue = newSingleReading.get(readingKey)
         currentOverviewInputActions.get(readingKey)(readingValue);
+        //console.log("The Temp is: " + readingValue);
     }
 }

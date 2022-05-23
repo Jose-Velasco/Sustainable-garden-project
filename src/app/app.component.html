@@ -4,13 +4,15 @@
       <Label #profileIconLabel lblCenter text="&#xf06c;" class="fa"></Label>
     </FlexboxLayout>
     <GridLayout row="1" rows="auto, auto, auto, *" class="nav-buttons-wrapper">
-      <Button verticalAlignment="center" row="0" class="fa">
+      <Button (tap)="DashboardReturn()" verticalAlignment="center" row="0" class="fa">
+        
         <FormattedString>
           <Span class="button-icon-font" text="&#xf009;"></Span>
           <Span text="     Dashboard"></Span>
         </FormattedString>
       </Button>
-      <Button row="1" class="fa">
+      <Button (tap)="SensorsOverview()" row="1" class="fa">
+        
         <FormattedString>
           <Span class="button-icon-font" text="&#xf2db;"></Span>
           <Span text="     Sensors"></Span>
@@ -23,7 +25,7 @@
         </FormattedString>
       </Button>
       <GridLayout verticalAlignment="bottom" row="3" columns=" *, *" class="nav-footer-wrapper">
-        <Button column="0" class="fa logout-btn" text="Logout"></Button>
+        <Button (tap)="Logout()" column="0" class="fa logout-btn" text="Logout"></Button>
         <FlexboxLayout column="1" class="brand-icons-wrapper">
           <Label lblCenter (tap)="onClickSocialMediaIcon('Instagram')" class="fab btn-brand-icon" text="&#xf16d;"></Label>
           <Label lblCenter (tap)="onClickSocialMediaIcon('Discord')" class="fab btn-brand-icon" text="&#xf392;"></Label>

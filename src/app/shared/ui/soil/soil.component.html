@@ -1,0 +1,32 @@
+<StackLayout class="soil-container">
+    
+    <FlexboxLayout class="flex-center-nested-layouts">
+        <GridLayout columns="*, *" rows="*, *">
+            <GridLayout  col="0" row="0">
+                <Label class="fa icon-seedling" text="&#xf4d8;"></Label>
+            </GridLayout>
+            <GridLayout  col="0" row="1">
+                <Label
+                class="fa icon-soil" text="&#xf550;" [ngStyle]="{'color': soilColor}">
+                </Label>
+            </GridLayout>
+            <GridLayout  col="1" row="0">
+                <Label
+                text="Moisture">
+                </Label>
+                
+            </GridLayout>
+            <GridLayout  col="1" row="1">
+                
+                <Label class="soil-label-text" text="{{ soilValue | number : '1.0' }}%"></Label>
+            </GridLayout>
+        </GridLayout>
+    </FlexboxLayout>
+    <!-- <FlexboxLayout class="flex-center-nested-layouts">
+    </FlexboxLayout> -->
+    <!-- TODO: custom tear ui component test -->
+    <!-- <StackLayout class="drop-wrapper" verticalAlignment="center">
+        <Label class="test-tear-top"></Label>
+        <Label class="test-tear"></Label>
+    </StackLayout> -->
+</StackLayout>
