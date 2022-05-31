@@ -18,7 +18,7 @@
             </GridLayout>
             <GridLayout  col="1" row="1">
                 
-                <Label class="soil-label-text" text="{{ soilValue | number : '1.0' }}%"></Label>
+                <Label class="soil-label-text" [text]="this.getSoilText()"></Label>
             </GridLayout>
         </GridLayout>
     </FlexboxLayout>

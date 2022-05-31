@@ -1,11 +1,11 @@
 <GridLayout class="humidity-container">
     <FlexboxLayout class="flex-center-nested-layouts">
         <AbsoluteLayout>
-            <Label class="fa icon-drop" text="&#xf043;"></Label>
+            <Label class="fa icon-drop" [ngStyle]="{color: dropletColor}" text="&#xf043;"></Label>
         </AbsoluteLayout>
     </FlexboxLayout>
     <FlexboxLayout class="flex-center-nested-layouts">
-        <Label class="humidity-label-text" text="{{ humidityValue | number : '1.1-1' }}%"></Label>
+        <Label  class="humidity-label-text" [text]="this.getHumidText()"></Label>
     </FlexboxLayout>
     <!-- TODO: custom tear ui component test -->
     <!-- <StackLayout class="drop-wrapper" verticalAlignment="center">

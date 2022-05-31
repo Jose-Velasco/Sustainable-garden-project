@@ -1,5 +1,5 @@
 import { Component, ElementRef, Input } from "@angular/core";
-import { Enums, Label } from "@nativescript/core";
+import { Color, Enums, Label } from "@nativescript/core";
 
 @Component({
     selector: "ns-soil",
@@ -7,28 +7,38 @@ import { Enums, Label } from "@nativescript/core";
     styleUrls: ["./soil.component.scss"]
 })
 export class SoilComponent {
-    @Input() soilValue: number;
-    soilColor: number;
-    constructor() {}
 
-    
-    calculateSoilMoistureValue(soilValue: number): number {
-        let convertedAnimationValue: number;
-        if (soilValue > 100) {
-            convertedAnimationValue = 0;
-        } else if (soilValue < 0) {
-            convertedAnimationValue = 100;
-        }
+    private _soilValue: number;
+    constructor() { }
 
-        return convertedAnimationValue
+    soilColor = new Color(100,165,75,0);
+
+    ngOnInit() {
+        this.soilValue = 0;
     }
 
-    private animateDroplet(labelElement: ElementRef<Label>, soilValue: number): void {
-        labelElement.nativeElement.animate({
-            translate: {x: 0, y: this.calculateSoilMoistureValue(soilValue)},
-            duration: 500,
-            curve: Enums.AnimationCurve.easeIn
-        })
+    dropletColor = new Color(100,50,200,245);
+
+    get soilValue(): number {
+        return this._soilValue;
+    }
+
+    @Input() set soilValue(soilVal: number) {
+        this._soilValue = soilVal;
+        this.animateSoil(this._soilValue);
+    }
+
+    // TODO: dynamically change the temperature units based on backend or user set setting
+    getSoilText(): string {
+        return `${this.soilValue.toFixed(0)}%`;
+    }
+
+    private animateSoil( soilValue: number): void {
+        let halfSoil = 0.5 * soilValue
+        let redValue = 165 - soilValue;
+        let greenValue = 75 - halfSoil;
+        
+        this.soilColor = new Color(100,redValue,greenValue,0);
     }
  
 }
