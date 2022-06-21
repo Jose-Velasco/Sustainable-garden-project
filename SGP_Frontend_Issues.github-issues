@@ -1,0 +1,12 @@
+[
+  {
+    "kind": 2,
+    "language": "github-issues",
+    "value": "repo:Jose-Velasco/Sustainable-garden-project is:open label:Priority"
+  },
+  {
+    "kind": 2,
+    "language": "github-issues",
+    "value": "repo:Jose-Velasco/Sustainable-garden-project is:closed"
+  }
+]
