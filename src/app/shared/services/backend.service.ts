@@ -11,6 +11,7 @@ export class BackendService {
     // inside of the android emulator
     // pi IP goes into the BackendBaseURL
     private _sustainableGardenBackendBaseURL = "http://10.0.2.2:8000";
+    
     private tns_httpHeaders: HttpHeaders = new HttpHeaders({"Content-Type":"application/json"});
     private _isEndpointTest = true;
 
@@ -44,7 +45,7 @@ export class BackendService {
     readCurrentSensorValues() {
         const queryParams = new HttpParams().set("is_endpoint_test", `${this._isEndpointTest}`);
         this.http.get<SensorReading[]>(
-            `${this._sustainableGardenBackendBaseURL}/sensors/all/read`,
+            `${this._sustainableGardenBackendBaseURL}/sensors/readings`,
             {
                 headers: this.tns_httpHeaders,
                 params: queryParams
@@ -62,7 +63,7 @@ export class BackendService {
      * Repeatedly call the backend for current(realtime?) sensor values
      */
     testDashboardViewUIWithCurrentSensorData(): void {
-        const millisecondsDelay = 15000;
+        const millisecondsDelay = 1000;
         setTimeout(()=> {
             this.readCurrentSensorValues();
             this.fetchAllSensorsReadings();

@@ -9,6 +9,7 @@ import { SensorsOverviewComponent } from "./components/sensors-overview/sensors-
 import { TabsNavigationComponent } from "./components/tabs-navigation/tabs-navigation.component";
 import { DashboardChartsComponent } from "./components/dashboard-charts/dashboard-charts.component";
 import { WebViewerComponent } from "./components/web-viewer/web-viewer.component";
+import { SettingsOverviewComponent } from "./components/settings-overview/settings-overview.component";
 
 const routes: Routes = [
     { path: "", redirectTo: "auth", pathMatch: "full" },
@@ -32,6 +33,7 @@ const routes: Routes = [
     },
     { path: "dashboardOverview", component: DashboardOverviewComponent},
     { path: "sensorsOverview", component: SensorsOverviewComponent},
+    { path: "settingsOverview", component: SettingsOverviewComponent},
     { path: "web-viewer/:socialMedia", component: WebViewerComponent }
 ];
 

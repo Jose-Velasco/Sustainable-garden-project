@@ -70,6 +70,11 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy  {
         this.uiService.toggleSidedrawer();
     }
 
+    SettingsOverview() {
+        this.router.navigate(["settingsOverview"], { clearHistory: true});
+        this.uiService.toggleSidedrawer();
+    }
+
     onProfileIconLabelLoaded(args: EventData): void {
         this.uiService.centerAndroidTextVerticallyAndHorizontally(args);
     }

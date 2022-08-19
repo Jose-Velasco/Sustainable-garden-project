@@ -11,19 +11,28 @@
           <Span text="     Dashboard"></Span>
         </FormattedString>
       </Button>
+
+
       <Button (tap)="SensorsOverview()" row="1" class="fa">
-        
         <FormattedString>
           <Span class="button-icon-font" text="&#xf2db;"></Span>
           <Span text="     Sensors"></Span>
         </FormattedString>
       </Button>
-      <Button row="2" class="fa">
+
+
+
+      <Button (tap)="SettingsOverview()" row="2" class="fa">
         <FormattedString>
           <Span class="button-icon-font" text="&#xf013;"></Span>
           <Span text="     Settings"></Span>
         </FormattedString>
       </Button>
+
+
+
+
+
       <GridLayout verticalAlignment="bottom" row="3" columns=" *, *" class="nav-footer-wrapper">
         <Button (tap)="Logout()" column="0" class="fa logout-btn" text="Logout"></Button>
         <FlexboxLayout column="1" class="brand-icons-wrapper">
